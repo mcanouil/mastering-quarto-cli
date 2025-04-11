@@ -4,7 +4,14 @@ subtitle: "A Hands-on Workshop"
 author: "Mickaël Canouil, *Ph.D.*"
 institute: "Physalia Courses"
 date: today
-format: coeos-revealjs
+format:
+  coeos-revealjs:
+    logo: https://raw.githubusercontent.com/mcanouil/hex-stickers/main/SVG/mc.svg
+    mermaid:
+      theme: dark
+    title-slide-attributes:
+      data-background-image: assets/images/saga.png
+      data-background-opacity: "0.35"
 ---
 
 # PART 1 Without `code` {.center .center-x}
