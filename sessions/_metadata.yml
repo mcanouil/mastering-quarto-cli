@@ -1,0 +1,35 @@
+date: today
+format:
+  mcanouil-html:
+    shift-heading-level-by: 1
+  mcanouil-typst:
+    output-file: workshop.pdf
+    list-of: false
+  mcanouil-revealjs:
+    # date-format: "[To Be Announced]" # To be removed when publishing
+    output-file: slides
+    # code-block-height: "600px"
+    revealjs-plugins:
+      - attribution
+    extensions:
+      mcanouil:
+        grid-background: false
+format-links:
+  - mcanouil-html
+  - format: mcanouil-typst
+    text: Typst (PDF)
+    attr:
+      target: _blank
+      rel: noopener noreferrer
+  - format: mcanouil-revealjs
+    text: Slides (HTML)
+    attr:
+      target: _blank
+      rel: noopener noreferrer
+other-links:
+  - text: Slides (PDF)
+    href: slides.pdf
+    attr:
+      target: _blank
+      rel: noopener noreferrer
+    icon: file-pdf

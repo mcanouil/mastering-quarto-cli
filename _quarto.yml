@@ -1,0 +1,66 @@
+project:
+  type: mcanouil
+  output-dir: _site
+  # post-render:
+  #   - assets/scripts/slides-to-pdf.sh
+  render:
+    - "**.qmd"
+    - "sessions/01-introduction-setup/index.qmd"
+    - "sessions/02-authoring-essentials/index.qmd"
+    - "sessions/03-embedding-computations-code/index.qmd"
+    - "sessions/04-formats-projects/index.qmd"
+    - "sessions/05-formatting-branding/index.qmd"
+    - "sessions/06-publishing/index.qmd"
+    - "sessions/07-closing-next-steps/index.qmd"
+
+date-modified: today
+mc-hide-navbar-title: false
+
+copyright: "© 2026 Mickaël CANOUIL"
+license: CC BY-NC-SA
+
+website:
+  title: "Mastering Quarto CLI"
+  description: "Learn how to use Quarto CLI for your data science projects."
+  repo-url: https://github.com/mcanouil/mastering-quarto-cli
+  repo-actions: []
+  navbar: false
+  image: assets/images/social-card.png
+  image-alt: "Quarto Workshop promotional card showing six-session curriculum from Introduction and Setup through Publishing with dark teal background"
+  sidebar:
+    contents:
+      - text: Home
+        href: index.qmd
+      - text: Program
+        href: program/index.qmd
+      - text: "---"
+      - section: "Part 1"
+        contents:
+          - href: sessions/01-introduction-setup/index.qmd
+          - href: sessions/02-authoring-essentials/index.qmd
+          - href: sessions/03-embedding-computations-code/index.qmd
+      - text: "---"
+      - section: "Part 2"
+        contents:
+          - href: sessions/04-formats-projects/index.qmd
+          - href: sessions/05-formatting-branding/index.qmd
+          - href: sessions/06-publishing/index.qmd
+          - href: sessions/07-closing-next-steps/index.qmd
+
+format: mcanouil-html
+
+execute:
+  freeze: auto
+  echo: false
+
+filters:
+  - at: post-ast
+    path: include-code-files
+  - at: pre-quarto
+    path: highlight-text
+  - at: post-quarto
+    path: div-reuse
+
+extensions:
+  mcanouil:
+    grid-background: true

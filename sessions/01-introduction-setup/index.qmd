@@ -1,0 +1,963 @@
+---
+title: "Introduction & Setup"
+subtitle: "Session 1"
+engine: knitr
+code-links:
+  - text: Exercises (tar.gz)
+    icon: file-code
+    href: assets/exercises/01-exercises.tar.gz
+---
+
+# Introduction
+
+::: {.content-visible when-format="revealjs"}
+## About Me
+
+::: {style="font-size: 50%;"}
+{{< include /assets/quarto/_about-social.qmd >}}
+:::
+::: {style="font-size: 55%; font-style: italic;"}
+{{< include /assets/quarto/_about-description.qmd >}}
+:::
+:::
+
+{{< include /program/_session1.md >}}
+
+```{bash}
+#| label: setup-screenshots-directory
+#| include: false
+rm -rf _demo;
+mkdir -p _demo;
+mkdir -p assets/screenshots;
+```
+
+## Workshop Objectives
+
+::: {.incremental}
+
+- **Familiarise** participants with the Quarto ecosystem.
+- **Empower** attendees to create reproducible documents and interactive publications.
+- **Guide** learners through embedding code, adjusting outputs, and publishing projects.
+- **Encourage** hands-on practice with interactive sessions.
+
+:::
+
+## Learning Objectives
+
+::: {.fragment fragment-index="1"}
+
+By the end of this session, participants will be able to:
+
+:::
+
+- [Explain what Quarto is and how it relates to Pandoc.]{.fragment fragment-index="2"}
+- [Install Quarto and verify the installation.]{.fragment fragment-index="3"}
+- [Create and render different Quarto project types.]{.fragment fragment-index="4"}
+- [Set up an IDE for Quarto development.]{.fragment fragment-index="5"}
+
+# What is {{< quarto >}} Quarto? {{< iconify fluent-emoji:thinking-face >}}
+
+::: {.content-visible when-format="revealjs"}
+
+## What is {{< quarto >}} Quarto? {{< iconify fluent-emoji:thinking-face >}}
+
+:::
+
+::: {style="display: none;"}
+::: {#quarto-screenshot style="text-align:center;"}
+
+```{r}
+#| label: screenshot-quarto-org
+#| output: asis
+file <- "assets/screenshots/quarto-org.png"
+res <- webshot2::webshot(
+  url = "https://quarto.org/",
+  file = file,
+  vwidth = 1920 * 0.55,
+  vheight = 1080 * 0.55,
+  cliprect = "viewport"
+)
+cat(sprintf("\n\n![](%s){fig-align=center width='50%%' fig-alt='Screenshot of Quarto.org home page'}", file))
+```
+
+:::
+
+::: {#quarto-description}
+
+[{{< quarto >}} Quarto](https://quarto.org/) is an open-source scientific and technical publishing system built on Pandoc:
+
+- Multi-language platform supporting Python, R, Julia, and Observable.js.
+- Creates dynamic, reproducible documents from code and narrative text.
+- Single-source authoring for articles, websites, books, presentations, and dashboards.
+
+:::
+:::
+
+::: {.content-visible unless-format="revealjs"}
+::: {layout="[0.30, 0.70]" layout-valign="center"}
+
+::: {reuse="quarto-screenshot"}
+:::
+
+::: {reuse="quarto-description"}
+:::
+
+:::
+:::
+
+::: {.content-visible when-format="revealjs"}
+::: {reuse="quarto-screenshot"}
+:::
+
+::: {.attribution}
+<https://quarto.org/>
+:::
+
+## Purpose
+
+::: {reuse="quarto-description" .incremental}
+:::
+:::
+
+## Key Strengths {.smaller}
+
+::: {.fragment}
+
+Multi-format output
+: Generate HTML, PDF, Word, ePub, and more from one source.
+
+:::
+::: {.fragment}
+
+Advanced markdown
+: Cross-references, equations, citations, callouts, and complex layouts.
+
+:::
+::: {.fragment}
+
+Tool flexibility
+: Works with VS Code, RStudio, JupyterLab, or any text editor.
+
+:::
+::: {.fragment}
+
+Project system
+: Render document collections with shared configurations.
+
+:::
+::: {.fragment}
+
+Interactive elements
+: Embed widgets, Shiny apps, and Observable JS for dynamic content.
+
+:::
+
+## Reproducibility Benefits {.smaller}
+
+::: {.fragment}
+
+Embedded computation
+: Code and results stay together, eliminating copy-paste errors.
+
+:::
+::: {.fragment}
+
+Version control friendly
+: Plain text format works seamlessly with Git.
+
+:::
+::: {.fragment}
+
+Transparent workflows
+: Complete audit trail from data to final output.
+
+:::
+::: {.fragment}
+
+Collaborative research
+: Shared environments and dependencies ensure consistent results.
+
+:::
+
+## What is Pandoc? {{< iconify fluent-emoji:thinking-face >}}
+
+::: {layout="[0.30, 0.70]" layout-valign="center"}
+
+```{r}
+#| label: screenshot-pandoc-org
+#| output: asis
+file <- "assets/screenshots/pandoc-org.png"
+res <- webshot2::webshot(
+  url = "https://pandoc.org/",
+  file = file,
+  vwidth = 1920 * 0.60,
+  vheight = 1080 * 1.80,
+  cliprect = "viewport"
+)
+cat(sprintf("\n\n![](%s){fig-align=center fig-alt='Screenshot of Pandoc.org home page'}", file))
+```
+
+::: {#pandoc-description}
+Pandoc ([pandoc.org](https://pandoc.org/)):
+
+- is a **free software**, released under the GPL by [John MacFarlane](http://johnmacfarlane.net/).
+- is a **command line interface** (CLI).
+- allows to **convert to and between multiple formats**.
+- **understands Markdown** syntax.
+- **understands LaTeX math** and macros.
+- handles **citations and bibliographies**.
+:::
+:::
+
+## How does {{< quarto >}} Quarto work? {{< iconify fluent-emoji:thinking-face >}}
+
+```{mermaid}
+%%| label: quarto-workflow
+%%| fig-responsive: false
+%%| fig-width: 6
+%%| fig-alt: "Quarto workflow diagram"
+---
+init:
+  theme: "dark"
+  themeCSS: ".label foreignObject, .cluster-label foreignObject { font-size: 90%; overflow: visible; }"
+---
+flowchart LR
+  A1[qmd] --> B1{"R<br>(<code>engine: knitr</code>)"}
+  A1[qmd] --> B2{"Python<br>(<code>engine: jupyter</code>)"}
+  A1[qmd] --> B3{"Julia<br>(<code>engine: julia</code>)"}
+  A2[ipynb] --> B2
+  B1 --> C[md]
+  B2 --> C[md]
+  B3 --> C[md]
+  C --> D{"Pandoc"}
+  D --> E["HTML"]
+  D --> F["Typst"]
+  D --> G["Reveal.js"]
+  D --> H[...]
+
+  subgraph engine [Engine]
+  B1
+  B2
+  B3
+  end
+```
+
+## A Guide to {{< quarto >}} Quarto Versions
+
+{{< quarto >}} Quarto follows a versioning scheme similar to [Semantic Versioning](https://semver.org/) with three release types: Pre-release, Release Candidate (RC), and Release.
+
+::: {.callout-tip}
+
+Always use the latest stable release for production work.
+See the [Quarto Changelog](https://quarto.org/docs/download/) for the full release history.
+
+:::
+
+# Getting started
+
+## Downloading and installing Quarto
+
+```{r}
+#| label: screenshot-quarto-download
+#| output: asis
+page <- "https://quarto.org/docs/download/"
+file <- "assets/screenshots/quarto-download.png"
+res <- webshot2::webshot(
+  url = page,
+  file = file,
+  vwidth = 1920 * 0.75,
+  vheight = 1080 * 0.75,
+  cliprect = "viewport"
+)
+cat(sprintf("\n\n[![](%s){width=100%% fig-align=center fig-alt='Screenshot of %s webpage'}](%s)", file, page, page))
+```
+
+::: {.attribution}
+<https://quarto.org/>
+:::
+
+::: {.content-visible when-format="revealjs"}
+## Downloading and installing Quarto
+:::
+
+Additionally, you can download and install Quarto using:
+
+::: {layout-ncol="2"}
+
+::: {}
+
+```{.bash filename="Bash"}
+brew install quarto
+```
+
+```{r}
+#| label: screenshot-quarto-homebrew
+#| output: asis
+page <- "https://brew.sh/"
+file <- "assets/screenshots/quarto-homebrew.png"
+res <- webshot2::webshot(
+  url = page,
+  file = file,
+  vwidth = 1920 * 0.70,
+  vheight = 1080 * 0.70,
+  cliprect = "viewport"
+)
+
+cat('\n\n::: {style="text-align:center;"}\n\n')
+cat(sprintf(
+  "\n\n[![<a href = '%s'>%s</a>](%s){fig-alt='Screenshot of %s webpage'}](%s)",
+  page,
+  page,
+  file,
+  page,
+  "https://formulae.brew.sh/cask/quarto"
+))
+cat("\n\n:::\n\n")
+```
+
+:::
+
+::: {}
+
+```{.PowerShell filename="PowerShell"}
+choco install quarto
+```
+
+```{r}
+#| label: screenshot-quarto-chocolatey
+#| output: asis
+page <- "https://community.chocolatey.org/"
+file <- "assets/screenshots/quarto-chocolatey.png"
+res <- webshot2::webshot(
+  url = page,
+  file = file,
+  vwidth = 1920 * 0.70,
+  vheight = 1080 * 0.70,
+  cliprect = "viewport"
+)
+
+cat('\n\n::: {style="text-align:center;"}\n\n')
+cat(sprintf(
+  "\n\n[![<a href = '%s'>%s</a>](%s){fig-alt='Screenshot of %s webpage'}](%s)",
+  page,
+  page,
+  file,
+  page,
+  "https://community.chocolatey.org/packages/quarto"
+))
+cat("\n\n:::\n\n")
+```
+
+:::
+:::
+
+## Using GitHub Codespaces
+
+[![](/assets/images/badge.svg){fig-align="center" fig-alt="Open in GitHub Codespaces" height="2em"}](https://codespaces.new/mcanouil/mastering-quarto-cli?quickstart=1&devcontainer_path=.devcontainer%2Fdevcontainer.json)
+
+A pre-configured development environment is available via GitHub Codespaces with all required tools pre-installed: Quarto, R, Python, Julia, TinyTeX, and supporting utilities.
+
+## {{< quarto >}} Quarto: a command line interface
+
+```{bash}
+#| label: quarto-command-line
+#| echo: true
+#| attr-output: 'style="font-size: 20%;"'
+quarto --help
+```
+
+## Checking {{< quarto >}} Quarto is installed {.smaller}
+
+```bash
+quarto check
+```
+
+```{.sh code-line-numbers="|1-12|14-16|18-21|23-26|30-34|38-45"}
+Quarto 1.8.24
+[✓] Checking environment information...                  # <1>
+      Quarto cache location: /home/vscode/.cache/quarto  # <1>
+[✓] Checking versions of quarto binary dependencies...   # <1>
+      Pandoc version 3.6.3: OK                           # <1>
+      Dart Sass version 1.87.0: OK                       # <1>
+      Deno version 2.3.1: OK                             # <1>
+      Typst version 0.13.0: OK                           # <1>
+[✓] Checking versions of quarto dependencies......OK     # <1>
+[✓] Checking Quarto installation......OK                 # <1>
+      Version: 1.8.24                                    # <1>
+      Path: /opt/quarto/bin                              # <1>
+
+[✓] Checking tools....................OK                 # <2>
+      TinyTeX: (external install)                        # <2>
+      Chromium: (not installed)                          # <2>
+
+[✓] Checking LaTeX....................OK                 # <3>
+      Using: TinyTex                                     # <3>
+      Path: /home/vscode/.TinyTeX/bin/x86_64-linux       # <3>
+      Version: 2025                                      # <3>
+
+[✓] Checking Chrome Headless....................OK       # <4>
+      Using: Chrome found on system                      # <4>
+      Path: /usr/bin/google-chrome                       # <4>
+      Source: PATH                                       # <4>
+
+[✓] Checking basic markdown render....OK
+
+[✓] Checking Python 3 installation....OK                 # <5>
+      Version: 3.13.7                                    # <5>
+      Path: /usr/local/python/current/bin/python3        # <5>
+      Jupyter: 5.8.1                                     # <5>
+      Kernels: julia-1.11, python3                       # <5>
+
+[✓] Checking Jupyter engine render....OK
+
+[✓] Checking R installation...........OK                 # <6>
+      Version: 4.5.1                                     # <6>
+      Path: /opt/R/4.5.1/lib/R                           # <6>
+      LibPaths:                                          # <6>
+        - /home/vscode/R/x86_64-pc-linux-gnu-library/4.5 # <6>
+        - /opt/R/4.5.1/lib/R/library                     # <6>
+      knitr: 1.50                                        # <6>
+      rmarkdown: 2.29                                    # <6>
+
+[✓] Checking Knitr engine render......OK
+```
+
+1. Quarto version and dependencies.
+2. Tools installed by Quarto (*e.g.*, `quarto install`).
+3. LaTeX installation detected by Quarto.
+4. Chromium-based browser installation detected by Quarto.
+5. Python installation and computing dependencies detected by Quarto.
+6. R installation and computing dependencies detected by Quarto.
+
+# {{< quarto >}} Quarto Projects
+
+## Creating a new {{< quarto >}} Quarto project
+
+```{.bash filename="Bash"}
+quarto create project
+```
+
+::: {.fragment}
+
+```{.bash}
+ ? Type
+ ❯ default
+   website
+   blog
+   manuscript
+   book
+   confluence
+```
+
+:::
+
+## {{< quarto >}} Quarto Projects: `default`
+
+```{bash}
+#| label: quarto-create-demo-default
+#| include: false
+(
+  cd _demo;
+  rm -rf Default;
+  quarto create project default Default --no-open --no-prompt;
+)
+```
+
+::: {layout-ncol="2" layout-valign="center"}
+
+::: {}
+
+```{.bash filename="Bash"}
+quarto create project default Default
+```
+
+```{bash}
+#| label: quarto-project-default-tree
+#| attr-output: 'style="font-size: 50%;"'
+tree -I "_demo" _demo/Default
+```
+
+```{bash}
+#| label: quarto-render-demo-default
+#| include: false
+(
+  cd _demo/Default;
+  quarto render;
+)
+```
+
+:::
+
+::: {.fragment}
+
+```{r}
+#| label: screenshot-quarto-project-default
+#| output: asis
+page <- "_demo/Default/Default.html"
+file <- "assets/screenshots/quarto-project-default.png"
+res <- webshot2::webshot(
+  url = page,
+  file = file,
+  vwidth = 1920 * 0.70,
+  vheight = 1080 * 0.70,
+  cliprect = "viewport"
+)
+
+cat('\n\n::: {style="text-align:center;"}\n\n')
+cat(sprintf("\n\n![](%s){fig-align=center}", file))
+cat("\n\n:::\n\n")
+```
+
+:::
+
+:::
+
+::: {.content-visible when-format="revealjs"}
+## {{< quarto >}} Quarto Projects: `default`
+:::
+
+::: {.fragment}
+
+- `_quarto.yml`: project configuration file.
+
+```{r}
+#| label: quarto-project-default-yml
+#| output: asis
+cat(
+  '\n\n```{.yaml filename="Quarto"}',
+  readLines("_demo/Default/_quarto.yml"),
+  "```\n\n",
+  sep = "\n"
+)
+```
+
+:::
+
+::: {.fragment}
+
+- `Default.qmd`: default Quarto document.
+
+```{r}
+#| label: quarto-project-default-qmd
+#| output: asis
+cat(
+  '\n\n```{.markdown filename="Quarto"}',
+  readLines("_demo/Default/Default.qmd"),
+  "```\n\n",
+  sep = "\n"
+)
+```
+
+:::
+
+## {{< quarto >}} Quarto Projects: `website`
+
+```{bash}
+#| label: quarto-create-demo-website
+#| include: false
+(
+  cd _demo;
+  rm -rf Website;
+  quarto create project website Website --no-open --no-prompt;
+)
+```
+
+::: {layout-ncol="2" layout-valign="center"}
+
+::: {}
+
+```{.bash filename="Bash"}
+quarto create project website Website
+```
+
+```{bash}
+#| label: quarto-project-website-tree
+#| attr-output: 'style="font-size: 50%;"'
+tree -I "_demo" _demo/Website
+```
+
+```{bash}
+#| label: quarto-render-demo-website
+#| include: false
+(
+  cd _demo/Website;
+  quarto render;
+)
+```
+
+:::
+
+::: {.fragment}
+
+```{r}
+#| label: screenshot-quarto-project-website
+#| output: asis
+page <- "_demo/Website/_site/index.html"
+file <- "assets/screenshots/quarto-project-website.png"
+res <- webshot2::webshot(
+  url = page,
+  file = file,
+  vwidth = 1920 * 0.70,
+  vheight = 1080 * 0.70,
+  cliprect = "viewport"
+)
+
+cat('\n\n::: {style="text-align:center;"}\n\n')
+cat(sprintf("\n\n![](%s){fig-align=center}", file))
+cat("\n\n:::\n\n")
+```
+
+:::
+
+:::
+
+## {{< quarto >}} Quarto Projects: `blog`
+
+```{bash}
+#| label: quarto-create-demo-blog
+#| include: false
+(
+  cd _demo;
+  rm -rf Blog;
+  quarto create project blog Blog --no-open --no-prompt;
+)
+```
+
+::: {layout-ncol="2" layout-valign="center"}
+
+::: {}
+
+```{.bash filename="Bash"}
+quarto create project blog Blog
+```
+
+```{bash}
+#| label: quarto-project-blog-tree
+#| attr-output: 'style="font-size: 50%;"'
+tree -I "_demo" _demo/Blog
+```
+
+```{bash}
+#| label: quarto-render-demo-blog
+#| include: false
+(
+  cd _demo/Blog;
+  quarto render;
+)
+```
+
+:::
+
+::: {.fragment}
+
+```{r}
+#| label: screenshot-quarto-project-blog
+#| output: asis
+page <- "_demo/Blog/_site/index.html"
+file <- "assets/screenshots/quarto-project-blog.png"
+res <- webshot2::webshot(
+  url = page,
+  file = file,
+  vwidth = 1920 * 0.70,
+  vheight = 1080 * 0.70,
+  cliprect = "viewport"
+)
+
+cat('\n\n::: {style="text-align:center;"}\n\n')
+cat(sprintf("\n\n![](%s){fig-align=center}", file))
+cat("\n\n:::\n\n")
+```
+
+:::
+
+:::
+
+## {{< quarto >}} Quarto Projects: `book`
+
+```{bash}
+#| label: quarto-create-demo-book
+#| include: false
+(
+  cd _demo;
+  rm -rf Book;
+  quarto create project book Book --no-open --no-prompt;
+)
+```
+
+::: {layout-ncol="2" layout-valign="center"}
+
+::: {}
+
+```{.bash filename="Bash"}
+quarto create project book Book
+```
+
+```{bash}
+#| label: quarto-project-book-tree
+#| attr-output: 'style="font-size: 50%;"'
+tree -I "_demo" _demo/Book
+```
+
+```{bash}
+#| label: quarto-render-demo-book
+#| include: false
+(
+  cd _demo/Book;
+  quarto render --to html;
+)
+```
+
+:::
+
+::: {.fragment}
+
+```{r}
+#| label: screenshot-quarto-project-book
+#| output: asis
+page <- "_demo/Book/_book/index.html"
+file <- "assets/screenshots/quarto-project-book.png"
+res <- webshot2::webshot(
+  url = page,
+  file = file,
+  vwidth = 1920 * 0.70,
+  vheight = 1080 * 0.70,
+  cliprect = "viewport"
+)
+
+cat('\n\n::: {style="text-align:center;"}\n\n')
+cat(sprintf("\n\n![](%s){fig-align=center}", file))
+cat("\n\n:::\n\n")
+```
+
+:::
+
+:::
+
+## {{< quarto >}} Quarto Projects: `manuscript`
+
+```{bash}
+#| label: quarto-create-demo-manuscript
+#| include: false
+(
+  cd _demo;
+  rm -rf Manuscript;
+  quarto create project manuscript Manuscript --no-open --no-prompt;
+)
+```
+
+::: {layout-ncol="2" layout-valign="center"}
+
+::: {}
+
+```{.bash filename="Bash"}
+quarto create project manuscript Manuscript
+```
+
+```{bash}
+#| label: quarto-project-manuscript-tree
+#| attr-output: 'style="font-size: 50%;"'
+tree -I "_demo" _demo/Manuscript
+```
+
+```{bash}
+#| label: quarto-render-demo-manuscript
+#| include: false
+(
+  cd _demo/Manuscript;
+  quarto render --to html;
+)
+```
+
+:::
+
+::: {.fragment}
+
+```{r}
+#| label: screenshot-quarto-project-manuscript
+#| output: asis
+page <- "_demo/Manuscript/_manuscript/index.html"
+file <- "assets/screenshots/quarto-project-manuscript.png"
+res <- webshot2::webshot(
+  url = page,
+  file = file,
+  vwidth = 1920 * 0.70,
+  vheight = 1080 * 0.70,
+  cliprect = "viewport"
+)
+
+cat('\n\n::: {style="text-align:center;"}\n\n')
+cat(sprintf("\n\n![](%s){fig-align=center}", file))
+cat("\n\n:::\n\n")
+```
+
+:::
+
+:::
+
+## Writing with your favourite editor {.smaller}
+
+```{r}
+#| label: screenshot-quarto-editor
+#| classes: panel-tabset
+#| output: asis
+pages <- sprintf(
+  "https://quarto.org/docs/get-started/hello/%s",
+  c(
+    "positron.html",
+    "vscode.html",
+    "jupyter.html",
+    "rstudio.html",
+    "neovim.html",
+    "text-editor.html"
+  )
+)
+for (ipage in pages) {
+  file <- paste0(
+    "assets/screenshots/quarto-get-started-",
+    sub("\\.html$", ".png", basename(ipage))
+  )
+  webshot2::webshot(
+    url = ipage,
+    file = file,
+    vwidth = 1920 * 1.2,
+    vheight = 1080 * 1,
+    cliprect = "viewport"
+  )
+  cat("\n\n###", toupper(sub("\\.html$", "", basename(ipage))))
+  cat(sprintf("\n\n[![](%s){fig-align=center fig-alt='Screenshot of %s webpage'}](%s)", file, ipage, ipage))
+}
+```
+
+::: {.attribution}
+<https://quarto.org/>
+:::
+
+## Writing using the Visual Editor {.smaller}
+
+```{r}
+#| label: screenshot-quarto-visual-editor
+#| output: asis
+#| classes: panel-tabset
+pages <- c(
+  "positron" = "https://quarto.org/docs/tools/positron/visual-editor.html",
+  "vscode" = "https://quarto.org/docs/visual-editor/vscode/",
+  "rstudio" = "https://quarto.org/docs/visual-editor/"
+)
+for (ipage in names(pages)) {
+  file <- sprintf(
+    "assets/screenshots/quarto-visual-editor-%s.png",
+    ipage
+  )
+  webshot2::webshot(
+    url = pages[[ipage]],
+    file = file,
+    vwidth = 1920 * 1.2,
+    vheight = 1080 * 1,
+    cliprect = "viewport"
+  )
+  cat("\n\n##", toupper(ipage))
+  cat(sprintf(
+    "\n\n[![](%s){fig-align=center fig-alt='Screenshot of %s webpage'}](%s)",
+    file,
+    pages[[ipage]],
+    pages[[ipage]]
+  ))
+}
+```
+
+::: {.attribution}
+<https://quarto.org/>
+:::
+
+# Hands-On Exercise: Creating Your First Quarto Project
+
+## Exercise Overview
+
+**Objective**: Create a personal Quarto document that demonstrates basic features, project setup skills, and IDE integration
+
+**Example Code**: [{{< iconify octicon:file-code-16 >}} Exercises](assets/exercises/01-exercises.tar.gz)
+
+```bash
+tar -xzf "01-exercises.tar.gz" -C "01-introduction-setup"
+```
+
+::: {.callout-tip}
+
+## IDE Configuration
+
+Before starting, ensure your development environment is ready:
+
+- **VS Code**: Install the Quarto extension (`Ctrl/Cmd + Shift + X`, search "Quarto").
+- **Positron**: Built-in Quarto support is included (no additional extensions needed).
+- Open the Command Palette (`Ctrl/Cmd + Shift + P`) and type "Quarto" to verify available commands.
+
+:::
+
+## Part 1: Project Creation
+
+1. **Choose Your Adventure**: Create a project using the CLI or your IDE.
+
+2. **Explore the project structure** in the IDE's file explorer panel.
+
+## Part 2: IDE Features Exploration {.smaller}
+
+**Discover your IDE's Quarto capabilities**:
+
+- **File recognition**: Notice `.qmd` files have distinctive icons and syntax highlighting.
+- **Document outline**: Open a `.qmd` file and check the Outline/Structure panel (shows headings and sections).
+- **Quarto assist panel**: Look for a Quarto-specific panel that provides contextual help.
+- **Command palette power**: `Ctrl/Cmd + Shift + P` → type "Quarto" to see all available commands.
+- **Integrated features**: Visual editor mode, preview panels, terminal integration.
+- **Smart editing**: Try auto-completion in YAML headers, fenced divs, and code blocks.
+
+## Part 3: Document Customisation {.smaller}
+
+**Modify the main document** (`index.qmd`) to include:
+
+1. **Update the YAML header** with your information:
+
+   ```{=html}
+   <details><summary>Code</summary>
+   ```
+
+   ```markdown
+   ---
+   title: "My Quarto Journey"
+   author: "Your Name"
+   date: today
+   editor: visual  # Enables rich editing features
+   ---
+   ```
+
+   ```{=html}
+   </details>
+   ```
+
+2. **Add content** to the document body.
+
+## Part 4: Rendering {.smaller}
+
+**Try different rendering approaches**:
+
+1. **Command Line** (classic method):
+
+   ```bash
+   quarto render
+   ```
+
+2. **IDE Integration** (modern workflow):
+
+   - Command Palette (`Ctrl/Cmd + Shift + P`) - search for "Quarto Preview" and/or "Quarto Render" commands.
+   - Use keyboard shortcut if you configured one
+   - Notice IDE-specific feedback and error handling
+
+## Success Criteria {.smaller}
+
+✅ **You've successfully completed the exercise if you can**:
+
+- Configure your IDE for optimal Quarto development.
+- Create a new Quarto project using the CLI or your IDE.
+- Navigate project files efficiently in your IDE.
+- Utilise IDE features like syntax highlighting and command palette.
+- Modify documents with IDE assistance (auto-completion, outline view).
+- Render documents using both CLI and IDE methods.

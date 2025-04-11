@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <title>Quarto Workshop - From Basics to Mastery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&family=Sora:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --quarto-blue: #74AADB;
+      --quarto-text: #4F789E;
+      --bg-dark: #0d1117;
+      --bg-surface: #161b22;
+      --text-primary: #f0f6fc;
+      --text-secondary: #8b949e;
+      --accent-green: #3fb950;
+      --accent-purple: #a371f7;
+      --accent-orange: #f78166;
+    }
+
+    body {
+      font-family: 'Sora', sans-serif;
+      background: var(--bg-dark);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Open Graph standard: 1200x630px (1.91:1 ratio) */
+    .feature-container {
+      width: 1200px;
+      height: 630px;
+      background: var(--bg-dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated gradient background */
+    .gradient-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(116, 170, 219, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(63, 185, 80, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(163, 113, 247, 0.08) 0%, transparent 60%);
+      animation: gradientShift 15s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+
+      0%,
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.1) rotate(5deg);
+        opacity: 0.8;
+      }
+    }
+
+    /* Dot matrix pattern */
+    .dot-pattern {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(116, 170, 219, 0.08) 1px, transparent 1px);
+      background-size: 30px 30px;
+      animation: patternPulse 10s ease-in-out infinite;
+    }
+
+    @keyframes patternPulse {
+
+      0%,
+      100% {
+        opacity: 0.4;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
+    }
+
+
+
+    /* Main content */
+    .content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 50px 80px;
+    }
+
+    /* Header section */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 0px;
+      opacity: 0;
+      animation: fadeInDown 0.8s ease-out 0.2s forwards;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .quarto-logo {
+      height: 50px;
+    }
+
+    .quarto-logo svg {
+      height: 100%;
+      width: auto;
+    }
+
+    .workshop-text {
+      font-family: 'Sora', sans-serif;
+      font-size: 54px;
+      font-weight: 400;
+      
+      color: var(--quarto-blue);
+      transform: translateY(-5px);
+    }
+
+    /* Title section */
+    .title-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 550px;
+    }
+
+    .main-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 52px;
+      font-weight: 400;
+      color: var(--text-primary);
+      letter-spacing: -1px;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 0.4s forwards;
+    }
+
+    .title-accent {
+      color: var(--quarto-blue);
+    }
+
+    .subtitle {
+      font-family: 'Sora', sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 0.6s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Code snippet decoration */
+    .code-snippet {
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      opacity: 0.2;
+      white-space: pre;
+      line-height: 1.8;
+      pointer-events: none;
+    }
+
+    .snippet-1 {
+      top: 150px;
+      right: 450px;
+      animation: codeFloat 10s ease-in-out infinite;
+    }
+
+    .snippet-2 {
+      bottom: 10px;
+      left: 130px;
+      animation: codeFloat 10s ease-in-out infinite 3s;
+    }
+
+    @keyframes codeFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.2;
+      }
+
+      50% {
+        transform: translateY(-10px);
+        opacity: 0.35;
+      }
+    }
+
+    /* Flow diagram */
+    .flow-diagram {
+      position: absolute;
+      top: 55px;
+      right: 150px;
+      width: 200px;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out 1s forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flow-connectors {
+      position: absolute;
+      top: 0;
+      left: -80px;
+      width: 360px;
+      height: 520px;
+      pointer-events: none;
+      z-index: -1;
+      overflow: visible;
+    }
+
+    .flow-row {
+      display: flex;
+      align-items: center;
+    }
+
+    .flow-row:nth-of-type(1) { transform: translateX(-75px); }
+    .flow-row:nth-of-type(2) { transform: translateX(70px); }
+    .flow-row:nth-of-type(3) { transform: translateX(-45px); }
+    .flow-row:nth-of-type(4) { transform: translateX(80px); }
+    .flow-row:nth-of-type(5) { transform: translateX(-70px); }
+    .flow-row:nth-of-type(6) { transform: translateX(40px); }
+
+    .flow-step {
+      width: 80px;
+      height: 80px;
+      background: var(--bg-surface);
+      border: 1px solid rgba(116, 170, 219, 0.2);
+      border-radius: 50%;
+      font-family: 'Sora', sans-serif;
+      font-size: 9px;
+      color: var(--text-primary);
+      font-weight: 300;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .flow-step:hover {
+      filter: brightness(1.3);
+    }
+
+    .flow-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      opacity: 0.9;
+      flex-shrink: 0;
+    }
+
+    /* Per-step colours */
+    .flow-step-1 {
+      border-color: rgba(116, 170, 219, 0.4);
+    }
+    .flow-step-1 .flow-number { color: #74AADB; }
+
+    .flow-step-2 {
+      border-color: rgba(163, 113, 247, 0.4);
+    }
+    .flow-step-2 .flow-number { color: #a371f7; }
+
+    .flow-step-3 {
+      border-color: rgba(247, 129, 102, 0.4);
+    }
+    .flow-step-3 .flow-number { color: #f78166; }
+
+    .flow-step-4 {
+      border-color: rgba(210, 153, 34, 0.4);
+    }
+    .flow-step-4 .flow-number { color: #d2a122; }
+
+    .flow-step-5 {
+      border-color: rgba(56, 211, 159, 0.4);
+    }
+    .flow-step-5 .flow-number { color: #38d39f; }
+
+    .flow-step-6 {
+      border-color: rgba(63, 185, 80, 0.4);
+    }
+    .flow-step-6 .flow-number { color: #3fb950; }
+
+    /* Decorative icons */
+    .format-icons {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      /* opacity: 0; */
+      /* animation: fadeInPartial 0.8s ease-out 1.8s forwards; */
+    }
+
+    @keyframes fadeInPartial {
+      to {
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .format-icon {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      padding: 8px 14px;
+      border-radius: 4px;
+      background: var(--bg-surface);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-secondary);
+    }
+
+    .format-icon.html {
+      border-color: rgba(247, 129, 102, 0.3);
+      color: var(--accent-orange);
+    }
+
+    .format-icon.pdf {
+      border-color: rgba(163, 113, 247, 0.3);
+      color: var(--accent-purple);
+    }
+
+    .format-icon.revealjs {
+      border-color: rgba(116, 170, 219, 0.3);
+      color: var(--quarto-blue);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="feature-container">
+    <!-- Background elements -->
+    <div class="gradient-bg"></div>
+    <div class="dot-pattern"></div>
+
+    <!-- Flow diagram -->
+    <div class="flow-diagram">
+      <svg class="flow-connectors" viewBox="0 0 360 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad-1-2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#74AADB" />
+            <stop offset="100%" stop-color="#a371f7" />
+          </linearGradient>
+          <linearGradient id="grad-2-3" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#a371f7" />
+            <stop offset="100%" stop-color="#f78166" />
+          </linearGradient>
+          <linearGradient id="grad-3-4" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f78166" />
+            <stop offset="100%" stop-color="#d2a122" />
+          </linearGradient>
+          <linearGradient id="grad-4-5" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#d2a122" />
+            <stop offset="100%" stop-color="#38d39f" />
+          </linearGradient>
+          <linearGradient id="grad-5-6" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#38d39f" />
+            <stop offset="100%" stop-color="#3fb950" />
+          </linearGradient>
+        </defs>
+        <!-- C1(105,40) C2(250,128) C3(135,216) C4(260,304) C5(110,392) C6(220,480) -->
+        <path d="M 105,40 C 105,84 250,84 250,128" stroke="url(#grad-1-2)" stroke-width="1.5" opacity="0.4" />
+        <path d="M 250,128 C 250,172 135,172 135,216" stroke="url(#grad-2-3)" stroke-width="1.5" opacity="0.4" />
+        <path d="M 135,216 C 135,260 260,260 260,304" stroke="url(#grad-3-4)" stroke-width="1.5" opacity="0.4" />
+        <path d="M 260,304 C 260,348 110,348 110,392" stroke="url(#grad-4-5)" stroke-width="1.5" opacity="0.4" />
+        <path d="M 110,392 C 110,436 220,436 220,480" stroke="url(#grad-5-6)" stroke-width="1.5" opacity="0.4" />
+        <path d="M 260,480 C 280,520 300,540 340,530" stroke="#3fb950" stroke-width="1.5" opacity="0.25" stroke-dasharray="6 4" />
+      </svg>
+      <div class="flow-row">
+        <div class="flow-step flow-step-1">
+          <span class="flow-number">01</span>Introduction & Setup
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-step flow-step-2">
+          <span class="flow-number">02</span>Authoring Essentials
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-step flow-step-3">
+          <span class="flow-number">03</span>Embedding Computations & Code
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-step flow-step-4">
+          <span class="flow-number">04</span>Formats & Projects
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-step flow-step-5">
+          <span class="flow-number">05</span>Formatting & Branding
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-step flow-step-6">
+          <span class="flow-number">06</span>Publishing
+        </div>
+      </div>
+    </div>
+
+    <!-- Code snippets -->
+    <div class="code-snippet snippet-1">
+---
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+      - styles.scss
+  typst:
+    brand-mode: dark
+  revealjs:
+    theme: night
+---
+    </div>
+
+    <!-- prettier-ignore-start -->
+    <div class="code-snippet snippet-2">
+```{python}
+#| label: fig-my-plot
+#| fig-cap: "Sample visualization"
+import matplotlib.pyplot as plt
+import numpy as np
+x = np.linspace(0, 10, 100)
+plt.plot(x, np.sin(x))
+plt.title("Sine Wave")
+plt.show()
+```
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="header">
+        <div class="quarto-logo">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 599 125.4">
+            <g>
+              <path fill-rule="evenodd" clip-rule="evenodd" fill="#74AADB"
+                d="M56,54.4V1.5C27.9,3.5,5.6,26.2,4.1,54.4H56z" />
+              <path fill-rule="evenodd" clip-rule="evenodd" fill="#74AADB"
+                d="M63,54.4h52.9C114.4,25.9,91.5,3,63,1.5V54.4z" />
+              <path fill-rule="evenodd" clip-rule="evenodd" fill="#74AADB"
+                d="M56,61.4H4.2c2,27.7,24.1,49.9,51.8,51.8V61.4z" />
+              <path fill-rule="evenodd" clip-rule="evenodd" fill="#74AADB"
+                d="M63,61.4v51.9c28.2-1.5,50.9-23.8,52.8-51.9H63z" />
+            </g>
+            <path fill="#f0f6fc" d="M214.6,24.8v13.1c-5.8-10.1-16-16.6-29.4-16.6c-21.3,0-36.2,16.2-36.2,38.1c0,22.1,14.9,37.9,36.2,37.9
+              c13.4,0,23.7-6.4,29.4-16.5V123c0,1.4,1,2.4,2.4,2.4h4c1.4,0,2.4-1,2.4-2.4V24.8c0-1.4-1-2.4-2.4-2.4h-4
+              C215.6,22.4,214.6,23.4,214.6,24.8z M186.1,88.8c-17.1,0-28.6-12.2-28.6-29.4s11.5-29.8,28.6-29.8c17.3,0,28.5,12.5,28.5,29.8
+              S203.4,88.8,186.1,88.8z" />
+            <path fill="#f0f6fc" d="M298.4,24.8v42.1c0,14.6-9.9,22.7-22.7,22.7c-12.6,0-22.7-8.2-22.7-22.7V24.8c0-1.4-1-2.4-2.4-2.4h-4
+              c-1.4,0-2.4,1-2.4,2.4V68c0,20.2,14.4,29.3,29.6,29.3c9.8,0,19.2-3.8,24.6-12.2v8.5c0,1.4,1,2.4,2.4,2.4h4c1.4,0,2.4-1,2.4-2.4V24.8
+              c0-1.4-1-2.4-2.4-2.4h-4C299.4,22.4,298.4,23.4,298.4,24.8z" />
+            <path fill="#f0f6fc" d="M391.7,24.8v13c-5.8-10.1-16-16.5-29.4-16.5c-21.3,0-36.2,15.8-36.2,37.9c0,21.9,14.9,38.1,36.2,38.1
+              c13.4,0,23.7-6.6,29.4-16.6v13c0,1.4,1,2.4,2.4,2.4h4c1.4,0,2.4-1,2.4-2.4V24.8c0-1.4-1-2.4-2.4-2.4h-4
+              C392.7,22.4,391.7,23.4,391.7,24.8z M363.2,88.8c-17.1,0-28.6-12.3-28.6-29.6s11.5-29.6,28.6-29.6c17.3,0,28.5,12.3,28.5,29.6
+              S380.5,88.8,363.2,88.8z" />
+            <path fill="#f0f6fc" d="M430.1,36V24.8c0-1.4-1-2.4-2.4-2.4h-4c-1.4,0-2.4,1-2.4,2.4v68.8c0,1.4,1,2.4,2.4,2.4h4
+              c1.4,0,2.4-1,2.4-2.4V54.4c0-16,11.5-23.5,23.7-24.6c1.4-0.2,2.2-1.1,2.2-2.6v-3.5c0-1.6-0.8-2.4-2.4-2.2
+              C443.9,22.2,435.1,27,430.1,36z" />
+            <path fill="#f0f6fc" d="M505,27v-2.2c0-1.4-1-2.4-2.4-2.4h-16v-20c0-1.4-1-2.4-2.4-2.4h-4c-1.4,0-2.4,1-2.4,2.4v20h-8.2
+              c-1.4,0-2.4,1-2.4,2.4V27c0,1.4,1,2.4,2.4,2.4h8.2v50.2c0,10.4,6.4,16.3,16.5,16.3h7.5c1.4,0,2.4-1,2.4-2.4V91c0-1.4-1-2.4-2.4-2.4
+              H497c-5.6,0-10.4-2.6-10.4-10.1V29.4h16C504,29.4,505,28.5,505,27z" />
+            <path fill="#f0f6fc" d="M552.7,97.4c22.1,0,37.1-16.3,37.1-38.2c0-22.1-15-38.1-37.1-38.1s-37.3,16-37.3,38.1
+              C515.4,81.1,530.6,97.4,552.7,97.4z M552.7,88.8c-17,0-28.5-12.6-28.5-29.6s11.5-29.6,28.5-29.6c17,0,28.2,12.6,28.2,29.6
+              S569.6,88.8,552.7,88.8z" />
+          </svg>
+        </div>
+        <div class="workshop-text">Workshop</div>
+      </div>
+
+      <div class="title-section">
+        <h1 class="main-title">
+          Mastering <span class="title-accent">Quarto CLI</span>:<br>
+          From Authoring to Publishing
+        </h1>
+
+        <p class="subtitle">
+          A comprehensive journey through the Quarto ecosystem.
+          Transform from newcomer to confident practitioner in six structured sessions.
+        </p>
+      </div>
+
+      <!-- Format icons -->
+      <div class="format-icons">
+        <div class="format-icon html">HTML</div>
+        <div class="format-icon pdf">Typst (PDF)</div>
+        <div class="format-icon revealjs">Reveal.js</div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

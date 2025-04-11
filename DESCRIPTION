@@ -1,0 +1,13 @@
+Package: mastering-quarto-cli
+Version: 1.0.0
+Depends:
+  knitr,
+  rmarkdown,
+  downlit,
+  xml2,
+  webshot2,
+Suggests:
+  languageserver,
+  httpgd,
+  jsonlite,
+  lintr

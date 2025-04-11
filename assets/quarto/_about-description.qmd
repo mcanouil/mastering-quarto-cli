@@ -1,0 +1,6 @@
+- I am Mickaël CANOUIL, I hold a Ph.D. in Biostatistics, with over a decade of academic experience in the genetics of type 2 diabetes and obesity.  
+- My research has contributed to understanding the genetic and molecular mechanisms underlying metabolic diseases, with publications in leading journals.  
+- Currently, I work as a consultant in biostatistics, applying my expertise to diverse projects in multi-omics and data analysis.  
+- I am also deeply involved in the Quarto ecosystem, developing extensions and tools that enhance reproducibility and scientific communication.  
+- My contributions, including [Quarto Wizard](https://github.com/mcanouil/quarto-wizard) and [various Quarto extensions](https://m.canouil.dev/quarto-extensions/authors/mcanouil.html), aim to streamline workflows for researchers and data scientists.  
+- You can explore my work on [GitHub](https://github.com/mcanouil), my [projects](https://mickael.canouil.fr/projects), and my [publications](https://mickael.canouil.fr/publications).
