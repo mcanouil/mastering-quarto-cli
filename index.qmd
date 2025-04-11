@@ -1,0 +1,21 @@
+---
+title: "A Title"
+subtitle: "A Subtitle"
+author: "Mickaël Canouil, *Ph.D.*"
+institute: "Freelance"
+date: today
+embed-resources: false
+format: coeos-revealjs
+---
+
+# PART 1 Without `code` {.center .center-x}
+
+## New slide {.smaller}
+
+{{< lipsum 1 >}}
+
+## Another slide {.smaller}
+
+![An image]({{< placeholder 900 300>}})
+
+{{< include _extensions/mcanouil/coeos/_about.qmd >}}
