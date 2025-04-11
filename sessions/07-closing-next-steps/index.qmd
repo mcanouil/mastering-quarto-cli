@@ -1,0 +1,198 @@
+---
+title: "Closing & Next Steps"
+subtitle: "Session 7"
+engine: markdown
+---
+
+{{< include /program/_session7.md >}}
+
+## Session Objectives
+
+- Reflect on key workshop learnings.
+- Identify next steps for applying Quarto skills.
+- Access further resources and community support.
+
+## Recommended Next Steps {.smaller}
+
+### Immediate Actions (Next 2-4 weeks)
+
+::: {layout-ncol="2"}
+
+::: {}
+
+1. **Apply workshop skills to a real project**
+   - Choose an existing analysis or report.
+   - Convert it to Quarto format.
+   - Implement one new feature learned.
+
+2. **Set up your publishing workflow**
+   - Choose primary platform (*e.g.*, GitHub Pages, Netlify, etc.).
+   - Configure automated deployment.
+   - Test with a simple project.
+
+:::
+
+::: {}
+
+3. **Explore extensions relevant to your work**
+   - Browse the extension gallery.
+   - Install 2-3 extensions that match your needs.
+   - Experiment with their features.
+
+:::
+
+:::
+
+::: {.content-visible when-format="revealjs"}
+
+## Recommended Next Steps {.smaller}
+
+:::
+
+### Medium-term Goals (Next 1-6 months)
+
+::: {layout-ncol="2"}
+
+::: {}
+
+1. **Develop organisational standards**
+   - Create branded theme/template.
+   - Document style guidelines.
+   - Share with colleagues.
+
+2. **Contribute to the community**
+   - Share your projects publicly.
+   - Ask/answer questions in forums.
+   - Consider writing blog posts about your experience.
+
+:::
+
+::: {}
+
+3. **Advance technical skills**
+   - Learn extension development.
+   - Explore advanced formatting techniques.
+   - Integrate with other tools in your workflow.
+
+:::
+
+:::
+
+::: {.content-visible when-format="revealjs"}
+
+## Recommended Next Steps {.smaller}
+
+:::
+
+### Long-term Development (6+ months)
+
+::: {layout-ncol="2"}
+
+::: {}
+
+1. **Become a local champion**
+   - Present Quarto at meetups/conferences.
+   - Mentor colleagues in adoption.
+   - Lead internal training sessions.
+
+2. **Contribute to the ecosystem**
+   - Develop custom extensions.
+   - Submit bug reports and feature requests.
+   - Contribute to documentation.
+
+:::
+
+::: {}
+
+3. **Stay current with developments**
+   - Follow release notes and updates.
+   - Participate in beta testing.
+   - Engage with the development community.
+
+:::
+
+:::
+
+## Getting Help {.smaller}
+
+### When you encounter issues
+
+::: {layout-ncol="2"}
+
+::: {}
+
+1. **Check documentation first**
+   - Official docs often have solutions.
+
+2. **Search existing discussions**
+   - GitHub Discussions.
+   - GitHub Issues.
+
+:::
+
+::: {}
+
+1. **Create reproducible examples**
+   - Minimal example that demonstrates the issue.
+   - Include system information.
+   - Share relevant configuration files.
+
+2. **Post in appropriate forums**
+   - GitHub Discussions for general questions.
+   - GitHub Issues for bugs.
+
+:::
+
+:::
+
+## Workshop Assessment
+
+Take a moment to reflect on your learning:
+
+**Skills Confidence** (Rate 1-5):
+
+- Basic Quarto authoring: ___
+- Code integration: ___
+- Multi-format publishing: ___
+- Theme customisation: ___
+- Publishing workflows: ___
+
+::: {.content-visible when-format="revealjs"}
+
+## Workshop Assessment
+
+:::
+
+**Most Valuable Learning**:
+
+- What concept or technique was most useful for your work?
+- Which session provided the biggest "aha" moment?
+- What will you implement first in your projects?
+
+::: {.content-visible when-format="revealjs"}
+
+## Workshop Assessment
+
+:::
+
+**Areas for Further Development**:
+
+- Which topics would you like to explore deeper?
+- What advanced features interest you most?
+- Where do you see the biggest opportunities in your workflow?
+
+## Workshop Conclusion {.smaller}
+
+Thank you for participating in this comprehensive Quarto workshop series.
+
+**Remember**:
+
+- Start with simple projects and gradually increase complexity.
+- Leverage the strong community for support and inspiration.
+- Share your knowledge and help grow the ecosystem.
+- Keep experimenting and learning.
+
+**Key Takeaway**: Quarto is not just a tool, it is a platform for better scientific communication, more reproducible research, and enhanced collaboration.
+The skills you have learned will serve you well across many projects and contexts.
+
+**Happy Quartoing!**

@@ -1,0 +1,678 @@
+---
+title: "Publishing"
+subtitle: "Session 6"
+engine: markdown
+code-links:
+  - text: Exercises (tar.gz)
+    icon: file-code
+    href: ../05-formatting-branding/assets/exercises/05b-exercises.tar.gz
+---
+
+# Session Overview
+
+{{< include /program/_session6.md >}}
+
+## Session Objectives
+
+This session explores comprehensive publishing strategies for Quarto projects, covering multiple deployment platforms, automation workflows, and best practices for different use cases.
+
+## Learning Objectives
+
+::: {.fragment fragment-index="1"}
+
+By the end of this session, participants will be able to:
+
+:::
+
+- [Choose the right publishing method for your use case.]{.fragment fragment-index="2"}
+- [Deploy a Quarto project to multiple platforms.]{.fragment fragment-index="3"}
+- [Set up automated publishing workflows.]{.fragment fragment-index="4"}
+- [Troubleshoot common publishing issues.]{.fragment fragment-index="5"}
+- [Configure custom domains and advanced features.]{.fragment fragment-index="6"}
+- [Distribute extensions via GitHub or archives.]{.fragment fragment-index="7"}
+
+# Quarto Publishing
+
+## Publishing Options Overview {.smaller}
+
+::: {.fragment fragment-index="1"}
+
+| Service            | Best For                        | Key Features                    |
+|--------------------|---------------------------------|---------------------------------|
+| **Quarto Pub**     | Public content, getting started | Free, simple, 100MB limit       |
+| **GitHub Pages**   | Open source projects            | Git integration, custom domains |
+| **Netlify**        | Professional sites              | Advanced features, previews     |
+| **Posit Connect**  | Enterprise/organisations        | Security, authentication        |
+| **Other Services** | Custom requirements             | Firebase, S3, self-hosted       |
+
+:::
+
+::: {.callout-tip .fragment fragment-index="2"}
+
+## Rule of thumb
+
+Start with Quarto Pub for learning, use GitHub Pages for projects, Netlify for production sites
+
+:::
+
+# Quarto Pub
+
+## Your First Quarto Pub Deployment
+
+::: {layout-ncol="2"}
+
+::: {.fragment fragment-index="1"}
+
+1. Create an account.  
+   Visit [quartopub.com](https://quartopub.com) and sign up.
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+2. Publish from CLI.
+  
+   ```{.bash}
+   quarto publish quarto-pub
+   ```
+
+:::
+
+::: {.fragment fragment-index="3"}
+
+3. Authenticate.
+
+   - Browser opens for authorization
+   - Confirm publishing permissions
+   - Site deploys automatically!
+
+:::
+
+::: {.callout-note .fragment fragment-index="4"}
+
+## That's it!
+
+Your site is live at `https://username.quarto.pub/project-name`.
+
+:::
+
+:::
+
+## Understanding `_publish.yml`
+
+::: {.fragment fragment-index="1"}
+
+Created automatically when you first publish:
+
+```{.yaml filename="_publish.yml"}
+- source: project
+  quarto-pub:
+    - id: "abc123-def456-ghi789"
+      url: "https://myusername.quarto.pub/myproject"
+```
+
+:::
+
+- [**Safe for version control** (no credentials).]{.fragment fragment-index="2"}
+- [**Shareable** across team members.]{.fragment fragment-index="3"}
+- [**Service configuration** stored locally.]{.fragment fragment-index="4"}
+- [**Reusable** for subsequent deployments.]{.fragment fragment-index="5"}
+
+# Hands-On Exercise: Quarto Pub
+
+## Exercise Overview
+
+**Objective**: Publish the branded project you created in Session 5 using Quarto Pub.
+
+**Example Code** (reused from Session 5): [{{< iconify octicon:file-code-16 >}} Exercises](../05-formatting-branding/assets/exercises/05b-exercises.tar.gz)
+
+```bash
+tar -xzf "05b-exercises.tar.gz" -C "06-publishing"
+```
+
+## Publishing to Quarto Pub
+
+::: {layout-ncol="2"}
+
+1. [Create a simple Quarto document.]{.fragment fragment-index="1"}
+2. [Add some content (text, code, plots).]{.fragment fragment-index="2"}
+3. [Run `quarto publish quarto-pub`.]{.fragment fragment-index="3"}
+4. [Share your live URL with a neighbour.]{.fragment fragment-index="4"}
+
+::: {.fragment fragment-index="5"}
+
+```{.bash}
+# Publish without prompts
+quarto publish quarto-pub --no-prompt
+
+# Publish without opening browser
+quarto publish quarto-pub --no-browser
+
+# Publish without re-rendering
+quarto publish quarto-pub --no-render
+```
+
+:::
+
+:::
+
+## Success Criteria
+
+✅ **You've successfully completed the exercise if you can**:
+
+- Successfully publish your Quarto project to Quarto Pub.
+
+# GitHub Pages
+
+## Three Ways to Use GitHub Pages
+
+::: {layout="[[0.5,0.5],[-0.25,0.5,-0.25]]"}
+
+::: {.fragment fragment-index="1"}
+
+### Render to `docs/`
+
+- Simplest approach
+- Commit rendered output
+- Good for small projects
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+### `quarto publish`
+
+- Local rendering
+- Automatic deployment
+- Clean separation
+
+:::
+
+::: {.fragment fragment-index="3"}
+
+### GitHub Actions
+
+- Fully automated
+- Triggered by commits
+- Most professional
+
+:::
+
+:::
+
+## Method 1: Render to `docs/` {.smaller}
+
+::: {layout-ncol="2"}
+
+::: {.fragment fragment-index="1"}
+
+- Configure Output Directory
+
+  ```yaml
+  # _quarto.yml
+  project:
+    type: website
+    output-dir: docs
+  ```
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+- Add `.nojekyll` File
+
+  ```bash
+  touch .nojekyll
+  ```
+
+:::
+
+::: {.fragment fragment-index="3"}
+
+- Render and Push
+
+  ```bash
+  quarto render
+  git add .
+  git commit -m "feat: Add rendered site"
+  git push
+  ```
+
+:::
+
+::: {.fragment fragment-index="4"}
+
+- Configure Repository
+
+  Settings → Pages → Source: **Deploy from branch** → Branch: **main** → Folder: **/docs**
+
+:::
+
+:::
+
+## Method 2: `quarto publish gh-pages` {.smaller}
+
+::: {.fragment fragment-index="1"}
+
+- Setup Source Branch
+
+  ```bash
+  # Create gh-pages branch
+  git checkout --orphan gh-pages
+  git rm -rf .
+  git commit --allow-empty -m "chore: Initial gh-pages commit"
+  git push origin gh-pages
+  git checkout main
+  ```
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+- Configure .gitignore
+
+  ```txt
+  _site/
+  _book/
+  ```
+
+:::
+
+::: {.fragment fragment-index="3"}
+
+- Publish
+
+  ```bash
+  quarto publish gh-pages
+  ```
+
+:::
+
+## Method 3: GitHub Actions Workflow {.smaller}
+
+- Create Workflow File: `.github/workflows/publish.yml`.
+
+  ```yaml
+  name: Quarto Publish
+  on:
+    workflow_dispatch:
+    push:
+      branches: main
+  
+  jobs:
+    build-deploy:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: write
+      steps:
+        - name: Check out repository
+          uses: actions/checkout@v4
+        
+        - name: Set up Quarto
+          uses: quarto-dev/quarto-actions/setup@v2
+        
+        - name: Render and Publish
+          uses: quarto-dev/quarto-actions/publish@v2
+          with:
+            target: gh-pages
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  ```
+
+# Hands-On Exercise: GitHub Pages
+
+## Exercise Overview
+
+**Objective**: Publish the branded project you created in Session 5 using GitHub Pages.
+
+**Example Code** (reused from Session 5): [{{< iconify octicon:file-code-16 >}} Exercises](../05-formatting-branding/assets/exercises/05b-exercises.tar.gz)
+
+```bash
+tar -xzf "05b-exercises.tar.gz" -C "06-publishing"
+```
+
+## Publishing to GitHub Pages {.smaller}
+
+Choose **one** method and deploy your project:
+
+::: {layout-ncol="2"}
+
+::: {.fragment fragment-index="1"}
+
+### Method 1: docs/ folder
+
+::: {.fragment fragment-index="3"}
+
+1. Modify `_quarto.yml`.
+2. Add `.nojekyll`.
+3. Render and push.
+4. Configure in GitHub settings.
+
+:::
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+### Method 2: quarto publish
+
+::: {.fragment fragment-index="4"}
+
+1. Setup gh-pages branch.
+2. Update `.gitignore`.
+3. Run `quarto publish gh-pages`.
+4. Verify deployment.
+
+:::
+
+:::
+
+:::
+
+## Success Criteria
+
+✅ **You've successfully completed the exercise if you can**:
+
+- Successfully publish your Quarto project to GitHub Pages using one of the methods.
+
+# Code Execution Strategies
+
+## The Big Decision: Where to Execute Code? {.smaller}
+
+::: {layout-ncol="2"}
+
+::: {#execute-1 .fragment fragment-index="1"}
+
+### Local Execution + Freeze
+
+```{.yaml filename="_quarto.yml"}
+execute:
+  freeze: auto
+```
+
+::: {.fragment fragment-index="2"}
+
+**Pros:**
+
+- Faster CI builds.
+- Consistent environment.
+- Handle legacy code.
+
+:::
+
+::: {.fragment fragment-index="3"}
+
+**Cons:**
+
+- Manual re-execution needed.
+- Larger repository size.
+
+:::
+
+:::
+
+::: {#execute-2 .fragment fragment-index="4"}
+
+### CI Execution
+
+::: {.fragment fragment-index="5"}
+
+**Pros:**
+
+- Always fresh execution.
+- Smaller repositories.
+- Reproducible environments.
+
+:::
+
+::: {.fragment fragment-index="6"}
+
+**Cons:**
+
+- Longer build times.
+- Dependency management.
+- Potential CI failures.
+
+:::
+
+:::
+
+:::
+
+## Freeze Strategy Implementation {.smaller}
+
+::: {.fragment fragment-index="1"}
+
+- Enable Freezing
+
+  ```{.yaml filename="_quarto.yml"}
+  execute:
+    freeze: auto
+  ```
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+- Re-render Locally
+
+  ```bash
+  quarto render
+  ```
+
+:::
+
+::: {.fragment fragment-index="3"}
+
+- Version Control
+
+  ```bash
+  git add _freeze/
+  git commit -m "chore: Update frozen computations"
+  git push
+  ```
+
+:::
+
+::: {.callout-important .fragment fragment-index="4"}
+
+The `_freeze/` directory stores computational results and **must** be committed to Git.
+
+:::
+
+## CI Execution with Dependencies
+
+::: {.panel-tabset}
+
+### Python/Jupyter Example {{< iconify fa7-brands:python >}}
+
+```yaml
+- name: Install Python and Dependencies
+  uses: actions/setup-python@v5
+  with:
+    python-version: '3.13'
+    cache: 'pip'
+
+- name: Install Jupyter
+  run: pip install jupyter
+
+- name: Install Requirements
+  run: pip install -r requirements.txt
+```
+
+### R/Knitr Example {{< iconify fa7-brands:r-project >}}
+
+```yaml
+- name: Install R
+  uses: r-lib/actions/setup-r@v2
+  with:
+    r-version: '4.5.0'
+
+- name: Install R Dependencies
+  uses: r-lib/actions/setup-renv@v2
+  with:
+    cache-version: 1
+```
+
+:::
+
+## Version Control Strategies {.smaller}
+
+::: {.fragment fragment-index="1"}
+
+Use a freeze strategy (*recommended*):
+
+```yaml
+execute:
+  freeze: auto
+```
+
+:::
+
+::: {layout-ncol="2" style="margin-top: 1em;"}
+
+::: {.fragment fragment-index="2"}
+
+**Commit to Git:**
+
+- Source files (`.qmd`).
+- `_freeze/` directory.
+- Configuration files.
+
+:::
+
+::: {.fragment fragment-index="3"}
+
+**Don't Commit:**
+
+- `_site/`, `_book/`, or `_manuscript/`.
+- Temporary files.
+- Local dependencies.
+
+:::
+
+:::
+
+## Environment Management
+
+::: {.fragment fragment-index="1"}
+
+Use a tool to manage your R {{< iconify fa7-brands:r-project >}}, Python {{< iconify fa7-brands:python >}}, or Julia {{< iconify simple-icons:julia >}} environment:
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+- `renv` for R.
+- `uv`, `pip`, or `conda` for Python.
+- `Pkg` for Julia.
+
+:::
+
+# Advanced Topics
+
+## Custom Domains
+
+::: {.panel-tabset}
+
+### GitHub Pages Custom Domain
+
+1. Add `CNAME` file to project root:
+
+   ```txt
+   yourdomain.com
+   ```
+
+2. Configure DNS records:
+   - **Apex domain:** A records to GitHub IPs.
+   - **Subdomain:** CNAME to `username.github.io`.
+
+3. Enable in repository settings.
+
+### Netlify Custom Domain
+
+- Automatic HTTPS.
+- Easy DNS management.
+- Domain purchasing available.
+
+:::
+
+# Extension Distribution
+
+## Distribution Methods
+
+::: {.fragment fragment-index="1"}
+
+### GitHub Distribution (Recommended)
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+```bash
+# Users install with:
+quarto add yourorg/company-report
+
+# Or specific version/tag:
+quarto add yourorg/company-report@v1.0.0
+
+# Or from branch:
+quarto add yourorg/company-report@main
+```
+
+:::
+
+::: {.fragment fragment-index="3"}
+
+**Benefits**: Version control, easy updates, namespace management (`yourorg/extension`).
+
+:::
+
+::: {.content-visible when-format="revealjs"}
+
+## Distribution Methods
+
+:::
+
+::: {.fragment fragment-index="1"}
+
+### Archive Distribution
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+```bash
+# From URL:
+quarto add https://example.com/company-report.zip
+
+# From local file:
+quarto add ./company-report.tar.gz
+```
+
+:::
+
+::: {.fragment fragment-index="3"}
+
+**Benefits**: No GitHub required, works offline, controlled distribution.
+
+:::
+
+## Publishing Best Practices
+
+::: {.fragment fragment-index="1"}
+
+**Prepare your extension:**
+
+:::
+
+1. [**Add README.md** - Installation instructions and documentation.]{.fragment fragment-index="2"}
+2. [**Include LICENSE** - Specify usage terms.]{.fragment fragment-index="3"}
+3. [**Create example.qmd** - Demonstrate usage.]{.fragment fragment-index="4"}
+4. [**Version with tags** - Use semantic versioning (*e.g.*, `v1.0.0`).]{.fragment fragment-index="5"}
+
+::: {.callout-tip .fragment fragment-index="6"}
+
+See [Distributing Extensions](https://quarto.org/docs/extensions/distributing.html) for complete details.
+
+:::

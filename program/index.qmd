@@ -1,0 +1,48 @@
+---
+title: "Mastering Quarto CLI: From Authoring to Publishing"
+subtitle: "Program"
+title-prefix: ""
+format:
+  mcanouil-html: default
+  mcanouil-typst:
+    title: "Mastering Quarto CLI"
+    subtitle: "From Authoring to Publishing"
+    output-file: mastering-quarto-cli-program
+    title-page: false
+    section-page: false
+    section-pagebreak: false
+    list-of: false
+format-links:
+  - mcanouil-html
+  - format: mcanouil-typst
+    text: Program (PDF)
+    attr:
+      target: _blank
+      rel: noopener noreferrer
+---
+
+{{< include _overview.md >}}
+
+## Program Sessions
+
+::: {.panel-tabset}
+
+### Part 1
+
+{{< include _session1.md >}}
+
+{{< include _session2.md >}}
+
+{{< include _session3.md >}}
+
+### Part 2
+
+{{< include _session4.md >}}
+
+{{< include _session5.md >}}
+
+{{< include _session6.md >}}
+
+{{< include _session7.md >}}
+
+:::

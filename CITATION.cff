@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: "Mastering Quarto CLI: From Authoring to Publishing"
+type: workshop
+message: "If you use this project, please cite it as below."
+authors:
+  - family-names: "Canouil"
+    given-names: "Mickaël"
+    orcid: "https://orcid.org/0000-0002-3396-4549"
+date-released: "2025-04-06"
+version: 2025.04.06
+url: "http://m.canouil.dev/mastering-quarto-cli/"
+repository-code: "https://github.com/mcanouil/mastering-quarto-cli"
+license: "CC BY-NC-SA 4.0"

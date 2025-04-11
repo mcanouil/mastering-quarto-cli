@@ -1,0 +1,54 @@
+name: Deploy Workshop to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+  pages: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/mcanouil/quarto-codespaces:prerelease
+
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      QUARTO_CHROMIUM: "/usr/bin/google-chrome-stable"
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Restore dependencies
+        shell: bash
+        run: |
+          Rscript -e 'renv::restore()'
+          uv sync
+
+      - name: Render Quarto Project
+        shell: bash
+        run: |
+          uv run quarto render
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: "_site"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
