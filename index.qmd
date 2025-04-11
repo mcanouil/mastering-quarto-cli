@@ -1,10 +1,9 @@
 ---
-title: "A Title"
-subtitle: "A Subtitle"
+title: "Introduction to Quarto CLI"
+subtitle: "A Hands-on Workshop"
 author: "Mickaël Canouil, *Ph.D.*"
-institute: "Freelance"
+institute: "Physalia Courses"
 date: today
-embed-resources: false
 format: coeos-revealjs
 ---
 
