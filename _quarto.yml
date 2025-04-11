@@ -1,0 +1,133 @@
+project:
+  type: website
+  output-dir: _site
+  post-render:
+    - assets/scripts/slides-to-pdf.sh
+  render:
+    - "**.qmd"
+    - "sessions/01-introduction-setup/index.qmd"
+    - "sessions/02-authoring-essentials/index.qmd"
+    - "sessions/03-embedding-computations-code/index.qmd"
+    - "sessions/04-formats-projects/index.qmd"
+    - "sessions/05-formatting-branding/index.qmd"
+    - "sessions/06-publishing/index.qmd"
+    - "sessions/07-closing-next-steps/index.qmd"
+
+author:
+  - name: "Mickaël CANOUIL, _Ph.D._"
+    degree: "Ph.D."
+    orcid: "0000-0002-3396-4549"
+    url: "https://mickael.canouil.fr"
+    affiliations:
+      - name: mickael.canouil.fr
+        url: "https://mickael.canouil.fr"
+
+lang: en
+date: today
+date-modified: today
+date-format: "dddd[, the] Do [of] MMMM, YYYY"
+highlight-style: github
+mermaid:
+  theme: dark
+
+website:
+  title: "Mastering Quarto CLI"
+  description: "Learn how to use Quarto CLI for your data science projects."
+  favicon: "assets/images/physalia.png"
+  # repo-url: https://github.com/mcanouil/quarto-physalia-course
+  # repo-actions: [source, issue]
+  # repo-link-target: _blank
+  open-graph: true
+  twitter-card: true
+  page-navigation: true
+  back-to-top-navigation: true
+  page-footer:
+    border: true
+    left: |
+      Powered by [{{< iconify simple-icons:quarto title="Quarto Logo" label="Quarto Logo" >}} Quarto](https://quarto.org).
+    center: |
+      &copy; []{#current-year} Mickaël CANOUIL. [{{< iconify octicon:heart-fill-16 title="Heart" label="Heart" >}} Sponsor](https://github.com/sponsors/mcanouil?o=esb).
+    right: |
+      License: [CC BY NC SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0).
+  sidebar:
+    logo: "assets/images/physalia.jpg"
+    logo-alt: "Physalia"
+    background: dark
+    pinned: true
+    align: center
+    style: docked
+    search: true
+    collapse-level: 2
+    contents:
+      - text: Home
+        href: index.qmd
+      - text: Program
+        href: program/index.qmd
+      - text: "---"
+      - section: "Day 1"
+        contents:
+          - href: sessions/01-introduction-setup/index.qmd
+          - href: sessions/02-authoring-essentials/index.qmd
+          - href: sessions/03-embedding-computations-code/index.qmd
+      - text: "---"
+      - section: "Day 2"
+        contents:
+          - href: sessions/04-formats-projects/index.qmd
+          - href: sessions/05-formatting-branding/index.qmd
+          - href: sessions/06-publishing/index.qmd
+          - href: sessions/07-closing-next-steps/index.qmd
+
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-link: false
+    code-overflow: wrap
+    link-external-newwindow: true
+    fig-align: center
+    theme:
+      light:
+        - cosmo
+        - brand
+        - assets/stylesheets/theme.scss
+      dark:
+        - cosmo
+        - brand
+        - assets/stylesheets/theme.scss
+    grid:
+      sidebar-width: 350px
+    include-in-header:
+      - text: |
+          <style>
+            .callout.callout-titled .callout-body>:last-child:not(.sourceCode), .callout.callout-titled .callout-body>div>:last-child:not(.sourceCode) {
+              padding-bottom: 0;
+              margin-bottom: 0;
+            }
+          </style>
+    include-after-body:
+      - text: |
+          <script type="text/javascript">
+            const dateElements = document.querySelectorAll("p.date, div.listing-date, div.listing-file-modified");
+            dateElements.forEach((el) => {
+              el.innerHTML = el.innerHTML.replace(
+                /(\d+)(st|nd|rd|th)/g,
+                "$1<sup style='font-size:0.5em;font-style:italic;'>$2</sup>"
+              );
+            });
+          </script>
+          <script>
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+          </script>
+
+execute:
+  freeze: auto
+  echo: false
+
+filters:
+  - at: pre-quarto
+    path: highlight-text
+  - at: post-quarto
+    path: div-reuse
+  - at: pre-quarto
+    path: include-code-files

@@ -1,0 +1,35 @@
+{
+	"name": "Quarto Physalia",
+	"image": "ghcr.io/mcanouil/quarto-codespaces:1.8",
+	"remoteUser": "vscode",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"quarto.quarto",
+				"mcanouil.quarto-wizard",
+				"REditorSupport.r",
+				"ms-python.python",
+				"julialang.language-julia",
+				"ms-python.black-formatter",
+				"ms-python.flake8",
+				"ms-python.vscode-pylance",
+				"ms-python.pylint",
+				"ms-python.isort",
+				"ms-toolsai.jupyter",
+				"Posit.air-vscode"
+			],
+			"settings": {
+				"r.rterm.option": [
+					"--no-save",
+					"--no-restore-data",
+					"--quiet"
+				],
+				"r.useRenvLibPath": true,
+				"[r]": {
+					"editor.defaultFormatter": "Posit.air-vscode",
+					"editor.formatOnSave": true
+				}
+			}
+		}
+	}
+}
