@@ -1,0 +1,53 @@
+---
+title: "Mastering Quarto CLI: From Authoring to Publishing"
+subtitle: "A Hands-on Workshop"
+description: "Learn how to use Quarto CLI for your data science projects."
+title-prefix: ""
+---
+
+A Quarto CLI Workshop for [Physalia-courses](https://www.physalia-courses.org/).
+
+{{< include /program/_overview.md >}}
+
+## Program
+
+:::: {layout-ncol="2"}
+
+:::: {#day1}
+
+| Time (CEST)   | Session                                                                   |
+|---------------|---------------------------------------------------------------------------|
+| 14:00 - 14:55 | [Introduction & Setup](sessions/01-introduction-setup/)                   |
+| 14:55 - 15:50 | [Authoring Essentials](sessions/02-authoring-essentials/)                 |
+| 15:50 - 16:05 | 15 minutes break                                                          |
+| 16:05 - 17:00 | [Embedding Computations & Code](sessions/03-embedding-computations-code/) |
+
+: {tbl-colwidths="\[25,75\]"}
+
+:::
+
+:::: {#day2}
+
+| Time (CEST)   | Session                                                   |
+|---------------|-----------------------------------------------------------|
+| 14:00 - 14:55 | [Formats & Projects](sessions/04-formats-projects/)       |
+| 14:55 - 15:50 | [Formatting & Branding](sessions/05-formatting-branding/) |
+| 15:50 - 16:05 | 15 minutes break                                          |
+| 16:05 - 16:45 | [Publishing](sessions/06-publishing/)                     |
+| 16:45 - 17:00 | [Closing & Next Steps](sessions/07-closing-next-steps/)   |
+
+: {tbl-colwidths="\[25,75\]"}
+
+:::
+
+:::
+
+## Instructor
+
+{{< include /assets/quarto/_about-social.qmd >}}
+
+{{< include /assets/quarto/_about-description.qmd >}}
+
+## License
+
+This project is licensed under the [CC-BY-SA-4.0 license](LICENSE).

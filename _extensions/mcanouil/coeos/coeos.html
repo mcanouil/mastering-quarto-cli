@@ -1,0 +1,214 @@
+<!--
+# MIT License
+#
+# Copyright (c) 2025 Mickaël Canouil
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+-->
+
+<script type="text/javascript" id="date-superscript">
+  const dateElements = document.querySelectorAll("p.date, div.listing-date");
+  dateElements.forEach((el) => {
+    el.innerHTML = el.innerHTML.replace(
+      /(\d+)(st|nd|rd|th)/g,
+      "$1<sup style='font-size:0.5em;font-style:italic;'>$2</sup>"
+    );
+  });
+</script>
+
+<script type="text/javascript" id="menu-logo-visibility">
+  Reveal.addEventListener("ready", (event) => {
+    if (event.indexh === 0) {
+      document.querySelector("div.slide-menu-button").style.display = "none";
+      document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+    } else {
+      document.querySelector("div.slide-menu-button").style.display = "block";
+      document.querySelector("div.has-logo > img.slide-logo").style.display = null;
+    }
+  });
+  Reveal.addEventListener("slidechanged", (event) => {
+    if (event.indexh === 0) {
+      document.querySelector("div.slide-menu-button").style.display = "none";
+      document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+    } else {
+      document.querySelector("div.slide-menu-button").style.display = "block";
+      document.querySelector("div.has-logo > img.slide-logo").style.display = null;
+    }
+  });
+</script>
+
+<script type="text/javascript" id="panel-tabset-fragments">
+  Reveal.on("ready", function () {
+    const tabsetSlides = document.querySelectorAll(".reveal .slides section .panel-tabset");
+    tabsetSlides.forEach(function (tabset) {
+      const tabCount = tabset.querySelectorAll("ul.panel-tabset-tabby li").length;
+      for (let i = 0; i < tabCount - 1; i++) {
+        const fragmentDiv = document.createElement("div");
+        fragmentDiv.className = "panel-tabset-fragment fragment";
+        fragmentDiv.dataset.tabIndex = i + 1;
+        fragmentDiv.style.display = "none";
+        tabset.parentNode.appendChild(fragmentDiv);
+      }
+    });
+  });
+
+  Reveal.on("fragmentshown", (event) => {
+    if (event.fragment.classList.contains("panel-tabset-fragment")) {
+      const tabIndex = parseInt(event.fragment.dataset.tabIndex);
+      const tabset = Reveal.getCurrentSlide().querySelector(".panel-tabset");
+      const tabLinks = tabset.querySelectorAll("ul.panel-tabset-tabby li a");
+      if (tabIndex < tabLinks.length) {
+        tabLinks[tabIndex].click();
+      }
+    }
+  });
+
+  Reveal.on("fragmenthidden", (event) => {
+    if (event.fragment.classList.contains("panel-tabset-fragment")) {
+      const tabIndex = parseInt(event.fragment.dataset.tabIndex);
+      const tabset = Reveal.getCurrentSlide().querySelector(".panel-tabset");
+      const tabLinks = tabset.querySelectorAll("ul.panel-tabset-tabby li a");
+      if (tabIndex > 0) {
+        tabLinks[tabIndex - 1].click();
+      } else {
+        tabLinks[0].click();
+      }
+    }
+  });
+</script>
+
+<script type="text/javascript" id="code-annotation-fragments">
+  function hideAllTippy() {
+    document.querySelectorAll('.code-annotation-anchor').forEach(anchor => {
+      const tippyInstance = anchor._tippy;
+      if (tippyInstance) {
+        tippyInstance.hide();
+      }
+    });
+  }
+
+  Reveal.on('fragmentshown', (event) => {
+    hideAllTippy();
+
+    const fragment = event.fragment;
+    const classesToCheck = ['has-line-highlights', 'visible', 'current-fragment'];
+    if (classesToCheck.some(cls => fragment.classList.contains(cls))) {
+      const codeAnnotationAnchors = fragment.querySelectorAll('.code-annotation-anchor');
+      let matchCount = 0;
+      for (const anchor of codeAnnotationAnchors) {
+        const nextElement = anchor.nextElementSibling;
+        if (nextElement &&
+          nextElement.classList.contains('code-annotation-target') &&
+          nextElement.classList.contains('highlight-line')) {
+          matchCount++;
+          if (matchCount > 1) break;
+        }
+      }
+      if (matchCount === 1) {
+        for (const anchor of codeAnnotationAnchors) {
+          const nextElement = anchor.nextElementSibling;
+          if (nextElement &&
+            nextElement.classList.contains('code-annotation-target') &&
+            nextElement.classList.contains('highlight-line')) {
+            const tippyInstance = anchor._tippy;
+            if (tippyInstance) {
+              tippyInstance.show();
+              break;
+            }
+          }
+        }
+      }
+    }
+  });
+
+  Reveal.on('fragmenthidden', (event) => {
+    hideAllTippy();
+  });
+</script>
+
+<script type="text/javascript" id="favicon-from-logo">
+  (function () {
+    let lastHref;
+    let observer;
+
+    function detectType(url) {
+      const clean = (url || "").split("?")[0].split("#")[0];
+      const ext = clean.slice(clean.lastIndexOf(".") + 1).toLowerCase();
+      switch (ext) {
+        case "svg": return "image/svg+xml";
+        case "png": return "image/png";
+        case "ico": return "image/x-icon";
+        case "jpg":
+        case "jpeg": return "image/jpeg";
+        default: return "";
+      }
+    }
+
+    function getLogo() {
+      return document.querySelector('img.slide-logo[src]');
+    }
+
+    function upsertFavicon(rel, href, type) {
+      const sel = `link[rel="${rel}"][data-slide-favicon="true"]`;
+      let link = document.querySelector(sel);
+      if (!link) {
+        link = document.createElement("link");
+        link.rel = rel;
+        link.setAttribute("data-slide-favicon", "true");
+        document.head.appendChild(link);
+      }
+      link.href = href;
+      if (type) link.type = type; else link.removeAttribute("type");
+    }
+
+    function setFaviconFromSlideLogo() {
+      const logoImg = getLogo();
+      const src = logoImg && (logoImg.currentSrc || logoImg.src);
+      if (!src) return;
+
+      if (src === lastHref) return; // No work if unchanged
+      lastHref = src;
+
+      const type = detectType(src);
+      // Modern rel="icon" plus legacy "shortcut icon" for broader support
+      upsertFavicon("icon", src, type);
+      upsertFavicon("shortcut icon", src, type);
+
+      if (observer) {
+        observer.disconnect();
+        observer = undefined;
+      }
+    }
+
+    function init() {
+      setFaviconFromSlideLogo();
+      // React to Reveal lifecycle in case logo appears later or changes with slides
+      if (window.Reveal && typeof Reveal.on === "function") {
+        Reveal.on("ready", setFaviconFromSlideLogo);
+        Reveal.on("slidechanged", setFaviconFromSlideLogo);
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init, { once: true });
+    } else {
+      init();
+    }
+  })();
+</script>

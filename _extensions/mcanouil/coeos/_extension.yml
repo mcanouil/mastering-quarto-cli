@@ -1,0 +1,22 @@
+title: Coeos Presentation Template
+author: Mickaël CANOUIL
+version: 1.9.4
+quarto-required: ">=1.6.40"
+contributes:
+  formats:
+    revealjs:
+      theme: coeos.scss
+      highlight-style: github-dark
+      mermaid:
+        theme: dark
+      date-format: "dddd[, the] Do [of] MMMM, YYYY"
+      slide-number: c
+      code-annotations: select
+      footer: |
+        <a href="https://mickael.canouil.fr/">mickael.canouil.fr</a>
+        |
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/">License: CC-BY-SA-4.0</a>
+      logo: coeos.svg
+      include-after-body:
+        - file: coeos.html
+source: mcanouil/quarto-revealjs-coeos@1.9.4

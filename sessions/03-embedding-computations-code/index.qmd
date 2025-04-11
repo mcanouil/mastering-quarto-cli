@@ -1,0 +1,897 @@
+---
+title: "Embedding Computations & Code"
+subtitle: "Session 3"
+engine: markdown
+code-links:
+  - text: Exercises (tar.gz)
+    icon: file-code
+    href: assets/exercises/03-exercises.tar.gz
+---
+
+# Session Overview
+
+{{< include /program/_session3.md >}}
+
+## Session Objectives
+
+This session explores Quarto's computational capabilities, focusing on seamless multi-language workflows, code cell options, and integration patterns for R and Python data science stacks.
+
+## Learning Objectives
+
+:::: {.fragment fragment-index="1"}
+
+By the end of this session, participants will be able to:
+
+:::
+
+- [Execute R {{< iconify fa7-brands:r-project >}}, Python {{< iconify fa7-brands:python >}}, Julia {{< iconify simple-icons:julia >}} code.]{.fragment fragment-index="2"}
+- [Configure code cells using "comment symbol" + "pipe" (`|`) syntax.]{.fragment fragment-index="3"}
+- [Control code visibility and execution.]{.fragment fragment-index="4"}
+- [Cache computations for improved performance.]{.fragment fragment-index="5"}
+
+# Computing Environments
+
+## Setup R, Python, and/or Julia for Quarto
+
+:::: {.panel-tabset}
+
+### R
+
+```r
+# Install renv if not already installed
+install.packages("renv")
+
+# Initialise project
+renv::init()
+
+# Install packages
+renv::install("rmarkdown")
+
+# Save current state
+renv::snapshot()
+```
+
+### Python (uv)
+
+```bash
+# Install uv (if not installed)
+pip install uv
+
+# Initialise project
+uv init --no-package --vcs none
+
+# Create virtual environment
+uv venv
+
+# Activate environment
+source .venv/bin/activate
+
+# Add packages
+uv add jupyter jupyter papermill
+```
+
+### Julia
+
+```julia
+# Start Julia in your project directory
+using Pkg
+
+# Activate current directory as project
+Pkg.activate(".")
+
+# Add packages
+Pkg.add("IJulia")
+
+# Instantiate environment
+Pkg.instantiate()
+```
+
+:::
+
+## Engine Configuration
+
+:::: {.fragment fragment-index="1"}
+
+Configure engines in your document header:
+
+:::
+
+- [`knitr` {{< iconify fa7-brands:r-project >}}]{.fragment fragment-index="2"}
+- [`jupyter` {{< iconify fa7-brands:python >}}]{.fragment fragment-index="3"}
+- [`julia` {{< iconify simple-icons:julia >}}]{.fragment fragment-index="4"}
+
+:::: {layout-ncol="3" style="margin-top: 2em;"}
+
+:::: {.fragment fragment-index="2"}
+
+```yaml
+---
+engine: knitr
+---
+```
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+```yaml
+---
+engine: jupyter
+jupyter: python3
+---
+```
+
+:::
+
+:::: {.fragment fragment-index="4"}
+
+```yaml
+---
+engine: julia
+---
+```
+
+:::
+
+:::
+
+:::: {.absolute top=150 right=150 width="500" height="300"}
+
+:::: {.callout-tip .fragment fragment-index="5"}
+
+Set explicitly the engine in your document header instead of relying on auto-detection which does not work for inline code (*i.e.*, `` `{language} ...` ``).
+
+:::
+
+:::
+
+## What is a Code Cell?
+
+:::: {.fragment fragment-index="1"}
+
+A **code cell** (also called a **code chunk**) is a section of executable code (defined by ```` ```{language}````) embedded within your Quarto document.
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+Code cells allow you to:
+
+:::
+
+- [Execute programming code directly in your document.]{.fragment fragment-index="2"}
+- [Display both the code and its output.]{.fragment fragment-index="3"}
+- [Create reproducible analyses and reports.]{.fragment fragment-index="4"}
+
+## Code Cell Structure
+
+````{.qmd code-line-numbers="|1|2-4|6-14|"}
+```{python} # <1>
+#| label: my-plot # <2>
+#| echo: true # <2>
+#| fig-cap: "Sample visualization" # <2>
+
+import matplotlib.pyplot as plt # <3>
+import numpy as np # <3>
+# <3>
+x = np.linspace(0, 10, 100) # <3>
+y = np.sin(x) # <3>
+# <3>
+plt.plot(x, y) # <3>
+plt.title("Sine Wave") # <3>
+plt.show() # <3>
+```
+````
+
+1. Computing language (*e.g.*, `python`, `r`, `julia`).
+2. Code cell options (*e.g.*, `label`, `echo`, `eval`).
+3. Code content (your actual programming code).
+
+## Why Use Code Cells?
+
+:::: {layout-ncol="2"}
+
+:::: {.fragment fragment-index="1"}
+
+### Reproducibility
+
+- Code and results stay together.
+- Easy to re-run analyses.
+- Version control friendly.
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+### Documentation
+
+- Combine narrative and code.
+- Show methodology clearly.
+- Create living documents.
+
+:::
+
+:::
+
+# Execution Options
+
+## Setting Execution Options Globally {.smaller}
+
+```yaml
+execute:
+  ...
+```
+
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Option       | Description                                                                                                                                                                                       |
++==============+===================================================================================================================================================================================================+
+| `eval`       | Evaluate the code chunk (if `false`, just echos the code into the output).                                                                                                                        |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `echo`       | Include the source code in output                                                                                                                                                                 |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `output`     | Include the results of executing the code in the output (`true`, `false`, or `asis` to indicate that the output is raw markdown and should not have any of Quarto's standard enclosing markdown). |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `warning`    | Include warnings in the output.                                                                                                                                                                   |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `error`      | Include errors in the output (note that this implies that errors executing code will not halt processing of the document).                                                                        |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `include`    | Catch all for preventing any output (code or results) from being included (e.g. `include: false` suppresses all output from the code block).                                                      |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `renderings` | Specify rendering names for the plot or table outputs of the cell, e.g. `[light, dark]`                                                                                                           |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: `execute` options {#tbl-execute-options style="font-size: 85%; margin-top: 1em;"}
+
+## Code Cells Options
+
+:::: {.fragment fragment-index="1"}
+
+The "comment symbol" + "pipe" (`|`) syntax allows to pass options to code cells.
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+**Code Visibility Control**:
+
+````{.qmd code-line-numbers="|2|3|4|5|"}
+```{r}
+#| echo: false        # <1>
+#| eval: false        # <2>
+#| include: false     # <3>
+#| code-fold: true    # <4>
+```
+````
+
+1. Hide code, show output.
+2. Show code, don't execute.
+3. Execute code, hide everything.
+4. Collapsible code blocks.
+
+:::
+
+:::: {.content-visible when-format="revealjs"}
+
+## Code Cells Options
+
+:::
+
+**Output Control**:
+
+````{.qmd code-line-numbers="|2|3|4|5|"}
+```{r}
+#| warning: false     # <1>
+#| message: false     # <2>
+#| error: true        # <3>
+#| output: false      # <4>
+```
+````
+
+1. Suppress warnings
+2. Suppress messages
+3. Show errors for debugging
+4. Hide all output
+
+# Cache and Freeze
+
+## Two Systems
+
+:::: {layout-ncol="2"}
+
+:::: {.fragment fragment-index="1"}
+
+### Cache: Stores computation results
+
+- Speeds up development.
+- Works during iteration.
+- Engine-specific behaviour.
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+### Freeze: Prevents re-execution
+
+- Enables collaboration.
+- Project-wide control.
+- Version control friendly.
+
+:::
+
+:::
+
+## Cache: Development Speed
+
+:::: {.fragment fragment-index="1"}
+
+Store expensive computation results to avoid re-running during development.
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+```yaml
+execute:
+  cache: true
+```
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+Two Types:
+
+:::
+
+- [**Jupyter Cache:** Document-level (*all-or-nothing*).]{.fragment fragment-index="4"}
+- [**Knitr Cache:** Cell-level (*granular control*).]{.fragment fragment-index="5"}
+
+## Freeze: Collaboration Control
+
+:::: {.fragment fragment-index="1"}
+
+Prevent documents from re-executing during project renders.
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+Results saved in `_freeze` directory (commit to version control).
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+```yaml
+execute:
+ freeze: auto    # Re-render only when source changes
+ freeze: true    # Never re-render during project render
+```
+
+:::
+
+## Key Behavioural Differences {auto-animate=true}
+
+| Action                     | Cache              | Freeze                         |
+|----------------------------|--------------------|--------------------------------|
+| Individual document render | ✅ Used            | ❌ Ignored                      |
+| Project render             | ✅ Used            | ✅ Controls execution           |
+| Prose changes              | No effect          | No effect                      |
+| Code changes               | Invalidates cache  | Triggers re-render (auto mode) |
+
+## When to Use Each
+
+:::: {layout-ncol="2"}
+
+:::: {.fragment fragment-index="1"}
+
+### Use Cache When
+
+- Developing single format documents.
+- Iterating on analysis.
+- Working with expensive computations.
+- Editing prose frequently.
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+### Use Freeze When
+
+- Working in teams.
+- Managing large projects.
+- Environment setup is complex.
+- Results need to be reproducible.
+
+:::
+
+:::
+
+## Essential CLI Commands
+
+:::: {.fragment fragment-index="1"}
+
+### Cache Control
+
+```bash
+quarto render --cache           # Force cache use
+quarto render --no-cache        # Disable cache
+quarto render --cache-refresh   # Force refresh
+```
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+### Freeze Management
+
+```bash
+quarto render document.qmd      # Always executes (ignores freeze)
+quarto render                   # Respects freeze settings
+```
+
+:::
+
+## Golden Rules {.smaller}
+
+:::: {.fragment fragment-index="1"}
+
+1. **Cache for Development.**  
+   Use when iterating on individual documents.
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+2. **Freeze for Collaboration.**  
+   Use when working with teams or managing large projects.
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+3. **Different Scopes.**
+   - Cache: Session-level performance.
+   - Freeze: Project-level workflow management.
+
+:::
+
+:::: {.fragment fragment-index="4"}
+
+4. **Version Control.**  
+   Always commit `_freeze` directory contents.
+
+:::
+
+# Parameters
+
+## What Are Parameters?
+
+:::: {.fragment fragment-index="1"}
+
+Parameters allow you to create **dynamic variations** of the same document:
+
+:::
+
+- [**Geographic reports** → Different locations]{.fragment fragment-index="2"}
+- [**Time-based analysis** → Different periods]{.fragment fragment-index="3"}
+- [**Scenario modelling** → Different assumptions]{.fragment fragment-index="4"}
+- [**Multi-client reports** → Different datasets]{.fragment fragment-index="5"}
+
+:::: {.callout-tip .fragment fragment-index="6"}
+
+Think of parameters as **variables** that make your documents code reusable and flexible.
+
+:::
+
+## Defining Parameters
+
+:::: {.panel-tabset}
+
+### Python {{< iconify fa7-brands:python >}} (`papermill`)
+
+```python
+#| tags: [parameters]
+alpha = 0.1
+ratio = 0.5
+country = "UK"
+year = 2024
+```
+
+- Must use `#| tags: [parameters]` comment.
+- Provide sensible default values.
+- Parameters available in top-level environment.
+- Works with `.qmd` and `.ipynb` files.
+
+### R {{< iconify fa7-brands:r-project >}} (`knitr`)
+
+```yaml
+---
+title: "Sales Report"
+params:
+  region: "North"
+  start_date: "2024-01-01"
+  threshold: 1000
+---
+```
+
+Access in R code:
+
+```r
+print(params[["region"]])
+```
+
+:::
+
+## Passing Parameters: Command Line
+
+:::: {.fragment fragment-index="1"}
+
+Use the `-P` (`--execute-param`) flag to override parameter values:
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+```bash
+# Single parameter
+quarto render report.qmd --execute-param country:France
+
+# Multiple parameters  
+quarto render report.qmd -P year:2023 -P region:Europe
+
+# With output specification
+quarto render report.qmd -P country:Germany --to typst
+```
+
+:::
+
+## Passing Parameters: YAML Files
+
+:::: {.fragment fragment-index="1"}
+
+Create reusable parameter sets with YAML files:
+
+:::
+
+:::: {layout-ncol="2"}
+
+:::: {.fragment fragment-index="2"}
+
+```{.yaml filename="params.yml"}
+country: "Spain"
+year: 2023
+budget: 50000
+```
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+```{.bash filename="Terminal"}
+quarto render report.qmd \
+  --execute-params params.yml
+```
+
+:::
+
+:::
+
+:::: {.callout-tip .fragment fragment-index="4"}
+
+## Benefits
+
+Version control, team sharing, complex configurations.
+
+:::
+
+---
+
+## Practical Example {.smaller}
+
+:::: {layout-ncol="2"}
+
+:::: {}
+
+:::: {.fragment fragment-index="1"}
+
+### Setup (Jupyter/Python)
+
+````qmd
+```{{python}}
+#| tags: [parameters]
+region = "All"
+quarter = "Q1" 
+min_sales = 1000
+```
+````
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+### Using parameters
+
+````qmd
+```{{python}}
+if region != "All":
+   df = df[df['region'] == region]
+
+df_filtered = df[df['sales'] >= min_sales]
+title = f"{region} Sales - {quarter}"
+```
+````
+
+:::
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+### Command line usage
+
+```bash
+quarto render sales.qmd \
+  -execute-param region:North \
+  -execute-param quarter:Q2
+```
+
+:::
+
+:::
+
+:::: {.callout-tip .fragment fragment-index="4"}
+
+## Results
+
+Customised report for North region, Q2 data.
+
+:::
+
+## Best Practices
+
+:::: {layout-ncol="2"}
+
+:::: {}
+
+:::: {.fragment fragment-index="1"}
+
+### ✅ Do
+
+:::
+
+- [Provide meaningful defaults.]{.fragment fragment-index="2"}
+- [Use descriptive names.]{.fragment fragment-index="3"}
+- [Document parameter types.]{.fragment fragment-index="4"}
+- [Validate values in code.]{.fragment fragment-index="5"}
+- [Use YAML for complex configs.]{.fragment fragment-index="6"}
+
+:::
+
+:::: {}
+
+:::: {.fragment fragment-index="7"}
+
+### ❌ Avoid
+
+:::
+
+- [Generic names (`x`, `val`).]{.fragment fragment-index="8"}
+- [Parameters without defaults.]{.fragment fragment-index="9"}
+- [Hardcoded values.]{.fragment fragment-index="10"}
+- [Overly complex structures.]{.fragment fragment-index="11"}
+
+:::
+
+:::
+
+## Workflow Integration
+
+:::: {.fragment fragment-index="1"}
+
+### Automated reporting
+
+```bash
+# Daily reports
+quarto render report.qmd -P date:"$(date +%Y-%m-%d)"
+
+# Multiple outputs
+for region in North South East West; do
+ quarto render regional.qmd -P region:$region
+done
+```
+
+:::
+
+:::: {.callout-tip .fragment fragment-index="2"}
+
+## Perfect for
+
+CI/CD pipelines, batch processing, scheduled reports.
+
+:::
+
+# Hands-On Exercise: Adding Computational Power to Your Portfolio
+
+## Exercise Overview
+
+**Objective**: Transform your Session 2 portfolio document into a computational showcase by adding live code execution, demonstrating the power of embedding computations in Quarto documents using modern Python tools.
+
+**Example Code**: [{{< iconify octicon:file-code-16 >}} Exercises](assets/exercises/03-exercises.tar.gz)
+
+```bash
+tar -xzf "03-exercises.tar.gz" -C "03-embedding-computations-code"
+```
+
+## Part 1: Environment Setup
+
+Choose your language and update your YAML header:
+
+:::: {.panel-tabset .fragment}
+
+### Python {{< iconify fa7-brands:python >}}
+
+```yaml
+---
+title: "My Computational Portfolio"
+author: "Your Name"
+engine: jupyter
+jupyter: python3
+execute:
+  echo: true
+  warning: false
+---
+```
+
+Install packages:
+
+```bash
+uv add polars plotnine # pip install polars plotnine
+```
+
+### R {{< iconify fa7-brands:r-project >}}
+
+```yaml
+---
+title: "My Computational Portfolio"
+author: "Your Name"
+engine: knitr
+execute:
+  echo: true
+  warning: false
+---
+```
+
+Install packages:
+
+```r
+install.packages(c("dplyr", "ggplot2"))
+```
+
+### Julia {{< iconify simple-icons:julia >}}
+
+```yaml
+---
+title: "My Computational Portfolio"
+author: "Your Name"
+engine: julia
+execute:
+  echo: true
+  warning: false
+---
+```
+
+Install packages:
+
+```julia
+using Pkg
+Pkg.add(["DataFrames", "Plots", "StatsPlots"])
+```
+
+:::
+
+## Part 2: Replace Static with Dynamic {.smaller}
+
+**Replace your skills table from Session 2**:
+
+:::: {.panel-tabset .fragment}
+
+### Python {{< iconify fa7-brands:python >}}
+
+- Create a Polars `DataFrame` with your skills data.
+- Include columns: skill name, confidence level, hours practiced.
+- Use `print()` to display the data nicely.
+- Calculate total practice hours with `pl.sum()`.
+- Show the result using inline code `` `{python} your_calculation` ``.
+
+### R {{< iconify fa7-brands:r-project >}}
+
+- Create a `data.frame` with your skills data.
+- Include columns: skill name, confidence level, hours practiced.
+- Use `knitr::kable()` to display the table nicely.
+- Calculate total practice hours with `sum()`.
+- Show the result using inline code `` `{r} your_calculation` ``.
+
+### Julia {{< iconify simple-icons:julia >}}
+
+- Create a `DataFrame` with your skills data.
+- Include columns: skill name, confidence level, hours practiced.
+- Display the `DataFrame` directly.
+- Calculate total practice hours with `sum()`.
+- Show the result using inline code `` `{julia} your_calculation` ``.
+
+:::
+
+## Part 3: Create Your First Visualization {.smaller}
+
+**Make a chart of your skills**:
+
+:::: {.panel-tabset .fragment}
+
+### Python {{< iconify fa7-brands:python >}}
+
+- Use plotnine to create a bar chart.
+- Try `geom_col()` or `geom_bar()`.
+- Add proper labels with `labs()`.
+- Use `theme_minimal()` for clean styling.
+- Add a figure caption with `#| fig-cap:`.
+
+### R {{< iconify fa7-brands:r-project >}}
+
+- Use ggplot2 to create a bar chart.
+- Try `geom_col()` or `geom_bar()`.
+- Add proper labels with `labs()`.
+- Use `theme_minimal()` for clean styling.
+- Add a figure caption with `#| fig-cap:`.
+
+### Julia {{< iconify simple-icons:julia >}}
+
+- Use Plots.jl to create a bar chart.
+- Try `bar()` function.
+- Add proper labels with `xlabel!()` and `ylabel!()`.
+- Add a title with `title!()`.
+- Add a figure caption with `#| fig-cap:`.
+
+:::
+
+## Part 4: Experiment with Code Visibility {.smaller}
+
+**Try different code cell options**:
+
+:::: {.panel-tabset .fragment}
+
+### Python {{< iconify fa7-brands:python >}}
+
+- Create a cell with `#| eval: false` (shows code, doesn't run).
+- Make a collapsible section with `#| code-fold: true`.
+- Hide code with `#| echo: false` but show output.
+- Use `#| include: false` for data setup.
+
+### R {{< iconify fa7-brands:r-project >}}
+
+- Create a cell with `#| eval: false` (shows code, doesn't run).
+- Make a collapsible section with `#| code-fold: true`.
+- Hide code with `#| echo: false` but show output.
+- Use `#| include: false` for library loading.
+
+### Julia {{< iconify simple-icons:julia >}}
+
+- Create a cell with `#| eval: false` (shows code, doesn't run).
+- Make a collapsible section with `#| code-fold: true`.
+- Hide code with `#| echo: false` but show output.
+- Use `#| include: false` for package imports.
+
+:::
+
+## Success Criteria
+
+✅ **You've successfully completed the exercise if you can**:
+
+- Transform static content into dynamic, computed content using Python {{< iconify fa7-brands:python >}}, R {{< iconify fa7-brands:r-project >}}, or Julia {{< iconify simple-icons:julia >}}.
+- Create and display data visualisations.
+- Use inline code to insert computed values into prose.
+- Experiment with different code cell visibility options.
+
+:::: {.content-visible when-format="revealjs"}
+{{< include /_extensions/mcanouil/coeos/_about.qmd >}}
+:::

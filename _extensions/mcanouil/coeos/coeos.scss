@@ -1,0 +1,179 @@
+/*-- scss:defaults --*/
+
+@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:300,300i,400,400i,500,500i,700,700i);
+// @import url(https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css);
+// @import url(https://use.fontawesome.com/releases/v6.1.1/css/all.css);
+
+// fonts
+$font-family-sans-serif: 'Alegreya Sans', 'Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', sans-serif !default;
+
+// colors
+$body-bg: #333333 !default;
+$body-color: #FAFAFA !default;
+$link-color: $body-color !default;
+
+$code-bg: $body-color !default;
+$code-color: $body-bg !default;
+
+$code-block-bg: lighten($body-bg, 5%) !default;
+$code-block-border-color: $body-color !default;
+
+$btn-code-copy-color: $body-color !default;
+
+/*-- scss:rules --*/
+
+.picture {
+  border-style: solid;
+  border-width: 3pt;
+  border-color: $body-color;
+  border-radius: 50%;
+  padding: 5pt;
+  height: 50%;
+  width: auto;
+}
+
+#title-slide {
+  text-align: left;
+
+  .subtitle,
+  .institute,
+  .quarto-title-affiliation,
+  .quarto-title-author-email {
+    font-style: italic;
+    // font-size: 80%;
+    color: #7F7F7F;
+  }
+
+  .author,
+  .quarto-title-author-name {
+    color: $body-color;
+  }
+
+  .quarto-title-authors {
+    display: flex;
+    justify-content: left;
+
+    .quarto-title-author {
+      padding-left: 0em;
+      padding-right: 0em;
+      width: 100%;
+    }
+  }
+
+  p.author::before,
+  div.quarto-title-author::before {
+    content: "";
+    display: block;
+    border: none;
+    background-color: $body-color;
+    color: $body-color;
+    height: 3px;
+    margin-bottom: 1em;
+  }
+
+  // p, a {
+  //   color: #7F7F7F;
+  // }
+}
+
+.reveal .slide-number>a[href*='title-slide'] {
+  display: none;
+}
+
+.footer {
+  bottom: 10px !important;
+  color: $body-color !important;
+}
+
+.slide-logo {
+  display: block;
+  position: fixed !important;
+  top: 0 !important;
+  right: 10px !important;
+  max-height: 15% !important;
+  height: 100% !important;
+  width: auto !important;
+  color: $body-color !important;
+  z-index: unset !important;
+}
+
+.slide-menu-button {
+  left: 10px !important;
+  bottom: 10px !important;
+}
+
+.slide-number,
+.reveal.has-logo .slide-number {
+  bottom: 10px !important;
+  right: 10px !important;
+  top: unset !important;
+  color: $body-color !important;
+
+  a {
+    text-decoration: none !important;
+  }
+}
+
+.cell-output {
+  border: 1px solid $body-color;
+  border-radius: 4px;
+}
+
+.center-x {
+  text-align: center;
+}
+
+.center-xy {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translateY(-50%), translateX(-50%);
+  transform: translateY(-50%), translateX(-50%);
+}
+
+.reveal a {
+  text-decoration: underline;
+}
+
+code.sourceCode .code-annotation-anchor {
+  color: darken($body-color, 25%) !important;
+  border-color: darken($body-color, 25%) !important;
+  background-color: $body-bg !important;
+}
+
+code.sourceCode .code-annotation-anchor .code-annotation-active {
+  color: $body-bg !important;
+  border-color: $body-bg !important;
+  background-color: darken($body-color, 25%) !important;
+}
+
+p code.sourceCode, li code.sourceCode, td code.sourceCode {
+  background-color: inherit;
+}
+
+.panel-tabset ul li a:focus,
+.panel-tabset ul li a:active {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Hide original markers if .fragment only */
+.reveal ul li:has(.fragment)::marker,
+.reveal ol li:has(.fragment)::marker {
+  color: transparent;
+  transition: color 0.3s ease;
+}
+
+/* Show markers when list item or its fragments are visible */
+.reveal li.visible::marker,
+.reveal li.fragment.visible::marker,
+.reveal li:has(.fragment.visible)::marker {
+  color: inherit;
+}
+
+iconify-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}

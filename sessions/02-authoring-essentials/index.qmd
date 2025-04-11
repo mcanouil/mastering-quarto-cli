@@ -1,0 +1,1222 @@
+---
+title: "Authoring Essentials"
+subtitle: "Session 2"
+crossref:
+  custom:
+    - key: txt
+      reference-prefix: Text
+      kind: float
+    - key: cr
+      reference-prefix: Cross-reference example
+      kind: float
+code-links:
+  - text: Exercises (tar.gz)
+    icon: file-code
+    href: assets/exercises/02-exercises.tar.gz
+---
+
+# Session Overview
+
+{{< include /program/_session2.md >}}
+
+## Session Objectives
+
+This session focuses on building foundational skills in Quarto authoring, covering enhanced markdown capabilities, YAML configuration, and document structuring best practices.
+
+## Learning Objectives
+
+:::: {.fragment fragment-index="1"}
+
+By the end of this session, participants will be able to:
+
+:::
+
+- [Create well-structured documents using enhanced Quarto markdown features.]{.fragment fragment-index="2"}
+- [Configure documents using YAML headers for different output formats.]{.fragment fragment-index="3"}
+- [Use advanced formatting features including callouts, cross-references, and tabsets.]{.fragment fragment-index="4"}
+
+# Markdown Basics
+
+## Text Formatting Essentials
+
+:::: {.fragment fragment-index="1"}
+
+Basic text formatting you'll use every day:
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+- **Bold text** with `**bold**` or `__bold__`.
+- *Italic text* with `*italic*` or `_italic_`.
+- ***Bold and italic*** with `***text***`.
+- Superscript^2^ with `superscript^2^`.
+- Subscript~2~ with `subscript~2~`.
+- `Verbatim code` with backticks.
+
+:::
+
+## Headers Structure Your Content
+
+:::: {.fragment fragment-index="1"}
+
+Headers create your document structure and enable automatic table of contents generation.
+
+```markdown
+# Heading 1 - Document Title
+## Heading 2 - Major Sections  
+### Heading 3 - Subsections
+#### Heading 4 - Minor Sections
+##### Heading 5 - Rare Usage
+###### Heading 6 - Very Rare
+```
+
+:::
+
+:::: {.callout-tip .fragment fragment-index="2"}
+Add a empty lines before and after!
+:::
+
+## Lists
+
+:::: {.callout-important .fragment fragment-index="3"}
+Quarto requires empty lines before and after lists to ensure proper rendering!
+:::
+
+:::: {layout-ncol="2"}
+
+:::: {.fragment fragment-index="1"}
+
+**Unordered Lists:**
+
+```markdown
+- First item
+- Second item  
+- Third item
+```
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+**Ordered Lists:**
+
+```markdown
+1. First step
+2. Second step
+3. Third step
+```
+
+:::
+
+:::
+
+## Lists - Nested {.smaller}
+
+:::: {.callout-important .fragment fragment-index="2"}
+The number of spaces for indentation does not matter, but the list marker must be aligned with the first character of the parent item.
+:::
+
+:::: {layout-ncol="2"}
+
+:::: {.fragment fragment-index="1"}
+
+````markdown
+- First item
+
+```r
+print("Hello, World!")
+```
+
+-    Second item (**bad**)
+
+  :::: {.callout-tip}
+  Here is a tip!
+  :::
+
+        - Sub item
+
+-    Third item
+
+      :::: {.callout-tip}
+      Here is a tip!
+      :::
+
+  - Sub item
+````
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+````markdown
+- First item
+
+  ```r
+  print("Hello, World!")
+  ```
+
+-  Second item (**bad**)
+
+   :::: {.callout-tip}
+   Here is a tip!
+   :::
+
+   - Sub item
+
+-    Third item
+
+     :::: {.callout-tip}
+     Here is a tip!
+     :::
+
+     - Sub item
+````
+
+:::
+
+:::
+
+## Working with Code {.smaller}
+
+:::: {.fragment fragment-index="1"}
+
+**Inline code:** Use single backticks
+
+```markdown
+The `print()` function outputs text.
+```
+
+:::
+
+:::: {.callout-tip .fragment fragment-index="2"}
+Code highlighting for inline code:
+
+```markdown
+The `print()`{.python} function outputs text.
+```
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+**Code blocks:** Use triple backticks with optional language
+
+````markdown
+```python
+def hello_world():
+    print("Hello, Quarto!")
+```
+````
+
+:::
+
+:::: {.callout-note .fragment fragment-index="4"}
+
+The syntax highlighting is provided by [`skylighting` {{< iconify octicon:mark-github-16 title="GitHub" label="GitHub" >}}](https://github.com/jgm/skylighting).
+
+:::
+
+## Tables Made Simple {.smaller}
+
+:::: {layout-ncol="2"}
+
+:::: {.fragment fragment-index="1"}
+
+```markdown
+| Default | Left | Right | Center |
+|---------|:-----|------:|:------:|
+| 12      | 12   |    12 |   12   |
+| 123     | 123  |   123 |  123   |
+| 1       | 1    |     1 |   1    |
+
+: Demonstration of pipe table syntax
+```
+
+:::
+
+:::: {style="font-size: 50%;" .fragment fragment-index="2"}
+
+| Default | Left | Right | Center |
+|---------|:-----|------:|:------:|
+| 12      | 12   |    12 |   12   |
+| 123     | 123  |   123 |  123   |
+| 1       | 1    |     1 |   1    |
+
+: Demonstration of pipe table syntax
+
+:::
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+Use colons (`:`) to control alignment:
+
+- `:---` for left alignment.
+- `---:` for right alignment.
+- `:---:` for centre alignment.
+
+:::
+
+:::: {.fragment fragment-index="4"}
+
+See [Table basics](https://quarto.org/docs/authoring/tables.html) for more.
+
+:::
+
+## Mathematical Expressions
+
+:::: {.fragment fragment-index="1"}
+
+**Inline maths:** `$E = mc^2$` renders as $E = mc^2$.
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+**Display maths:** Use double dollar signs (on separate lines).
+
+```markdown
+$$
+E = mc^2
+$$
+```
+
+:::
+
+:::: {.fragment fragment-index="4"}
+
+Define custom LaTeX macros in hidden blocks for reuse across your document, see [Markdown Basics - Equations](https://quarto.org/docs/authoring/markdown-basics.html#equations)
+
+:::
+
+## Footnotes and References
+
+:::: {.fragment fragment-index="1"}
+
+**Standard footnotes:**
+
+```markdown
+Here is a footnote reference[^1].
+
+[^1]: Here is the footnote content.
+```
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+**Inline footnotes:**
+
+```markdown
+Here is an inline note^[Much easier to write!].
+```
+
+:::
+
+:::: {.callout-important .fragment fragment-index="3"}
+
+Footnote identifiers must be unique within the document.
+
+:::
+
+## Figure Basics {.smaller}
+
+:::: {.fragment fragment-index="1"}
+
+- Basic
+
+  ```markdown
+  ![Elephant](elephant.png)
+  ```
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+- Size and alignment
+
+  ```markdown
+  ![Elephant](elephant.png){width=300}
+  ![Elephant](elephant.png){width=80%}
+  ![Elephant](elephant.png){width=4in}
+  
+  ![Elephant](elephant.png){fig-align="left"}
+  ```
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+- Alternative text and titles
+
+  ```markdown
+  ![](elephant.png){fig-alt="A drawing of an elephant."}
+  ![Elephant](elephant.png "Title: An elephant"){fig-alt="A drawing of an elephant."}
+  ```
+
+:::
+
+:::: {.fragment fragment-index="4"}
+
+See [Figure basics](https://quarto.org/docs/authoring/figures.html) for more.
+
+:::
+
+## Advanced Formatting: Divs and Spans
+
+:::: {.fragment fragment-index="1"}
+
+**Divs** for block-level content:
+
+```markdown
+:::: {#ID .class attribute=value}
+This is a "fenced div".
+:::
+```
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+**Spans** for inline formatting:
+
+```markdown
+[This is a "span"]{#ID .class attribute=value}
+```
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+See [Divs and Spans](https://quarto.org/docs/authoring/markdown-basics.html#sec-divs-and-spans) for more.
+
+:::
+
+# Quarto Markdown
+
+## Enhanced Markdown Capabilities
+
+Quarto extends standard markdown with powerful features designed specifically for computational documents.
+
+## Built-in Shortcodes {.smaller}
+
+:::: {.fragment fragment-index="1"}
+
+Quarto supports several shortcodes natively:
+
+:::
+
+:::: {layout-ncol="2"}
+
+:::: {.fragment fragment-index="1"}
+
+| Shortcode                                                                       | Description                              |
+|---------------------------------------------------------------------------------|------------------------------------------|
+| [version](https://quarto.org/docs/authoring/version.qmd)                        | Print Quarto CLI version.                |
+| [var](https://quarto.org/docs/authoring/variables.qmd#var)                      | Print value from `_variables.yml` file.  |
+| [meta](https://quarto.org/docs/authoring/variables.qmd#meta)                    | Print value from document metadata.      |
+| [env](https://quarto.org/docs/authoring/variables.qmd#url)                      | Print system environment variable.       |
+| [pagebreak](https://quarto.org/docs/authoring/markdown-basics.qmd#page-breaks)  | Insert a native page-break.              |
+| [kbd](https://quarto.org/docs/authoring/markdown-basics.qmd#keyboard-shortcuts) | Describe keyboard shortcuts.             |
+| [video](https://quarto.org/docs/authoring/videos.qmd)                           | Embed a video in a document.             |
+| [include](https://quarto.org/docs/authoring/includes.qmd)                       | Include contents of another qmd.         |
+| [embed](https://quarto.org/docs/authoring/notebook-embed.qmd)                   | Embed cells from a Jupyter Notebook.     |
+| [placeholder](https://quarto.org/docs/authoring/placeholder.qmd)                | Add placeholder images to your document. |
+| [lipsum](https://quarto.org/docs/authoring/lipsum.qmd)                          | Add placeholder text to your document.   |
+| [contents](https://quarto.org/docs/authoring/contents.qmd)                      | Rearrange content in your document.      |
+
+: Shortcodes {#tbl-shortcodes style="font-size: 75%;"}
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+### What is a Shortcode?
+
+Shortcodes are special **markdown directives** that **generate various types of content**.
+
+They provide a simple, standardised way to **insert dynamic or complex content** into your Quarto documents without requiring complex markdown syntax or HTML knowledge.
+
+:::
+
+:::
+
+## The `include` Shortcode {.smaller}
+
+:::: {.fragment fragment-index="1"}
+
+Reuse content across multiple documents effortlessly:
+
+```markdown
+{{{< include _content.qmd >}}}
+```
+
+:::
+
+:::: {layout-ncol="2"}
+
+:::: {.fragment fragment-index="2"}
+
+### Key Benefits
+
+- **DRY Principle**: Write once, use everywhere.
+- **Consistency**: Shared content stays synchronised.
+- **Maintenance**: Update in one place, changes propagate automatically.
+- **Modularity**: Break complex documents into manageable pieces.
+
+:::
+
+:::: {}
+
+:::: {.fragment fragment-index="3"}
+
+### Common Use Cases
+
+- Reusable code.
+- Common configuration snippets.
+
+:::
+
+:::: {.callout-tip .fragment fragment-index="4"}
+
+Prefix your file or directory with an underscore (`_`) to hide from Quarto's rendering process.
+
+:::
+
+:::
+
+:::
+
+:::: {.callout-important .fragment fragment-index="5"}
+
+The `include` shortcode is a plain copy-paste of the file content.
+As such, any YAML header in the included file will replace the current document's YAML header.
+
+:::
+
+## Mermaid Diagrams {.smaller}
+
+:::: {layout-ncol="2" layout-valign="center"}
+
+:::: {.fragment fragment-index="1"}
+
+```{{mermaid}}
+%%| label: quarto-mermaid-example-1
+flowchart LR
+  qmd --> J([Jupyter])
+  qmd --> K([knitr])
+  J --> md
+  K --> md
+  md --> P([pandoc])
+  P --> typst
+  P --> html
+  P --> docx
+```
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+```{mermaid}
+%%| label: quarto-mermaid-example-2
+flowchart LR
+  qmd --> J([Jupyter])
+  qmd --> K([knitr])
+  J --> md
+  K --> md
+  md --> P([pandoc])
+  P --> pdf
+  P --> html
+  P --> docx
+```
+
+:::
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+See [Diagrams](https://quarto.org/docs/authoring/diagrams.html) for more.
+
+:::
+
+## Callout Blocks
+
+:::: {.fragment fragment-index="1"}
+
+Five types of callouts for better communication: `note`, `tip`, `warning`, `caution`, `important`.
+
+:::
+
+:::: {layout-ncol="2"}
+
+:::: {.fragment fragment-index="2"}
+
+```markdown
+:::: {.callout-note}
+## Note
+
+Important information for readers.
+:::
+
+:::: {.callout-warning}
+## Warning
+
+Something to be careful about.
+:::
+```
+
+:::
+
+:::: {style="font-size: 80%;" .fragment fragment-index="3"}
+
+:::: {.callout-note}
+## Note
+
+Important information for readers.
+:::
+
+:::: {.callout-warning}
+## Warning
+
+Something to be careful about.
+:::
+
+:::
+
+:::
+
+:::: {.fragment fragment-index="4"}
+
+See [Callout Blocks](https://quarto.org/docs/authoring/callouts.html) for more.
+
+:::
+
+## Code Annotations {.smaller}
+
+:::: {.fragment fragment-index="1"}
+
+- Source
+
+````markdown
+```r
+library(tidyverse)
+library(palmerpenguins)
+penguins |>                                            # <1>
+  mutate(                                              # <2>
+    bill_ratio = bill_depth_mm / bill_length_mm,       # <2>
+    bill_area  = bill_depth_mm * bill_length_mm        # <2>
+  )                                                    # <2>
+```
+
+1. Take `penguins`, and then,
+2. add new columns for the bill ratio and bill area.
+````
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+- Output
+
+```{.r code-line-numbers="1-7|3|4-6"}
+library(tidyverse)
+library(palmerpenguins)
+penguins |>                                            # <1>
+  mutate(                                              # <2>
+    bill_ratio = bill_depth_mm / bill_length_mm,       # <2>
+    bill_area  = bill_depth_mm * bill_length_mm        # <2>
+  )                                                    # <2>
+```
+
+1. Take `penguins`, and then,
+2. add new columns for the bill ratio and bill area.
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+See [Code Annotation](https://quarto.org/docs/authoring/code-annotation.html) for more.
+
+:::
+
+## Cross-references: "figures" {.smaller}
+
+:::: {layout-ncol="2" layout-valign="center"}
+
+:::: {.fragment fragment-index="1"}
+
+```markdown
+:::: {#fig-example}
+This is a figure
+
+This is a caption for the figure.
+:::
+
+@fig-example is the reference to a figure.
+Or is it?
+```
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+:::: {#fig-example}
+This is a figure
+
+This is a caption for the figure.
+:::
+
+@fig-example is the reference to a figure.
+Or is it?
+
+:::
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+A label/ID starting with `fig-` will be treated as a figure reference.
+
+:::
+
+:::: {.fragment fragment-index="4"}
+
+See [Basic Cross-Reference - Figures](https://quarto.org/docs/authoring/cross-references.html#figures) for more.
+
+:::
+
+## Cross-references: "tables" {.smaller}
+
+:::: {layout-ncol="2" layout-valign="center"}
+
+:::: {.fragment fragment-index="1"}
+
+```markdown
+:::: {#tbl-example}
+This is a table
+
+This is a caption for the table.
+:::
+
+@tbl-example is the reference to a table.
+Or is it?
+```
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+:::: {#tbl-example}
+This is a table
+
+This is a caption for the table.
+:::
+
+@tbl-example is the reference to a table.
+Or is it?
+
+:::
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+A label/ID starting with `tbl-` will be treated as a table reference.
+
+:::
+
+:::: {.fragment fragment-index="4"}
+
+See [Basic Cross-Reference - Tables](https://quarto.org/docs/authoring/cross-references.html#tables) for more.
+
+:::
+
+## Cross-references: "anything" {.smaller}
+
+:::: {.fragment fragment-index="1"}
+
+Define a new custom cross-reference type:
+
+```{.yaml code-line-numbers="1-6|3|4|5|6" style="margin-bottom: 20px;"}
+crossref:
+  custom:
+    - kind: float # <1>
+      prefix: Text # <2>
+      name: Text # <3>
+      ref-type: txt # <4>
+```
+
+1. cross-referenceable elements with captions are `float`.
+2. used as the prefix for reference in output (*e.g.*, "In Figure 1, ...").
+3. used as the prefix for captions (*e.g.*, "Figure 1: ...").
+4. used as the prefix for the reference identifier (*e.g.*, "In \@fig-1, ...").
+
+:::
+
+:::: {layout-ncol="2" layout-valign="center"}
+:::: {.fragment fragment-index="2"}
+
+```markdown
+:::: {#txt-example}
+This is text
+
+This is a caption for the text.
+:::
+
+@txt-example is the reference to a text.
+```
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+:::: {#txt-example}
+This is text
+
+This is a caption for the text.
+:::
+
+@txt-example is the reference to a text.
+
+:::
+
+:::
+
+:::: {.fragment fragment-index="4"}
+
+See [Custom Float Cross-Reference Types](https://quarto.org/docs/authoring/cross-references-custom.html) for more.
+
+:::
+
+## Citations {.smaller}
+
+:::: {layout-ncol="2"}
+
+:::: {}
+
+:::: {.fragment fragment-index="1"}
+
+### Setup Required
+
+- Bibliography file (`.bib`, `.bibtex`, etc.).
+- Optional: CSL file for custom styling.
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+### YAML Configuration
+
+```yaml
+bibliography: references.bib
+csl: nature.csl  # Optional custom style
+```
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+### Bibliography Generation
+
+- Automatic placement at document end.
+- Use `## References {#refs}` for custom placement.
+- `nocite: "@*"` includes all references.
+
+:::
+
+:::
+
+:::: {}
+
+:::: {.fragment fragment-index="4"}
+
+### Citation Syntax
+
+- `[@author2023]` → (Author 2023)
+- `[@author2023, p. 15]` → (Author 2023, 15)
+- `[@smith2020; @jones2021]` → (Smith 2020; Jones 2021)
+- `@author2023 says...` → Author (2023) says...
+- `[-@author2023]` → (2023) - suppress author
+
+:::
+
+:::
+
+:::
+
+# YAML Configuration
+
+## Overview {.smaller}
+
+:::: {.fragment fragment-index="1"}
+
+The YAML header serves as the configuration hub for your documents, controlling output formats, execution behaviour, and visual presentation.
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+**Metadata Inheritance:**
+
+- **Project level**: `_quarto.yml` (*lowest priority*).
+- **Directory level**: `_metadata.yml` (*medium priority*).
+- **Document level**: YAML header (*highest priority*).
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+**Multiple Metadata Files:**
+
+```yaml
+metadata-files:
+  - _website.yml
+  - _common.yml
+```
+
+:::
+
+## Document Header
+
+```{.yaml code-line-numbers="|2-4|7-9|10-13|"}
+---
+title: "My Analysis Report" # <1>
+author: "Your Name" # <1>
+date: today # <1>
+format: 
+  html:
+    toc: true # <2>
+    code-fold: true # <2>
+    theme: cosmo # <2>
+execute: # <3>
+  echo: true # <3>
+  warning: false # <3>
+  message: false # <3>
+---
+```
+
+1. Common metadata fields. Option shared by all formats.
+2. Option specifically set for HTML output.
+3. Global options controlling code execution behaviour.
+
+## Multi-Format Output
+
+Configure multiple output formats simultaneously and share options:
+
+```{.yaml code-line-numbers="|3|10-11|"}
+---
+title: "Multi-Format Document"
+toc: true # <1>
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    respect-user-colour-scheme: true
+  pdf:
+    documentclass: article  # <2>
+    geometry: margin=1in  # <2>
+  docx:
+    reference-doc: template.docx
+---
+```
+
+1. Option shared by all formats.
+2. Option specifically set for PDF (LaTeX) output.
+
+## Extensions
+
+:::: {.callout-tip .fragment fragment-index="1"}
+## Installing the `highlight-text` extension
+
+```{.bash filename="Bash"}
+quarto add mcanouil/quarto-highlight-text@1.3.3
+```
+
+:::
+
+:::: {layout-ncol="2" layout-valign="center"}
+
+:::: {.fragment fragment-index="2"}
+
+```markdown
+[White text, Blue background]{
+  colour="#FFFFFF" bg-colour="#0000FF"
+}
+```
+
+:::
+
+:::: {.fragment fragment-index="3"}
+
+[White text, Blue background]{colour="#FFFFFF" bg-colour="#0000FF"}
+
+:::
+
+:::
+
+:::: {.fragment fragment-index="4"}
+
+Discover more extensions at:
+
+- <https://quarto.org/docs/extensions/>.
+- <http://m.canouil.dev/quarto-extensions/>.
+
+:::
+
+:::: {.attribution}
+<https://github.com/mcanouil/quarto-highlight-text>
+:::
+
+# Hands-On Exercise: Building Your Quarto Portfolio Document
+
+## Exercise Overview
+
+**Objective**: Enhance your Session 1 project with advanced Quarto markdown features, demonstrating authoring essentials and creating a comprehensive personal portfolio document.
+
+**Example Code**: [{{< iconify octicon:file-code-16 >}} Exercises](assets/exercises/02-exercises.tar.gz)
+
+```bash
+tar -xzf "02-exercises.tar.gz" -C "02-authoring-essentials"
+```
+
+## Part 1: Document Enhancement {.smaller}
+
+**Building on your Session 1 project**, enhance your document with these new authoring features:
+
+:::: {.r-stack style="justify-content: start;"}
+
+:::: {.fragment fragment-index="1"}
+
+:::: {.fragment fragment-index="2" .fade-out}
+
+1. **Create a new document** with multi-format support:
+
+   `<details><summary>Code</summary>`{=html}
+
+   ```yaml
+   ---
+   title: "My Quarto Learning Portfolio"
+   author: "Your Name"
+   date: today
+   format:
+     html: default
+     typst: default
+   ---
+   ```
+
+   `</details>`{=html}
+
+:::
+
+:::
+
+:::: {.fragment fragment-index="2" .fade-in}
+
+2. **Add a numbered table of contents** structured by using:
+
+   `<details><summary>Code</summary>`{=html}
+
+   ```markdown
+   ### Learning Progress
+   [New section - see Part 2]
+   
+   ### Skills Showcase
+   [New section - see Part 3]
+   
+   ### Reflection & Next Steps
+   [Your existing learning goals and next steps]
+   ```
+
+   `</details>`{=html}
+
+:::
+
+:::
+
+## Part 2: Advanced Formatting Features {.smaller}
+
+**Add these enhanced markdown elements** to your "Learning Progress" section:
+
+:::: {.r-stack style="justify-content: start;"}
+
+:::: {.fragment fragment-index="1"}
+
+:::: {.fragment fragment-index="2" .fade-out}
+
+1. **Create a skills tracking table**:
+
+   `<details><summary>Code</summary>`{=html}
+
+   ```markdown
+   ## Learning Progress
+  
+   | Feature | Confidence Level | Notes |
+   |---------|:---------------:|-------|
+   | Basic Markdown | ⭐⭐⭐ | Comfortable with headers, lists |
+   | YAML Configuration | ⭐⭐ | Learning multi-format setup |
+   | Cross-references | ⭐ | Just discovered this! |
+  
+   : My Quarto Skills Progress {#tbl-skills}
+  
+   As shown in @tbl-skills, I'm making steady progress!
+   ```
+
+   `</details>`{=html}
+
+:::
+
+:::
+
+:::: {.fragment fragment-index="2" .fade-in}
+
+2. **Add callout blocks** for key insights:
+
+   `<details><summary>Code</summary>`{=html}
+
+   ```markdown
+   :::: {.callout-tip}
+   ## Today's Biggest Discovery
+  
+   I learned that Quarto can render to multiple formats  simultaneously - 
+   this will revolutionise my workflow!
+   :::
+  
+   :::: {.callout-note collapse="true"}
+   ## Session Notes
+  
+   - Enhanced markdown features are powerful
+   - Cross-references work across formats
+   - YAML controls everything!
+   :::
+   ```
+
+   `</details>`{=html}
+
+:::
+
+:::
+
+## Part 3: Skills Showcase Section {.smaller}
+
+**Create a "Skills Showcase" section** demonstrating your new capabilities:
+
+:::: {layout-ncol="2"}
+
+:::: {.fragment fragment-index="1"}
+
+- **Mathematical expressions**:
+
+  `<details><summary>Code</summary>`{=html}
+
+  ```markdown
+  ## Skills Showcase
+  
+  ### Mathematical Typesetting
+  
+  I can now write inline maths like $E = mc^2$ and display equations:
+  
+  $$
+  \text{Learning Rate} = \frac{\text{New Concepts}}{\text{Practice Time}}
+  $$
+  ```
+
+  `</details>`{=html}
+
+- **Code blocks with annotations**:
+
+  `<details><summary>Code</summary>`{=html}
+
+  ````markdown
+  ### Code Documentation
+  
+  ```r
+  # My first annotated code block
+  library(ggplot2)                    # <1>
+  data(mtcars)                        # <2>
+  ggplot(mtcars, aes(x = mpg)) +      # <3>
+    geom_histogram()                  # <3>
+  ```
+
+  1. Load the plotting library
+  2. Use built-in dataset
+  3. Create a simple histogram
+
+  ````
+
+  `</details>`{=html}
+
+:::
+
+:::: {.fragment fragment-index="2"}
+
+- **Cross-referenced figure**:
+
+  `<details><summary>Code</summary>`{=html}
+
+  ````markdown
+  ### Workflow Diagram
+  
+  :::: {#fig-workflow}
+  
+  ```
+  Learn → Practice → Apply → Teach
+  ```
+  
+  My Quarto learning workflow
+  :::
+  
+  @fig-workflow shows my approach to mastering new tools.
+  ````
+
+  `</details>`{=html}
+
+- **Footnotes for additional context**:
+
+  `<details><summary>Code</summary>`{=html}
+
+  ```markdown
+  This exercise builds on Session 1^[Where we learned project setup and IDE integration] 
+  and adds the authoring essentials from Session 2.
+  ```
+
+  `</details>`{=html}
+
+:::
+
+:::
+
+## Part 4: Multi-Format Testing
+
+**Test your enhanced document**:
+
+- **Render to HTML**
+
+  ```bash
+  quarto render your-document.qmd --to html
+  ```
+
+- **Try PDF output**
+
+  ```bash
+  quarto render your-document.qmd --to typst
+  ```
+
+- **Compare the outputs**
+
+## Success Criteria {.smaller}
+
+✅ **You've successfully completed the exercise if you can**:
+
+- Customise your existing project with YAML configuration.
+- Implement cross-references with tables and figures.
+- Use callout blocks effectively for highlighting information.
+- Create annotated code blocks.
+- Integrate mathematical expressions appropriately.
+- Successfully render to multiple formats.
+
+:::: {.content-visible when-format="revealjs"}
+{{< include /_extensions/mcanouil/coeos/_about.qmd >}}
+:::

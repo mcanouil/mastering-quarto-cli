@@ -1,0 +1,48 @@
+---
+title: "Mastering Quarto CLI: From Authoring to Publishing"
+subtitle: "Program"
+title-prefix: ""
+format:
+  html: default
+  typst:
+    output-file: mastering-quarto-cli-program
+format-links:
+  - html
+  - format: typst
+    text: PDF
+    target: _blank
+---
+
+{{< include _overview.md >}}
+
+:::: {.panel-tabset}
+
+{{< pagebreak >}}
+
+### Day 1
+
+{{< include _session1.md >}}
+
+{{< include _session2.md >}}
+
+*Break (16:30 – 16:45 CEST)*
+
+{{< pagebreak >}}
+
+{{< include _session3.md >}}
+
+{{< pagebreak >}}
+
+### Day 2
+
+{{< include _session4.md >}}
+
+{{< include _session5.md >}}
+
+*Break (16:30 – 16:45 CEST)*
+
+{{< include _session6.md >}}
+
+{{< include _session7.md >}}
+
+:::

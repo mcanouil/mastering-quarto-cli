@@ -1,0 +1,38 @@
+date: today
+format:
+  html:
+    shift-heading-level-by: 1
+    code-annotations: select
+  coeos-revealjs:
+    date-format: "[To Be Announced]" # To be removed when publishing
+    output-file: slides
+    logo: ""
+    title-slide-attributes:
+      data-background-image: /assets/images/saga.png
+      data-background-opacity: "0.35"
+    incremental: false
+    code-block-height: "600px"
+    revealjs-plugins:
+      - attribution
+    include-in-header:
+      - text: |
+          <style>
+            // .reveal .slides { border: 1px solid #fafafa; }
+            .reveal .aside-footnotes {
+              font-style: italic;
+              font-size: 0.75em;
+            }
+            .reveal .r-stack>* {
+              margin: 0;
+            }
+          </style>
+format-links:
+  - html
+  - format: coeos-revealjs
+    text: Slides
+    target: _blank
+other-links:
+  - text: PDF
+    href: slides.pdf
+    target: _blank
+    icon: file-pdf
