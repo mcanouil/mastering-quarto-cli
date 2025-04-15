@@ -24,15 +24,10 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
-    outputs:
-      gh_pages_url: ${{ steps.deployment.outputs.page_url }}
-
+  
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       
       - name: Set up Node.js
         uses: actions/setup-node@v4
