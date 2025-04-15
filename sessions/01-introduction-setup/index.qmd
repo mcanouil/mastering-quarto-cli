@@ -1,0 +1,28 @@
+---
+title: "Introduction & Setup"
+subtitle: "Session 1"
+---
+
+## Session 1: Introduction & Setup (9:00 AM – 9:45 AM)
+
+- **Welcome & Overview**
+  - Introduce workshop objectives and participant goals.
+  - Provide an overview of Quarto: its purpose, strengths, and reproducibility benefits.
+  - Present a brief look at the [Quarto Guide](https://quarto.org/docs/guide/).
+- **Installation & Environment Setup**
+  - Walkthrough on installing Quarto (via the command line or through IDE integrations such as RStudio or VS Code).
+  - Live demo: creating a “Hello, Quarto” document.
+
+## What is Quarto? {{< iconify thinking-face >}}
+
+[Quarto](https://quarto.org/) is an open-source scientific and technical publishing system built on Pandoc. It is a next-generation R Markdown and Jupyter Notebook interface that allows you to create dynamic documents, reports, presentations, and websites.
+
+![](/assets/screenshots/quarto-org_1_1920x1080.png)
+
+::: {.attribution}
+<https://quarto.org/>
+:::
+
+# About
+
+{{< include /_about.qmd >}}

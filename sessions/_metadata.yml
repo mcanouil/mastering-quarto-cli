@@ -1,0 +1,19 @@
+date: today
+format:
+  html: default
+  coeos-revealjs:
+    output-file: slides
+    logo: ""
+    title-slide-attributes:
+      data-background-image: /assets/images/saga.png
+      data-background-opacity: "0.35"
+format-links:
+  - html
+  - format: coeos-revealjs
+    text: Slides
+    target: _blank
+other-links:
+  - text: PDF
+    href: slides.pdf
+    target: _blank
+    icon: file-pdf

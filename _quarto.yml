@@ -1,0 +1,101 @@
+project:
+  type: website
+  output-dir: _site
+  pre-render:
+    - assets/scripts/screenshots.sh
+  post-render:
+    - assets/scripts/slides-to-pdf.sh
+
+author:
+  - name: "Mickaël CANOUIL, _Ph.D._"
+    degree: "Ph.D."
+    orcid: "0000-0002-3396-4549"
+    url: "https://mickael.canouil.fr"
+    affiliations:
+      - name: mickael.canouil.fr
+        url: "https://mickael.canouil.fr"
+
+lang: en
+date: 2025-04-14
+date-modified: today
+date-format: 'dddd[, the] Do [of] MMMM, YYYY'
+highlight-style: github-dark
+mermaid:
+  theme: dark
+
+website:
+  title: "Introduction to Quarto CLI"
+  description: "A Hands-on Workshop"
+  repo-url: https://github.com/mcanouil/quarto-physalia-course
+  repo-actions: [source, issue]
+  repo-link-target: _blank
+  open-graph: true
+  twitter-card: true
+  page-navigation: true
+  back-to-top-navigation: true
+  page-footer:
+    border: true
+    left: |
+      Powered by [{{< iconify simple-icons:quarto title="Quarto Logo" label="Quarto Logo" >}} Quarto](https://quarto.org).
+    center: |
+      &copy; []{#current-year} Mickaël CANOUIL. [{{< iconify octicon:heart-fill-16 title="Heart" label="Heart" >}} Sponsor](https://github.com/sponsors/mcanouil?o=esb).
+    right: |
+      License: [CC BY NC SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0).
+  sidebar:
+    logo: "assets/images/physalia.jpg"
+    logo-alt: "Physalia"
+    background: dark
+    pinned: true
+    align: center
+    style: docked
+    search: true
+    collapse-level: 2
+    contents:
+      - text: Home
+        href: index.qmd
+      - text: Program
+        href: program/index.qmd
+      - text: "---"
+      - section: "Part 1"
+        contents:
+          - href: sessions/01-introduction-setup/index.qmd
+          - href: sessions/02-authoring-essentials/index.qmd
+          - href: sessions/03-embedding-computations-code/index.qmd
+      - text: "---"
+      - section: "Part 2"
+        contents:
+          - href: sessions/04-formats-projects/index.qmd
+          - href: sessions/05-publishing/index.qmd
+          - href: sessions/06-advanced-formatting-branding/index.qmd
+      - text: "---"
+      - section: "Part 3"
+        contents:
+          - href: sessions/07-closing-next-steps/index.qmd
+
+format:
+  html:
+    toc: true
+    code-copy: true
+    code-link: true
+    link-external-newwindow: true
+    fig-align: center
+    theme:
+      - cosmo
+      - _extensions/mcanouil/coeos/coeos.scss
+      - brand
+    grid:
+      sidebar-width: 350px
+    include-after-body:
+      - text: |
+          <script type="text/javascript">
+            const dateElements = document.querySelectorAll("p.date, div.listing-date, div.listing-file-modified");
+            dateElements.forEach((el) => {
+              el.innerHTML = el.innerHTML.replace(
+                /(\d+)(st|nd|rd|th)/g,
+                "$1<sup style='font-size:0.5em;font-style:italic;'>$2</sup>"
+              );
+            });
+          </script>
+          <script>
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+          </script>

@@ -1,27 +1,77 @@
 ---
-title: "Introduction to Quarto CLI"
+title: "Mastering Quarto CLI: From Authoring to Publishing"
 subtitle: "A Hands-on Workshop"
-author: "Mickaël Canouil, *Ph.D.*"
-institute: "Physalia Courses"
-date: today
-format:
-  coeos-revealjs:
-    logo: https://raw.githubusercontent.com/mcanouil/hex-stickers/main/SVG/mc.svg
-    mermaid:
-      theme: dark
-    title-slide-attributes:
-      data-background-image: assets/images/saga.png
-      data-background-opacity: "0.35"
+institute: "Physalia"
+description: "Learn how to use Quarto CLI for your data science projects."
 ---
 
-# PART 1 Without `code` {.center .center-x}
+A Quarto CLI Workshop for [Physalia-courses](https://www.physalia-courses.org/).
 
-## New slide {.smaller}
+## Workshop Objectives
 
-{{< lipsum 1 >}}
+- **Familiarise** participants with the Quarto ecosystem.
+- **Empower** attendees to create reproducible documents and interactive publications.
+- **Guide** learners through embedding code, adjusting outputs, and publishing projects.
+- **Encourage** hands‑on practice with interactive sessions.
 
-## Another slide {.smaller}
+## Prerequisites
 
-![An image]({{< placeholder 900 300>}})
+Prior to the workshop, please ensure you have the following installed on your computer.
 
-{{< include _extensions/mcanouil/coeos/_about.qmd >}}
+### Software
+
+- Quarto CLI 1.7.23 or higher: <https://quarto.org/docs/get-started>
+- R 4.5.0 or higher: <https://cran.r-project.org>
+- Python 3.13.1 or higher: <https://www.python.org/downloads/>
+
+### GitHub Codespaces
+
+Alternatively, you can use GitHub Codespaces:
+
+[![](https://github.com/codespaces/badge.svg){fig-alt="Open in GitHub Codespaces"}](https://codespaces.new/mcanouil/quarto-physalia-course?quickstart=1&devcontainer_path=.devcontainer%2Fdevcontainer.json)
+
+```sh
+./setup.sh --what all
+```
+
+## Program
+
+:::: {layout-ncol="2"}
+
+:::: {#part1}
+
+| Time (CEST)   | Session                                                                   |
+|---------------|---------------------------------------------------------------------------|
+|  9:30 - 10:15 | [Introduction & Setup](sessions/01-introduction-setup/)                   |
+| 10:15 - 11:30 | [Authoring Essentials](sessions/02-authoring-essentials/)                 |
+| 11:30 - 11:45 | 15 minutes break                                                          |
+| 11:45 - 13:00 | [Embedding Computations & Code](sessions/03-embedding-computations-code/) |
+| 13:00 - 14:00 | Lunch break                                                               |
+
+: {tbl-colwidths="\[25,75\]"}
+
+:::
+
+:::: {#part2}
+
+| Time (CEST)   | Session                                                                     |
+|---------------|-----------------------------------------------------------------------------|
+| 14:00 - 15:15 | [Formats & Projects](sessions/04-formats-projects/)                         |
+| 15:15 - 16:30 | [Publishing](sessions/05-publishing/)                                       |
+| 16:30 - 16:45 | 15 minutes break                                                            |
+| 16:45 - 17:30 | [Advanced Formatting & Branding](sessions/06-advanced-formatting-branding/) |
+| 17:30 - 17:45 | [Closing & Next Steps](sessions/07-closing-next-steps/)                     |
+
+: {tbl-colwidths="\[25,75\]"}
+
+:::
+
+:::
+
+## Instructor
+
+{{< include /_about.qmd >}}
+
+## License
+
+This project is licensed under the [CC-BY-SA-4.0 license](LICENSE).
