@@ -1,4 +1,4 @@
-name: Release Quarto Extension
+name: Deploy Workshop to GitHub Pages
 
 on:
   workflow_dispatch:
@@ -14,17 +14,48 @@ on:
           - "major"
 
 permissions:
-  contents: write
-  pull-requests: write
   id-token: write
   pages: write
 
 jobs:
-  release:
-    uses: mcanouil/quarto-extension-actions/.github/workflows/release.yml@main
-    secrets: inherit
-    with:
-      version: "${{ github.event.inputs.version }}"
-      formats: "coeos-revealjs"
-      tinytex: false
-      quarto: "release"
+  deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    outputs:
+      gh_pages_url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: "release"
+          tinytex: false
+
+      - name: Render Quarto Project
+        shell: bash
+        run: |
+          quarto render
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
