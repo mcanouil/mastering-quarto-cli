@@ -1,6 +1,7 @@
 ---
 title: "Mastering Quarto CLI: From Authoring to Publishing"
 subtitle: "Program"
+title-prefix: ""
 ---
 
 ## Workshop Objectives

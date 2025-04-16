@@ -3,7 +3,7 @@ title: "Formats & Projects"
 subtitle: "Session 4"
 ---
 
-## Session 4: Formats & Projects (1:30 PM – 2:45 PM)
+## Session 4: Formats & Projects
 
 - **Exploring Formats**
   - Overview of the diverse output formats available in Quarto: HTML, PDF, MS Word, presentations, websites, blogs, books, and more.

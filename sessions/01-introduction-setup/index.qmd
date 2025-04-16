@@ -3,7 +3,7 @@ title: "Introduction & Setup"
 subtitle: "Session 1"
 ---
 
-## Session 1: Introduction & Setup (9:00 AM – 9:45 AM)
+## Session 1: Introduction & Setup
 
 - **Welcome & Overview**
   - Introduce workshop objectives and participant goals.

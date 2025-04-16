@@ -24,8 +24,8 @@ mermaid:
   theme: dark
 
 website:
-  title: "Introduction to Quarto CLI"
-  description: "A Hands-on Workshop"
+  title: "Mastering Quarto CLI"
+  description: "Learn how to use Quarto CLI for your data science projects."
   repo-url: https://github.com/mcanouil/quarto-physalia-course
   repo-actions: [source, issue]
   repo-link-target: _blank

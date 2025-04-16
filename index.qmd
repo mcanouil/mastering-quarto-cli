@@ -3,6 +3,7 @@ title: "Mastering Quarto CLI: From Authoring to Publishing"
 subtitle: "A Hands-on Workshop"
 institute: "Physalia"
 description: "Learn how to use Quarto CLI for your data science projects."
+title-prefix: ""
 ---
 
 A Quarto CLI Workshop for [Physalia-courses](https://www.physalia-courses.org/).
