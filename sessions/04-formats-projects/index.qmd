@@ -3,12 +3,4 @@ title: "Formats & Projects"
 subtitle: "Session 4"
 ---
 
-## Session 4: Formats & Projects
-
-- **Exploring Formats**
-  - Overview of the diverse output formats available in Quarto: HTML, PDF, MS Word, presentations, websites, blogs, books, and more.
-  - Discussion on the benefits and limitations of each format.
-- **Project Structures**
-  - Analyse different project frameworks: single documents versus multi‑document projects such as websites or books.
-- **Hands‑On Exercise**
-  - Participants experiment with converting a sample document into multiple formats and setting up projects accordingly.
+{{< include _session4.md >}}

@@ -8,32 +8,7 @@ title-prefix: ""
 
 A Quarto CLI Workshop for [Physalia-courses](https://www.physalia-courses.org/).
 
-## Workshop Objectives
-
-- **Familiarise** participants with the Quarto ecosystem.
-- **Empower** attendees to create reproducible documents and interactive publications.
-- **Guide** learners through embedding code, adjusting outputs, and publishing projects.
-- **Encourage** hands‑on practice with interactive sessions.
-
-## Prerequisites
-
-Prior to the workshop, please ensure you have the following installed on your computer.
-
-### Software
-
-- Quarto CLI 1.7.23 or higher: <https://quarto.org/docs/get-started>
-- R 4.5.0 or higher: <https://cran.r-project.org>
-- Python 3.13.1 or higher: <https://www.python.org/downloads/>
-
-### GitHub Codespaces
-
-Alternatively, you can use GitHub Codespaces:
-
-[![](https://github.com/codespaces/badge.svg){fig-alt="Open in GitHub Codespaces"}](https://codespaces.new/mcanouil/quarto-physalia-course?quickstart=1&devcontainer_path=.devcontainer%2Fdevcontainer.json)
-
-```sh
-./setup.sh --what all
-```
+{{< include /program/_overview.md >}}
 
 ## Program
 

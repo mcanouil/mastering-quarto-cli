@@ -3,11 +3,4 @@ title: "Closing & Next Steps"
 subtitle: "Session 7"
 ---
 
-## Session 7: Closing & Next Steps
-
-- **Recapitulation:**  
-  Summarise the day’s key learning outcomes.
-- **Resource Sharing:**  
-  Direct participants to further Quarto documentation and tutorials.
-- **Feedback:**  
-  Request feedback to refine future sessions and identify areas for advanced exploration.
+{{< include _session7.md >}}
