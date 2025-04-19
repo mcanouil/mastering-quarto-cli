@@ -12,8 +12,6 @@ crossref:
       kind: float
 filters:
   - highlight-text
-execute:
-  eval: false
 ---
 
 :::: {.content-visible when-format="revealjs"}
