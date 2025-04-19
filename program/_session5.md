@@ -1,4 +1,4 @@
-## Session 5: Publishing (15:15 – 16:30 CEST)
+## Session 5: Publishing (14:55 - 15:50 CEST)
 
 - **Publishing Options**
   - Introduction to the various methods available with Quarto: Quarto Pub, GitHub Pages, Netlify, and other hosting services.

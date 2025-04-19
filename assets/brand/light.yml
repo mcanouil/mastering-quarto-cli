@@ -1,11 +1,13 @@
 color:
-  background: "#333333"
-  foreground: "#fafafa"
-  dark: "#333333"
-  light: "#fafafa"
+  background: "#fafafa"
+  foreground: "#333333"
+  dark: "#fafafa"
+  light: "#333333"
 typography:
   fonts:
     - family: Alegreya Sans
       source: google
   base: Alegreya Sans
   headings: Alegreya Sans
+  link:
+    color: foreground

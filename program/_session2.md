@@ -1,4 +1,4 @@
-## Session 2: Authoring Essentials (15:15 – 16:30 CEST)
+## Session 2: Authoring Essentials (14:55 - 15:50 CEST)
 
 - **Markdown Fundamentals**
   - Discuss creating structured documents: headings, lists, links, and text formatting.

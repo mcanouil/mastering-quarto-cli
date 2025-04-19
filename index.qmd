@@ -18,10 +18,10 @@ A Quarto CLI Workshop for [Physalia-courses](https://www.physalia-courses.org/).
 
 | Time (CEST)   | Session                                                                   |
 |---------------|---------------------------------------------------------------------------|
-| 14:00 - 15:15 | [Introduction & Setup](sessions/01-introduction-setup/)                   |
-| 15:15 - 16:30 | [Authoring Essentials](sessions/02-authoring-essentials/)                 |
-| 16:30 - 16:45 | 15 minutes break                                                          |
-| 16:45 - 17:30 | [Embedding Computations & Code](sessions/03-embedding-computations-code/) |
+| 14:00 - 14:55 | [Introduction & Setup](sessions/01-introduction-setup/)                   |
+| 14:55 - 15:50 | [Authoring Essentials](sessions/02-authoring-essentials/)                 |
+| 15:50 - 16:05 | 15 minutes break                                                          |
+| 16:05 - 17:00 | [Embedding Computations & Code](sessions/03-embedding-computations-code/) |
 
 : {tbl-colwidths="\[25,75\]"}
 
@@ -31,11 +31,11 @@ A Quarto CLI Workshop for [Physalia-courses](https://www.physalia-courses.org/).
 
 | Time (CEST)   | Session                                                                     |
 |---------------|-----------------------------------------------------------------------------|
-| 14:00 - 15:15 | [Formats & Projects](sessions/04-formats-projects/)                         |
-| 15:15 - 16:30 | [Publishing](sessions/05-publishing/)                                       |
-| 16:30 - 16:45 | 15 minutes break                                                            |
-| 16:45 - 17:30 | [Advanced Formatting & Branding](sessions/06-advanced-formatting-branding/) |
-| 17:30 - 17:45 | [Closing & Next Steps](sessions/07-closing-next-steps/)                     |
+| 14:00 - 14:55 | [Formats & Projects](sessions/04-formats-projects/)                         |
+| 14:55 - 15:50 | [Publishing](sessions/05-publishing/)                                       |
+| 15:50 - 16:05 | 15 minutes break                                                            |
+| 16:05 - 16:45 | [Advanced Formatting & Branding](sessions/06-advanced-formatting-branding/) |
+| 16:45 - 17:00 | [Closing & Next Steps](sessions/07-closing-next-steps/)                     |
 
 : {tbl-colwidths="\[25,75\]"}
 
@@ -45,7 +45,7 @@ A Quarto CLI Workshop for [Physalia-courses](https://www.physalia-courses.org/).
 
 ## Instructor
 
-{{< include /_about.qmd >}}
+{{< include /assets/quarto/_about.qmd >}}
 
 ## License
 

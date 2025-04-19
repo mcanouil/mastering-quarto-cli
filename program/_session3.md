@@ -1,4 +1,4 @@
-## Session 3: Embedding Computations & Code (16:45 – 17:30 CEST)
+## Session 3: Embedding Computations & Code (16:05 - 17:00 CEST)
 
 - **Integrating Executable Code**
   - Explain how to embed code chunks and execute inline commands.

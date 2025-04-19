@@ -17,7 +17,7 @@ lang: en
 date: 2025-04-14
 date-modified: today
 date-format: 'dddd[, the] Do [of] MMMM, YYYY'
-highlight-style: github-dark
+highlight-style: github
 mermaid:
   theme: dark
 
@@ -75,9 +75,14 @@ format:
     link-external-newwindow: true
     fig-align: center
     theme:
-      - cosmo
-      - _extensions/mcanouil/coeos/coeos.scss
-      - brand
+      light:
+        - cosmo
+        - assets/stylesheets/coeos.scss
+        - brand
+      dark:
+        - cosmo
+        - assets/stylesheets/coeos.scss
+        - brand
     grid:
       sidebar-width: 350px
     include-after-body:
@@ -95,6 +100,14 @@ format:
             document.getElementById('current-year').textContent = new Date().getFullYear();
           </script>
 
+brand:
+  light: assets/brand/light.yml
+  dark: assets/brand/dark.yml
+
 execute:
   freeze: true
   echo: false
+
+filters:
+  - quarto
+  - div-reuse

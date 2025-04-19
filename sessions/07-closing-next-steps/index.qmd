@@ -4,3 +4,9 @@ subtitle: "Session 7"
 ---
 
 {{< include /program/_session7.md >}}
+
+:::: {.content-visible when-format="revealjs"}
+# About
+
+{{< include /assets/quarto/_about.qmd >}}
+:::

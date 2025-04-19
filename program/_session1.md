@@ -1,4 +1,4 @@
-## Session 1: Introduction & Setup (14:00 – 15:15 CEST)
+## Session 1: Introduction & Setup (14:00 - 14:55 CEST)
 
 - **Welcome & Overview**
   - Introduce workshop objectives and participant goals.

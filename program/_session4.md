@@ -1,4 +1,4 @@
-## Session 4: Formats & Projects (14:00 – 15:15 CEST)
+## Session 4: Formats & Projects (14:00 - 14:55 CEST)
 
 - **Exploring Formats**
   - Overview of the diverse output formats available in Quarto: HTML, Typsts, Reveal.js, PDF (LaTeX), MS Word, websites, blogs, books, and more.

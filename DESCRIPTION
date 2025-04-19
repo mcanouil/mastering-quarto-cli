@@ -6,5 +6,6 @@ Depends:
   webshot2,
 Suggests:
   languageserver,
+  httpgd,
   jsonlite,
   lintr
