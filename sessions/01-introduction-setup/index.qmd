@@ -12,7 +12,17 @@ crossref:
       kind: float
 filters:
   - highlight-text
+execute:
+  eval: false
 ---
+
+:::: {.content-visible when-format="revealjs"}
+## About Me {.smaller}
+
+{{< include /assets/quarto/_about-social.qmd >}}
+
+{{< include /assets/quarto/_about-description.qmd >}}
+:::
 
 {{< include /program/_session1.md >}}
 
@@ -232,9 +242,9 @@ cat("\n\n:::\n\n")
 #| label: quarto-project-default-yml
 #| output: asis
 cat(
-  '```{.yaml filename="Quarto"}',
+  '\n\n```{.yaml filename="Quarto"}',
   readLines("_demo/Default/_quarto.yml"),
-  "```",
+  "```\n\n",
   sep = "\n"
 )
 ```
@@ -245,9 +255,9 @@ cat(
 #| label: quarto-project-default-qmd
 #| output: asis
 cat(
-  '```{.markdown filename="Quarto"}',
+  '\n\n```{.markdown filename="Quarto"}',
   readLines("_demo/Default/Default.qmd"),
-  "```",
+  "```\n\n",
   sep = "\n"
 )
 ```
@@ -292,7 +302,7 @@ res <- webshot2::webshot(
   cliprect = "viewport"
 )
 
-cat('\n\n::: {style="text-align:center;"}\n\n')
+cat('\n\n:::: {style="text-align:center;"}\n\n')
 cat(sprintf("\n\n![](%s){fig-align=center}", file))
 cat("\n\n:::\n\n")
 ```
@@ -341,7 +351,7 @@ res <- webshot2::webshot(
   cliprect = "viewport"
 )
 
-cat('\n\n::: {style="text-align:center;"}\n\n')
+cat('\n\n:::: {style="text-align:center;"}\n\n')
 cat(sprintf("\n\n![](%s){fig-align=center}", file))
 cat("\n\n:::\n\n")
 ```
@@ -390,7 +400,7 @@ res <- webshot2::webshot(
   cliprect = "viewport"
 )
 
-cat('\n\n::: {style="text-align:center;"}\n\n')
+cat('\n\n:::: {style="text-align:center;"}\n\n')
 cat(sprintf("\n\n![](%s){fig-align=center}", file))
 cat("\n\n:::\n\n")
 ```
@@ -439,7 +449,7 @@ res <- webshot2::webshot(
   cliprect = "viewport"
 )
 
-cat('\n\n::: {style="text-align:center;"}\n\n')
+cat('\n\n:::: {style="text-align:center;"}\n\n')
 cat(sprintf("\n\n![](%s){fig-align=center}", file))
 cat("\n\n:::\n\n")
 ```
@@ -534,7 +544,7 @@ flowchart LR
 
 :::: {}
 
-``` markdown
+```markdown
 | Default | Left | Right | Center |
 |---------|:-----|------:|:------:|
 | 12      | 12   |    12 |   12   |
@@ -621,7 +631,7 @@ penguins |>                                            # <1>
 
 :::: {}
 
-``` markdown
+```markdown
 :::: {#fig-example}
 This is a figure
 
@@ -659,7 +669,7 @@ Or is it?
 
 :::: {}
 
-``` markdown
+```markdown
 :::: {#tbl-example}
 This is a table
 
@@ -715,7 +725,7 @@ crossref:
 
 :::: {}
 
-``` markdown
+```markdown
 :::: {#txt-example}
 This is text
 
@@ -754,7 +764,7 @@ The above is a custom cross-reference content.
 :::: {layout-ncol="2" layout-valign="center" .fragment}
 :::: {}
 
-``` markdown
+```markdown
 {{{< meta tittle >}}}
 ```
 
@@ -768,7 +778,7 @@ The above is a custom cross-reference content.
 :::: {layout-ncol="2" layout-valign="center" .fragment}
 :::: {}
 
-``` markdown
+```markdown
 {{{< iconify exploding-head size=5x >}}}
 ```
 
@@ -806,7 +816,6 @@ quarto add mcanouil/quarto-highlight-text
 
 [White text, Blue background]{colour="#FFFFFF" bg-colour="#0000FF"}
 ry(fit)
-```
 
 :::
 
@@ -1012,7 +1021,7 @@ quarto create project
 :::
 
 :::: {.content-visible when-format="revealjs"}
-# About
+# About Me
 
-{{< include /assets/quarto/_about.qmd >}}
+{{< include /assets/quarto/_about-social.qmd >}}
 :::

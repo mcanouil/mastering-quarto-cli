@@ -105,7 +105,7 @@ brand:
   dark: assets/brand/dark.yml
 
 execute:
-  freeze: true
+  freeze: false
   echo: false
 
 filters:

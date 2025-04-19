@@ -8,5 +8,5 @@ subtitle: "Session 5"
 :::: {.content-visible when-format="revealjs"}
 # About
 
-{{< include /assets/quarto/_about.qmd >}}
+{{< include /assets/quarto/_about-social.qmd >}}
 :::
