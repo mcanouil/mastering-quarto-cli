@@ -1,8 +1,6 @@
 project:
   type: website
   output-dir: _site
-  pre-render:
-    - assets/scripts/screenshots.sh
   post-render:
     - assets/scripts/slides-to-pdf.sh
 
@@ -56,20 +54,17 @@ website:
       - text: Program
         href: program/index.qmd
       - text: "---"
-      - section: "Part 1"
+      - section: "Day 1"
         contents:
           - href: sessions/01-introduction-setup/index.qmd
           - href: sessions/02-authoring-essentials/index.qmd
           - href: sessions/03-embedding-computations-code/index.qmd
       - text: "---"
-      - section: "Part 2"
+      - section: "Day 2"
         contents:
           - href: sessions/04-formats-projects/index.qmd
           - href: sessions/05-publishing/index.qmd
           - href: sessions/06-advanced-formatting-branding/index.qmd
-      - text: "---"
-      - section: "Part 3"
-        contents:
           - href: sessions/07-closing-next-steps/index.qmd
 
 format:
@@ -99,3 +94,7 @@ format:
           <script>
             document.getElementById('current-year').textContent = new Date().getFullYear();
           </script>
+
+execute:
+  freeze: true
+  echo: false

@@ -16,9 +16,9 @@ The agenda covers installation, authoring essentials, code embedding, publishing
 Prior to the workshop, please ensure you have the following installed on your computer.
 
 - Quarto CLI 1.7.26 or higher: <https://quarto.org/docs/get-started>
-- R 4.5.0 or higher: <https://cran.r-project.org>
-- Python 3.13.1 or higher: <https://www.python.org/downloads/>
-- Julia 1.11.5 or higher: <https://julialang.org/downloads/>
+- R 4.5.* or higher: <https://cran.r-project.org>
+- Python 3.13.* or higher: <https://www.python.org/downloads/>
+- Julia 1.11.* or higher: <https://julialang.org/downloads/>
 
 Alternatively, you can use GitHub Codespaces:
 

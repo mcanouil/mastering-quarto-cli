@@ -3,4 +3,4 @@ title: "Authoring Essentials"
 subtitle: "Session 2"
 ---
 
-{{< include _session2.md >}}
+{{< include /program/_session2.md >}}

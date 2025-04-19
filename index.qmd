@@ -14,21 +14,20 @@ A Quarto CLI Workshop for [Physalia-courses](https://www.physalia-courses.org/).
 
 :::: {layout-ncol="2"}
 
-:::: {#part1}
+:::: {#day1}
 
 | Time (CEST)   | Session                                                                   |
 |---------------|---------------------------------------------------------------------------|
-|  9:30 - 10:15 | [Introduction & Setup](sessions/01-introduction-setup/)                   |
-| 10:15 - 11:30 | [Authoring Essentials](sessions/02-authoring-essentials/)                 |
-| 11:30 - 11:45 | 15 minutes break                                                          |
-| 11:45 - 13:00 | [Embedding Computations & Code](sessions/03-embedding-computations-code/) |
-| 13:00 - 14:00 | Lunch break                                                               |
+| 14:00 - 15:15 | [Introduction & Setup](sessions/01-introduction-setup/)                   |
+| 15:15 - 16:30 | [Authoring Essentials](sessions/02-authoring-essentials/)                 |
+| 16:30 - 16:45 | 15 minutes break                                                          |
+| 16:45 - 17:30 | [Embedding Computations & Code](sessions/03-embedding-computations-code/) |
 
 : {tbl-colwidths="\[25,75\]"}
 
 :::
 
-:::: {#part2}
+:::: {#day2}
 
 | Time (CEST)   | Session                                                                     |
 |---------------|-----------------------------------------------------------------------------|

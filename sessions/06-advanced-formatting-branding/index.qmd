@@ -3,4 +3,4 @@ title: "Advanced Formatting & Branding"
 subtitle: "Session 6"
 ---
 
-{{< include _session6.md >}}
+{{< include /program/_session6.md >}}

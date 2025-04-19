@@ -6,4 +6,28 @@ title-prefix: ""
 
 {{< include _overview.md >}}
 
-{{< include _program.md >}}
+:::: {.panel-tabset}
+
+### Day 1
+
+{{< include _session1.md >}}
+
+{{< include _session2.md >}}
+
+*Break (16:30 – 16:45 CEST)*
+
+{{< include _session3.md >}}
+
+### Day 2
+
+{{< include _session4.md >}}
+
+{{< include _session5.md >}}
+
+*Break (16:30 – 16:45 CEST)*
+
+{{< include _session6.md >}}
+
+{{< include _session7.md >}}
+
+:::

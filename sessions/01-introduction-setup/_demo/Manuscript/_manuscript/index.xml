@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Archiving
+and Interchange DTD v1.2 20190208//EN" "JATS-archivearticle1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.2" article-type="other">
+  <front>
+    <article-meta>
+      <title-group>
+        <article-title>Manuscript</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author" corresp="yes">
+          <name>
+            <surname>Jones</surname>
+            <given-names>Norah</given-names>
+          </name>
+          <string-name>Norah Jones</string-name>
+          <role vocab="https://credit.niso.org" vocab-term="writing – original draft" vocab-term-identifier="https://credit.niso.org/contributor-roles/writing-original-draft/">writing</role>
+          <xref ref-type="aff" rid="aff-1">a</xref>
+          <xref ref-type="corresp" rid="cor-1">*</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="aff-1">
+        <institution-wrap>
+          <institution>The University</institution>
+        </institution-wrap>
+      </aff>
+      <author-notes>
+        <corresp id="cor-1"/>
+      </author-notes>
+      <history/>
+    </article-meta>
+  </front>
+  <body>
+    <sec id="section">
+      <title>Section</title>
+      <p>This is a simple placeholder for the manuscript’s main document
+  (<xref alt="Knuth 1984" rid="ref-knuth84" ref-type="bibr">Knuth
+  1984</xref>).</p>
+    </sec>
+  </body>
+  <back>
+    <ref-list>
+      <title/>
+      <ref id="ref-knuth84">
+        <element-citation publication-type="article-journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Knuth</surname>
+              <given-names>Donald E.</given-names>
+            </name>
+          </person-group>
+          <article-title>Literate programming</article-title>
+          <source>Comput. J.</source>
+          <publisher-name>Oxford University Press, Inc.</publisher-name>
+          <publisher-loc>USA</publisher-loc>
+          <year iso-8601-date="1984-05">1984</year>
+          <month>05</month>
+          <volume>27</volume>
+          <issue>2</issue>
+          <issn>0010-4620</issn>
+          <uri>https://doi.org/10.1093/comjnl/27.2.97</uri>
+          <pub-id pub-id-type="doi">10.1093/comjnl/27.2.97</pub-id>
+          <fpage>97</fpage>
+          <lpage>111</lpage>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>

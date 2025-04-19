@@ -1,0 +1,8 @@
+[project]
+name = "quarto-physalia-course"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "jupyter>=1.1.1",
+    "papermill>=2.6.0",
+]

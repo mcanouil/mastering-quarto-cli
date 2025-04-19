@@ -1,0 +1,10 @@
+Depends:
+  knitr,
+  rmarkdown,
+  downlit,
+  xml2,
+  webshot2,
+Suggests:
+  languageserver,
+  jsonlite,
+  lintr

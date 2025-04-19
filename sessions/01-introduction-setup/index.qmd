@@ -1,11 +1,31 @@
 ---
 title: "Introduction & Setup"
 subtitle: "Session 1"
-execute:
-  eval: false
+pwd: "/Users/mcanouil/Projects/perso/quarto-physalia-course/sessions/01-introduction-setup"
+crossref:
+  custom: 
+    - key: txt
+      reference-prefix: Text
+      kind: float
+    - key: cr
+      reference-prefix: Cross-reference example
+      kind: float
+filters:
+  - webr
+resources:
+  - webr-serviceworker.js
+  - webr-worker.js
+webr: 
+  show-startup-message: false
 ---
 
-{{< include _session1.md >}}
+{{< include /program/_session1.md >}}
+
+```{r}
+#| label: setup-screenshots-directory
+#| include: false
+dir.create("assets/screenshots", recursive = TRUE, showWarnings = FALSE)
+```
 
 # ![](/assets/images/quarto-logo-trademark.svg){fig-alt="Quarto" height="1em"} {background-image="/assets/images/saga.png" background-opacity="0.35"}
 
@@ -14,7 +34,16 @@ execute:
 [Quarto](https://quarto.org/) is an open-source scientific and technical publishing system built on Pandoc.
 It is a next-generation R Markdown and Jupyter Notebook interface that allows you to create dynamic documents, reports, presentations, and websites.
 
-![](/assets/screenshots/quarto-org_1_1920x1080.png)
+```{r}
+#| label: screenshot-quarto-org
+webshot2::webshot(
+  url = "https://quarto.org/",
+  file = "assets/screenshots/quarto-org.png",
+  vwidth = 1920 * 0.55,
+  vheight = 1080 * 0.55,
+  cliprect = "viewport"
+)
+```
 
 :::: {.attribution}
 <https://quarto.org/>
@@ -36,7 +65,16 @@ Quarto ([quarto.org](https://quarto.org/)):
 
 :::: {layout="[0.30, 0.70]" layout-valign="center"}
 
-![](/assets/screenshots/pandoc-org_1_1920x1920.png)
+```{r}
+#| label: screenshot-pandoc-org
+webshot2::webshot(
+  url = "https://pandoc.org/",
+  file = "assets/screenshots/pandoc-org.png",
+  vwidth = 1920 * 0.60,
+  vheight = 1080 * 1.80,
+  cliprect = "viewport"
+)
+```
 
 :::: {#pandoc-description}
 Pandoc ([pandoc.org](https://pandoc.org/)):
@@ -53,6 +91,7 @@ Pandoc ([pandoc.org](https://pandoc.org/)):
 ## How does Quarto work? {{< iconify thinking-face >}}
 
 ```{mermaid}
+%%| label: quarto-workflow
 %%| fig-width: 10
 %%{
   init: {
@@ -66,10 +105,10 @@ flowchart LR
   A2[ipynb] --> B{"Jupyter<br>(Python)"}
   B --> D[md]
   C --> D[md]
-  D --> E{Pandoc}
-  E --> F[pdf]
-  E --> G[docx]
-  E --> H[html]
+  D --> E{"Pandoc"}
+  E --> F["Typst"]
+  E --> G["Reveal.js"]
+  E --> H["HTML"]
   E --> I[...]
 
   subgraph engine [Engine]
@@ -81,6 +120,7 @@ flowchart LR
 ## A Guide to Quarto Versions
 
 ```{mermaid}
+%%| label: quarto-versions
 timeline
     section Release
       1.0 : July, 2022
@@ -99,7 +139,20 @@ timeline
 
 ## Downloading and installing Quarto
 
-![](/assets/screenshots/quarto-download_1_1920x1080.png){fig-alt='Screenshot of "https://quarto.org/docs/download/" webpage'}
+```{r}
+#| label: screenshot-quarto-download
+#| output: asis
+page <- "https://quarto.org/docs/download/"
+file <- "assets/screenshots/quarto-download.png"
+res <- webshot2::webshot(
+  url = page,
+  file = file,
+  vwidth = 1920 * 0.75,
+  vheight = 1080 * 0.75,
+  cliprect = "viewport"
+)
+cat(sprintf("\n\n[![](%s){width=100%% fig-align=center fig-alt='Screenshot of %s webpage'}](%s)", file, page, page))
+```
 
 :::: {.attribution}
 <https://quarto.org/>
@@ -119,7 +172,23 @@ Additionally, you can download and install Quarto using:
 brew install quarto
 ```
 
-[![<https://brew.sh/>](/assets/screenshots/quarto-homebrew_1_1920x1080.png){fig-alt='Screenshot of "https://brew.sh/" webpage'}](https://formulae.brew.sh/cask/quarto)
+```{r}
+#| label: screenshot-quarto-homebrew
+#| output: asis
+page <- "https://brew.sh/"
+file <- "assets/screenshots/quarto-homebrew.png"
+res <- webshot2::webshot(
+  url = page,
+  file = file,
+  vwidth = 1920 * 0.70,
+  vheight = 1080 * 0.70,
+  cliprect = "viewport"
+)
+
+cat('\n\n::: {style="text-align:center;"}\n\n')
+cat(sprintf("\n\n[![<a href = '%s'>%s</a>](%s){fig-alt='Screenshot of %s webpage'}](%s)", page, page, file, page, "https://formulae.brew.sh/cask/quarto"))
+cat("\n\n:::\n\n")
+```
 
 :::
 
@@ -131,7 +200,23 @@ brew install quarto
 choco install quarto
 ```
 
-[![<https://community.chocolatey.org/>](/assets/screenshots/quarto-chocolatey_1_1920x1080.png){fig-alt='Screenshot of "https://community.chocolatey.org/" webpage'}](ttps://community.chocolatey.org/packages/quarto)
+```{r}
+#| label: screenshot-quarto-chocolatey
+#| output: asis
+page <- "https://community.chocolatey.org/"
+file <- "assets/screenshots/quarto-chocolatey.png"
+res <- webshot2::webshot(
+  url = page,
+  file = file,
+  vwidth = 1920 * 0.70,
+  vheight = 1080 * 0.70,
+  cliprect = "viewport"
+)
+
+cat('\n\n::: {style="text-align:center;"}\n\n')
+cat(sprintf("\n\n[![<a href = '%s'>%s</a>](%s){fig-align=center fig-alt='Screenshot of %s webpage'}](%s)", page, page, file, page, "https://community.chocolatey.org/packages/quarto"))
+cat("\n\n:::\n\n")
+```
 
 :::
 :::
@@ -139,6 +224,7 @@ choco install quarto
 ## Writing with your favourite editor {.smaller}
 
 ```{r}
+#| label: screenshot-quarto-editor
 #| output: asis
 pages <- sprintf(
   "https://quarto.org/docs/get-started/hello/%s",
@@ -162,26 +248,27 @@ for (ipage in pages) {
     vheight = 1080 * 1,
     cliprect = "viewport"
   )
-  cat("\n\n##", toupper(sub("\\.html$", "", basename(ipage))))
+  cat("\n\n###", toupper(sub("\\.html$", "", basename(ipage))))
   cat(sprintf("\n\n[![](%s){fig-alt='Screenshot of %s webpage'}](%s)", file, ipage, ipage))
 }
 ```
 
-::: {.attribution}
+:::: {.attribution}
 <https://quarto.org/>
 :::
 
 ## Quarto: a command line interface
 
 ```{bash}
+#| label: quarto-command-line
 #| echo: true
 #| attr-output: 'style="font-size: 28%;"'
 #| output-location: fragment
 quarto --help
 ```
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
 :::
 
 ## Checking Quarto is installed
@@ -190,14 +277,14 @@ quarto --help
 quarto check
 ```
 
-::: {layout="[1, 1]" layout-align="center"}
+:::: {layout="[1, 1]" layout-align="center"}
 ![](/assets/images/quarto-check.png)
 
 {{< video assets/videos/quarto-check.mov >}}
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
 :::
 
 ## Creating a new Quarto project
@@ -206,7 +293,7 @@ quarto check
 quarto create project
 ```
 
-::: {.fragment}
+:::: {.fragment}
 
 ```{.bash}
  ? Type
@@ -220,13 +307,13 @@ quarto create project
 
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
 :::
 
 ## Quarto projects: `default`
 
-::: {layout-ncol="2" layout-valign="center"}
+:::: {layout-ncol="2" layout-valign="center"}
 
 :::: {}
 
@@ -235,19 +322,21 @@ quarto create project default Default
 ```
 
 ```{bash}
+#| label: quarto-project-default-tree
 #| attr-output: 'style="font-size: 50%;"'
-tree -I "demo" demo/Default
+tree -I "_demo" _demo/Default
 ```
 
-::::
+:::
 
 :::: {.fragment}
 
 ```{r}
+#| label: screenshot-quarto-project-default
 #| output: asis
-system("cd demo/Default; quarto render Default.qmd")
-page <- "demo/Default/Default.html"
-file <- "assets/images/quarto-project-default.png"
+system("cd _demo/Default; quarto render Default.qmd")
+page <- "_demo/Default/Default.html"
+file <- "assets/screenshots/quarto-project-default.png"
 res <- webshot2::webshot(
   url = page,
   file = file,
@@ -261,12 +350,12 @@ cat(sprintf("\n\n![](%s){fig-align=center}", file))
 cat("\n\n:::\n\n")
 ```
 
-::::
+:::
 
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo/Default)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Default)
 :::
 
 ## Quarto projects: `default`
@@ -274,26 +363,28 @@ cat("\n\n:::\n\n")
 - `_quarto.yml`: project configuration file.
 
 ```{r}
+#| label: quarto-project-default-yml
 #| attr-output: "filename='Quarto'"
 #| class-output: yaml
-cat(readLines("demo/Default/_quarto.yml"), sep = "\n")
+cat(readLines("_demo/Default/_quarto.yml"), sep = "\n")
 ```
 
 - `Default.qmd`: default Quarto document.
 
 ```{r}
+#| label: quarto-project-default-qmd
 #| attr-output: "filename='Quarto'"
 #| class-output: markdown
-cat(readLines("demo/Default/Default.qmd"), sep = "\n")
+cat(readLines("_demo/Default/Default.qmd"), sep = "\n")
 ```
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo/Default)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Default)
 :::
 
 ## Quarto projects: `website`
 
-::: {layout-ncol="2" layout-valign="center"}
+:::: {layout-ncol="2" layout-valign="center"}
 
 :::: {}
 
@@ -302,19 +393,21 @@ quarto create project website Website
 ```
 
 ```{bash}
+#| label: quarto-project-website-tree
 #| attr-output: 'style="font-size: 50%;"'
-tree -I "demo" demo/Website
+tree -I "_demo" _demo/Website
 ```
 
-::::
+:::
 
 :::: {.fragment}
 
 ```{r}
+#| label: screenshot-quarto-project-website
 #| output: asis
-system("cd demo/Website; quarto render index.qmd")
-page <- "demo/Website/_site/index.html"
-file <- "assets/images/quarto-project-website.png"
+system("cd _demo/Website; quarto render index.qmd")
+page <- "_demo/Website/_site/index.html"
+file <- "assets/screenshots/quarto-project-website.png"
 res <- webshot2::webshot(
   url = page,
   file = file,
@@ -328,17 +421,17 @@ cat(sprintf("\n\n![](%s){fig-align=center}", file))
 cat("\n\n:::\n\n")
 ```
 
-::::
+:::
 
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo/Website)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Website)
 :::
 
 ## Quarto projects: `blog`
 
-::: {layout-ncol="2" layout-valign="center"}
+:::: {layout-ncol="2" layout-valign="center"}
 
 :::: {}
 
@@ -347,19 +440,21 @@ quarto create project blog Blog
 ```
 
 ```{bash}
+#| label: quarto-project-blog-tree
 #| attr-output: 'style="font-size: 50%;"'
-tree -I "demo" demo/Blog
+tree -I "_demo" _demo/Blog
 ```
 
-::::
+:::
 
 :::: {.fragment}
 
 ```{r}
+#| label: screenshot-quarto-project-blog
 #| output: asis
-system("cd demo/Blog; quarto render index.qmd")
-page <- "demo/Blog/_site/index.html"
-file <- "assets/images/quarto-project-blog.png"
+system("cd _demo/Blog; quarto render index.qmd")
+page <- "_demo/Blog/_site/index.html"
+file <- "assets/screenshots/quarto-project-blog.png"
 res <- webshot2::webshot(
   url = page,
   file = file,
@@ -373,17 +468,17 @@ cat(sprintf("\n\n![](%s){fig-align=center}", file))
 cat("\n\n:::\n\n")
 ```
 
-::::
+:::
 
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo/Blog)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Blog)
 :::
 
 ## Quarto projects: `book`
 
-::: {layout-ncol="2" layout-valign="center"}
+:::: {layout-ncol="2" layout-valign="center"}
 
 :::: {}
 
@@ -392,19 +487,21 @@ quarto create project book Book
 ```
 
 ```{bash}
+#| label: quarto-project-book-tree
 #| attr-output: 'style="font-size: 50%;"'
-tree -I "demo" demo/Book
+tree -I "_demo" _demo/Book
 ```
 
-::::
+:::
 
 :::: {.fragment}
 
 ```{r}
+#| label: screenshot-quarto-project-book
 #| output: asis
-system("cd demo/Book; quarto render index.qmd")
-page <- "demo/Book/_book/index.html"
-file <- "assets/images/quarto-project-book.png"
+system("cd _demo/Book; quarto render index.qmd")
+page <- "_demo/Book/_book/index.html"
+file <- "assets/screenshots/quarto-project-book.png"
 res <- webshot2::webshot(
   url = page,
   file = file,
@@ -418,17 +515,17 @@ cat(sprintf("\n\n![](%s){fig-align=center}", file))
 cat("\n\n:::\n\n")
 ```
 
-::::
+:::
 
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo/Book)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Book)
 :::
 
 ## Quarto projects: `manuscript`
 
-::: {layout-ncol="2" layout-valign="center"}
+:::: {layout-ncol="2" layout-valign="center"}
 
 :::: {}
 
@@ -437,19 +534,21 @@ quarto create project manuscript Manuscript
 ```
 
 ```{bash}
+#| label: quarto-project-manuscript-tree
 #| attr-output: 'style="font-size: 50%;"'
-tree -I "demo" demo/Manuscript
+tree -I "_demo" _demo/Manuscript
 ```
 
-::::
+:::
 
 :::: {.fragment}
 
 ```{r}
+#| label: screenshot-quarto-project-manuscript
 #| output: asis
-system("cd demo/Manuscript; quarto render index.qmd")
-page <- "demo/Manuscript/_manuscript/index.html"
-file <- "assets/images/quarto-project-manuscript.png"
+system("cd _demo/Manuscript; quarto render index.qmd")
+page <- "_demo/Manuscript/_manuscript/index.html"
+file <- "assets/screenshots/quarto-project-manuscript.png"
 res <- webshot2::webshot(
   url = page,
   file = file,
@@ -463,12 +562,12 @@ cat(sprintf("\n\n![](%s){fig-align=center}", file))
 cat("\n\n:::\n\n")
 ```
 
-::::
+:::
 
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo/Manuscript)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Manuscript)
 :::
 
 # Quarto features {background-image="/assets/images/saga.png" background-opacity="0.35"}
@@ -476,6 +575,7 @@ cat("\n\n:::\n\n")
 ## Writing using the Visual Editor {.smaller}
 
 ```{r}
+#| label: screenshot-quarto-visual-editor
 #| output: asis
 pages <- c(
   "vscode" = "https://quarto.org/docs/visual-editor/vscode/",
@@ -498,31 +598,33 @@ for (ipage in names(pages)) {
 }
 ```
 
-::: {.attribution}
+:::: {.attribution}
 <https://quarto.org/>
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
 :::
 
 ## Mermaid Diagrams
 
-::: {layout-ncol="2" layout-valign="center"}
+:::: {layout-ncol="2" layout-valign="center"}
 
 ```{{mermaid}}
+%%| label: quarto-mermaid-example-1
 flowchart LR
   qmd --> J([Jupyter])
   qmd --> K([knitr])
   J --> md
   K --> md
   md --> P([pandoc])
-  P --> pdf
+  P --> typst
   P --> html
   P --> docx
 ```
 
 ```{mermaid}
+%%| label: quarto-mermaid-example-2
 flowchart LR
   qmd --> J([Jupyter])
   qmd --> K([knitr])
@@ -536,13 +638,13 @@ flowchart LR
 
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
 :::
 
 ## Markdown tables
 
-::: {layout-ncol="2"}
+:::: {layout-ncol="2"}
 
 :::: {}
 
@@ -556,7 +658,7 @@ flowchart LR
 : Demonstration of pipe table syntax
 ```
 
-::::
+:::
 
 :::: {.fragment}
 
@@ -568,12 +670,12 @@ flowchart LR
 
 : Demonstration of pipe table syntax
 
-::::
+:::
 
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
 :::
 
 ## Code annotations
@@ -594,8 +696,8 @@ penguins |>                                            # <1>
 2. add new columns for the bill ratio and bill area.
 ````
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
 :::
 
 ## Code annotations
@@ -614,18 +716,18 @@ penguins |>                                            # <1>
 1. Take `penguins`, and then,
 2. add new columns for the bill ratio and bill area.
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
 :::
 
 ## Cross-references: "figures"
 
-::: {layout-ncol="2" layout-valign="center"}
+:::: {layout-ncol="2" layout-valign="center"}
 
 :::: {}
 
 ``` markdown
-::: {#fig-example}
+:::: {#fig-example}
 This is a figure
 
 This is a caption for the figure.
@@ -635,33 +737,33 @@ This is a caption for the figure.
 Or is it?
 ```
 
-::::
+:::
 
-::::: {.fragment}
+:::: {.fragment}
 
 :::: {#fig-example}
 This is a figure
 
 This is a caption for the figure.
-::::
+:::
 
 @fig-example is the reference to a figure.
 Or is it?
-:::::
+:::
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
 :::
 
 ## Cross-references: "tables"
 
-::: {layout-ncol="2" layout-valign="center"}
+:::: {layout-ncol="2" layout-valign="center"}
 
 :::: {}
 
 ``` markdown
-::: {#tbl-example}
+:::: {#tbl-example}
 This is a table
 
 This is a caption for the table.
@@ -671,23 +773,23 @@ This is a caption for the table.
 Or is it?
 ```
 
-::::
+:::
 
-::::: {.fragment}
+:::: {.fragment}
 
 :::: {#tbl-example}
 This is a table
 
 This is a caption for the table.
-::::
+:::
 
 @tbl-example is the reference to a table.
 Or is it?
-:::::
+:::
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
 :::
 
 ## Cross-references: "anything"
@@ -709,12 +811,12 @@ crossref:
 3. used as the prefix for captions (*e.g.*, "Figure 1: ...").
 4. used as the prefix for the reference identifier (*e.g.*, "In \@fig-1, ...").
 
-::: {layout-ncol="2" layout-valign="center"}
+:::: {layout-ncol="2" layout-valign="center"}
 
 :::: {}
 
 ``` markdown
-::: {#txt-example}
+:::: {#txt-example}
 This is text
 
 This is a caption for the text.
@@ -723,9 +825,9 @@ This is a caption for the text.
 @txt-example is the reference to a text.
 ```
 
-::::
+:::
 
-::::: {.fragment}
+:::: {.fragment}
 
 :::: {#txt-example}
 This is text
@@ -734,54 +836,54 @@ This is a caption for the text.
 :::
 
 @txt-example is the reference to a text.
-:::::
+:::
 :::
 
 The above is a custom cross-reference content.
 
-:::::
+:::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
 :::
 
 ## Shortcodes
 
-::: {layout-ncol="2" layout-valign="center" .fragment}
+:::: {layout-ncol="2" layout-valign="center" .fragment}
 :::: {}
 
 ``` markdown
 {{{< meta tittle >}}}
 ```
 
-::::
+:::
 
 :::: {.fragment}
 {{< meta title >}}
-::::
+:::
 :::
 
-::: {layout-ncol="2" layout-valign="center" .fragment}
+:::: {layout-ncol="2" layout-valign="center" .fragment}
 :::: {}
 
 ``` markdown
 {{{< iconify exploding-head size=5x >}}}
 ```
 
-::::
+:::
 
 :::: {.fragment}
 {{< iconify exploding-head size=5x >}}
-::::
+:::
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
 :::
 
 ## Extensions
 
-::: {.callout-tip}
+:::: {.callout-tip}
 ## Install the `quarto-webr` extension
 
 ```{.bash filename="Bash"}
@@ -790,7 +892,7 @@ quarto add coatless/quarto-webr
 
 :::
 
-::: {layout-ncol="2" layout-valign="center"}
+:::: {layout-ncol="2" layout-valign="center"}
 
 ```{{webr-r}}
 fit = lm(mpg ~ am, data = mtcars)
@@ -804,24 +906,24 @@ summary(fit)
 
 :::
 
-::: {.fragment}
+:::: {.fragment}
 Discover more extensions at:
 
 - <https://quarto.org/docs/extensions/>.
 - <https://github.com/mcanouil/awesome-quarto#extensions>.
 :::
 
-::: {.attribution}
+:::: {.attribution}
 <https://quarto-webr.thecoatlessprofessor.com/>
 :::
 
-::: {.notes}
-[Open Visual Studio Code](vscode://file//Users/mcanouil/Projects/perso/gentle-intro-to-quarto/demo/Webr)
+:::: {.notes}
+[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Webr)
 :::
 
 # Quarto resources {background-image="/assets/images/saga.png" background-opacity="0.35"}
 
-::: {layout-ncol="2" layout-valign="center" layout-align="center" style="text-align: center;"}
+:::: {layout-ncol="2" layout-valign="center" layout-align="center" style="text-align: center;"}
 ![](/assets/images/quarto-logo-trademark.svg){width="400px"} 
 
 ![](https://raw.githubusercontent.com/mcanouil/awesome-quarto/main/media/media.svg){width="400px"}

@@ -41,10 +41,40 @@ jobs:
           version: "release"
           tinytex: false
 
+      - uses: r-lib/actions/setup-r@v2
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages:
+            any::knitr
+            any::rmarkdown
+            any::downlit
+            any::xml2
+            any::webshot2
+      
+      - uses: julia-actions/setup-julia@v2
+        with:
+          project: "."
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+
+      - name: Install dependencies
+        shell: bash
+        run: uv sync
+
       - name: Render Quarto Project
         shell: bash
         run: |
-          quarto render
+          uv run quarto render
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

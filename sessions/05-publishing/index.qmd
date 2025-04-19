@@ -3,4 +3,4 @@ title: "Publishing"
 subtitle: "Session 5"
 ---
 
-{{< include _session5.md >}}
+{{< include /program/_session5.md >}}

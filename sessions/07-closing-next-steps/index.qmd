@@ -3,4 +3,4 @@ title: "Closing & Next Steps"
 subtitle: "Session 7"
 ---
 
-{{< include _session7.md >}}
+{{< include /program/_session7.md >}}
