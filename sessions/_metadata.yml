@@ -15,6 +15,9 @@ format:
             .reveal a {
               text-decoration: underline;
             }
+            .reveal .footer a {
+              text-decoration: none;
+            }
           </style>
 format-links:
   - html
