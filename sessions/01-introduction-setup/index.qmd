@@ -11,12 +11,7 @@ crossref:
       reference-prefix: Cross-reference example
       kind: float
 filters:
-  - webr
-resources:
-  - webr-serviceworker.js
-  - webr-worker.js
-webr:
-  show-startup-message: false
+  - highlight-text
 ---
 
 {{< include /program/_session1.md >}}
@@ -793,24 +788,24 @@ The above is a custom cross-reference content.
 ## Extensions
 
 :::: {.callout-tip}
-## Install the `quarto-webr` extension
+## Install the `highlight-text` extension
 
 ```{.bash filename="Bash"}
-quarto add coatless/quarto-webr
+quarto add mcanouil/quarto-highlight-text
 ```
 
 :::
 
 :::: {layout-ncol="2" layout-valign="center"}
 
-```{{webr-r}}
-fit = lm(mpg ~ am, data = mtcars)
-summary(fit)
+```markdown
+[White text, Blue background]{
+  colour="#FFFFFF" bg-colour="#0000FF"
+}
 ```
 
-```{webr-r}
-fit <- lm(mpg ~ am, data = mtcars)
-summary(fit)
+[White text, Blue background]{colour="#FFFFFF" bg-colour="#0000FF"}
+ry(fit)
 ```
 
 :::
@@ -819,11 +814,11 @@ summary(fit)
 Discover more extensions at:
 
 - <https://quarto.org/docs/extensions/>.
-- <https://github.com/mcanouil/awesome-quarto#extensions>.
+- <http://m.canouil.dev/quarto-extensions/>.
 :::
 
 :::: {.attribution}
-<https://quarto-webr.thecoatlessprofessor.com/>
+<https://github.com/mcanouil/quarto-highlight-text>
 :::
 
 :::: {.content-visible when-format="revealjs"}
