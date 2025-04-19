@@ -19,9 +19,11 @@ execute:
 :::: {.content-visible when-format="revealjs"}
 ## About Me {.smaller}
 
+:::: {style="font-size: 80%; font-style: italic;"}
 {{< include /assets/quarto/_about-social.qmd >}}
 
 {{< include /assets/quarto/_about-description.qmd >}}
+:::
 :::
 
 {{< include /program/_session1.md >}}

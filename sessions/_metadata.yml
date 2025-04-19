@@ -9,6 +9,13 @@ format:
       data-background-opacity: "0.35"
     revealjs-plugins:
       - attribution
+    include-in-header:
+      - text: |
+          <style>
+            .reveal a {
+              text-decoration: underline;
+            }
+          </style>
 format-links:
   - html
   - format: coeos-revealjs
