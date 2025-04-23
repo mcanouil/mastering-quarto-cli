@@ -206,7 +206,7 @@ tree -I "_demo" _demo/Default
 ```{r}
 #| label: screenshot-quarto-project-default
 #| output: asis
-system("cd _demo/Default; quarto render Default.qmd")
+system("cd _demo/Default; quarto render Default.qmd --quiet")
 page <- "_demo/Default/Default.html"
 file <- "assets/screenshots/quarto-project-default.png"
 res <- webshot2::webshot(
@@ -291,7 +291,7 @@ tree -I "_demo" _demo/Website
 ```{r}
 #| label: screenshot-quarto-project-website
 #| output: asis
-system("cd _demo/Website; quarto render index.qmd")
+system("cd _demo/Website; quarto render index.qmd --quiet")
 page <- "_demo/Website/_site/index.html"
 file <- "assets/screenshots/quarto-project-website.png"
 res <- webshot2::webshot(
@@ -340,7 +340,7 @@ tree -I "_demo" _demo/Blog
 ```{r}
 #| label: screenshot-quarto-project-blog
 #| output: asis
-system("cd _demo/Blog; quarto render index.qmd")
+system("cd _demo/Blog; quarto render index.qmd --quiet")
 page <- "_demo/Blog/_site/index.html"
 file <- "assets/screenshots/quarto-project-blog.png"
 res <- webshot2::webshot(
@@ -389,7 +389,7 @@ tree -I "_demo" _demo/Book
 ```{r}
 #| label: screenshot-quarto-project-book
 #| output: asis
-system("cd _demo/Book; quarto render index.qmd")
+system("cd _demo/Book; quarto render index.qmd --quiet")
 page <- "_demo/Book/_book/index.html"
 file <- "assets/screenshots/quarto-project-book.png"
 res <- webshot2::webshot(
@@ -438,7 +438,7 @@ tree -I "_demo" _demo/Manuscript
 ```{r}
 #| label: screenshot-quarto-project-manuscript
 #| output: asis
-system("cd _demo/Manuscript; quarto render index.qmd")
+system("cd _demo/Manuscript; quarto render index.qmd --quiet")
 page <- "_demo/Manuscript/_manuscript/index.html"
 file <- "assets/screenshots/quarto-project-manuscript.png"
 res <- webshot2::webshot(
