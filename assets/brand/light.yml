@@ -11,3 +11,9 @@ typography:
   headings: Alegreya Sans
   link:
     color: foreground
+defaults:
+  bootstrap:
+    rules: |
+      div.sourceCode {
+        background-color: darken($dark, 5%) !important;
+      }
