@@ -26,6 +26,7 @@ for SLIDES_PATH in ${SLIDES_FILES}; do
     --chrome-arg=--disable-setuid-sandbox \
     --size "1920x1080" \
     --load-pause 2000 \
+    --fragments \
     --pdf-author "${PDF_AUTHOR}" \
     --pdf-title "${PDF_TITLE}" \
     "${SLIDES_PATH}" "${SLIDES_PATH%.html}.pdf"
