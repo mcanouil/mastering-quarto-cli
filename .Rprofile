@@ -7,4 +7,8 @@ if (!nzchar(Sys.getenv("CI"))) {
   options(width = 150, menu.graphics = FALSE)
 }
 
-options(webshot.quiet = TRUE)
+options(
+  webshot.quiet = TRUE,
+  renv.config.pak.enabled = TRUE,
+  renv.config.cache.enabled = FALSE
+)
