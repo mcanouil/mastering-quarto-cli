@@ -50,6 +50,7 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
+          npm install -g decktape
           Rscript -e 'renv::restore()'
           uv sync
 
