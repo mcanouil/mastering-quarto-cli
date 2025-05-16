@@ -20,9 +20,7 @@ Prior to the workshop, please ensure you have the following installed on your co
 - Python 3.13.* or higher: <https://www.python.org/downloads/>
 - Julia 1.11.* or higher: <https://julialang.org/downloads/>
 
-Alternatively, you can use GitHub Codespaces:
-
-[![](https://github.com/codespaces/badge.svg){fig-alt="Open in GitHub Codespaces"}](https://codespaces.new/mcanouil/quarto-physalia-course?quickstart=1&devcontainer_path=.devcontainer%2Fdevcontainer.json)
+Alternatively, you can use GitHub Codespaces: [![](https://github.com/codespaces/badge.svg){fig-alt="Open in GitHub Codespaces"}](https://codespaces.new/mcanouil/quarto-physalia-course?quickstart=1&devcontainer_path=.devcontainer%2Fdevcontainer.json)
 
 ```sh
 ./setup.sh --what all
