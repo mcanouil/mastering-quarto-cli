@@ -1,4 +1,4 @@
-## Session 1: Introduction & Setup (14:00 - 14:55 CEST)
+## Session 1: Introduction & Setup (14:00 - 14:55 CEST) {.smaller}
 
 - **Welcome & Overview**
   - Introduce workshop objectives and participant goals.

@@ -1,4 +1,4 @@
-## Session 6: Advanced Formatting & Branding (16:05 - 16:45 CEST)
+## Session 6: Advanced Formatting & Branding (16:05 - 16:45 CEST) {.smaller}
 
 - **Advanced Formatting**
   - Customising document layouts: advanced YAML configurations, theme settings, and filters.

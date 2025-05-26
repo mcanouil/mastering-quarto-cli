@@ -1,4 +1,4 @@
-## Session 7: Closing & Next Steps (16:45 - 17:00 CEST)
+## Session 7: Closing & Next Steps (16:45 - 17:00 CEST) {.smaller}
 
 - **Recapitulation:**  
   Summarise the day's key learning outcomes.
