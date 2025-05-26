@@ -10,17 +10,15 @@ crossref:
     - key: cr
       reference-prefix: Cross-reference example
       kind: float
-filters:
-  - highlight-text
 ---
 
 :::: {.content-visible when-format="revealjs"}
 ## About Me
 
-:::: {style="font-size: 70%;"}
+:::: {style="font-size: 50%;"}
 {{< include /assets/quarto/_about-social.qmd >}}
 :::
-:::: {style="font-size: 70%; font-style: italic;"}
+:::: {style="font-size: 55%; font-style: italic;"}
 {{< include /assets/quarto/_about-description.qmd >}}
 :::
 :::
@@ -33,24 +31,17 @@ filters:
 dir.create("assets/screenshots", recursive = TRUE, showWarnings = FALSE)
 ```
 
-:::: {.content-visible unless-format="revealjs"}
-# Quarto
-:::
+# {{< iconify simple-icons:quarto style="color:#74aadb;" >}} Quarto
 
-:::: {.content-visible when-format="revealjs"}
-# ![](/assets/images/quarto-logo-trademark.svg){fig-alt="Quarto" height="1em"}
-:::
 
-## What is Quarto? {{< iconify thinking-face >}}
+## What is {{< iconify simple-icons:quarto >}} Quarto? {{< iconify thinking-face >}}
 
 :::: {#quarto-introduction}
-[Quarto](https://quarto.org/) is an open-source scientific and technical publishing system built on Pandoc.
+[{{< iconify simple-icons:quarto >}} Quarto](https://quarto.org/) is an open-source scientific and technical publishing system built on Pandoc.
 It is a next-generation R Markdown and Jupyter Notebook interface that allows you to create dynamic documents, reports, presentations, and websites.
 :::
 
-:::: {.content-visible unless-format="revealjs"}
-:::: {layout="[0.30, 0.70]" layout-valign="center"}
-
+:::: {style="display: none;"}
 :::: {#quarto-screenshot}
 
 ```{r}
@@ -68,7 +59,7 @@ webshot2::webshot(
 
 :::: {#quarto-description}
 
-Quarto ([quarto.org](https://quarto.org/)):
+{{< iconify simple-icons:quarto >}} Quarto ([quarto.org](https://quarto.org/)):
 
 - is a **free and open-source software**, released under the GPL by [Posit, PBC](https://posit.co/).
 - is a **command line interface** (CLI).
@@ -79,19 +70,31 @@ Quarto ([quarto.org](https://quarto.org/)):
 - is built on **Pandoc**.
 
 :::
+:::
+
+:::: {.content-visible unless-format="revealjs"}
+:::: {layout="[0.30, 0.70]" layout-valign="center"}
+
+:::: {reuse="quarto-screenshot"}
+:::
+
+:::: {reuse="quarto-description"}
+:::
 
 :::
 :::
 
 :::: {.content-visible when-format="revealjs"}
+:::: {style="max-width: 50%;"}
 :::: {reuse="quarto-screenshot"}
+:::
 :::
 
 :::: {.attribution}
 <https://quarto.org/>
 :::
 
-## What is Quarto? {{< iconify thinking-face >}}
+## What is {{< iconify simple-icons:quarto >}} Quarto? {{< iconify thinking-face >}}
 
 :::: {reuse="quarto-description"}
 :::
@@ -124,11 +127,12 @@ Pandoc ([pandoc.org](https://pandoc.org/)):
 :::
 :::
 
-## How does Quarto work? {{< iconify thinking-face >}}
+## How does {{< iconify simple-icons:quarto >}} Quarto work? {{< iconify thinking-face >}}
 
 ```{mermaid}
 %%| label: quarto-workflow
-%%| fig-width: 10
+%%| fig-responsive: false
+%%| fig-height: 6
 %%{
   init: {
     "theme": "dark",
@@ -156,13 +160,17 @@ flowchart LR
   end
 ```
 
-## A Guide to Quarto Versions
+## A Guide to {{< iconify simple-icons:quarto >}} Quarto Versions
 
-Quarto releases uses a versioning scheme similar to [Semantic Versioning](https://semver.org/) with the following release types:
+{{< iconify simple-icons:quarto >}} Quarto releases uses a versioning scheme similar to [Semantic Versioning](https://semver.org/) with the following release types:
 
-- pre-release
-- release candidate (RC)[^release-candidate]
-- release
+:::: {layout-ncol="3"}
+Pre-release
+
+Release Candidate (RC)[^release-candidate]
+
+Release
+:::
 
 [^release-candidate]: A release candidate is a pre-release version of the software that is almost ready for release but may still have some minor bugs or issues to be resolved.
 
@@ -182,9 +190,9 @@ timeline
       1.8
 ```
 
-# Quarto Features
+# {{< iconify simple-icons:quarto >}} Quarto Features
 
-## Quarto Projects: `default`
+## {{< iconify simple-icons:quarto >}} Quarto Projects: `default`
 
 :::: {layout-ncol="2" layout-valign="center"}
 
@@ -234,7 +242,7 @@ cat("\n\n:::\n\n")
 :::
 
 :::: {.content-visible when-format="revealjs"}
-## Quarto Projects: `default`
+## {{< iconify simple-icons:quarto >}} Quarto Projects: `default`
 :::
 
 - `_quarto.yml`: project configuration file.
@@ -269,7 +277,7 @@ cat(
 :::
 :::
 
-## Quarto Projects: `website`
+## {{< iconify simple-icons:quarto >}} Quarto Projects: `website`
 
 :::: {layout-ncol="2" layout-valign="center"}
 
@@ -318,7 +326,7 @@ cat("\n\n:::\n\n")
 :::
 :::
 
-## Quarto Projects: `blog`
+## {{< iconify simple-icons:quarto >}} Quarto Projects: `blog`
 
 :::: {layout-ncol="2" layout-valign="center"}
 
@@ -367,7 +375,7 @@ cat("\n\n:::\n\n")
 :::
 :::
 
-## Quarto Projects: `book`
+## {{< iconify simple-icons:quarto >}} Quarto Projects: `book`
 
 :::: {layout-ncol="2" layout-valign="center"}
 
@@ -416,7 +424,7 @@ cat("\n\n:::\n\n")
 :::
 :::
 
-## Quarto Projects: `manuscript`
+## {{< iconify simple-icons:quarto >}} Quarto Projects: `manuscript`
 
 :::: {layout-ncol="2" layout-valign="center"}
 
@@ -470,6 +478,7 @@ cat("\n\n:::\n\n")
 ```{r}
 #| label: screenshot-quarto-visual-editor
 #| output: asis
+#| classes: panel-tabset
 pages <- c(
   "vscode" = "https://quarto.org/docs/visual-editor/vscode/",
   "rstudio" = "https://quarto.org/docs/visual-editor/"
@@ -501,7 +510,7 @@ for (ipage in names(pages)) {
 :::
 :::
 
-## Mermaid Diagrams
+## Mermaid Diagrams {.smaller}
 
 :::: {layout-ncol="2" layout-valign="center"}
 
@@ -539,7 +548,7 @@ flowchart LR
 :::
 :::
 
-## Markdown tables
+## Markdown tables {.smaller}
 
 :::: {layout-ncol="2"}
 
@@ -557,7 +566,7 @@ flowchart LR
 
 :::
 
-:::: {.fragment}
+:::: {.fragment style="font-size: 80%;"}
 
 | Default | Left | Right | Center |
 |---------|:-----|------:|:------:|
@@ -577,7 +586,7 @@ flowchart LR
 :::
 :::
 
-## Code annotations
+## Code annotations {.smaller}
 
 - Source
 
@@ -602,12 +611,12 @@ penguins |>                                            # <1>
 :::
 
 :::: {.content-visible when-format="revealjs"}
-## Code annotations
+## Code annotations {.smaller}
 :::
 
 - Output
 
-```r
+```{.r code-line-numbers="1-7|3|4-6"}
 library(tidyverse)
 library(palmerpenguins)
 penguins |>                                            # <1>
@@ -626,7 +635,7 @@ penguins |>                                            # <1>
 :::
 :::
 
-## Cross-references: "figures"
+## Cross-references: "figures" {.smaller}
 
 :::: {layout-ncol="2" layout-valign="center"}
 
@@ -664,7 +673,7 @@ Or is it?
 :::
 :::
 
-## Cross-references: "tables"
+## Cross-references: "tables" {.smaller}
 
 :::: {layout-ncol="2" layout-valign="center"}
 
@@ -702,13 +711,13 @@ Or is it?
 :::
 :::
 
-## Cross-references: "anything"
+## Cross-references: "anything" {.smaller}
 
 ::::: {#cr-example}
 
 Define a new cross-reference type:
 
-```yaml
+```{.yaml code-line-numbers="1-6|3|4|5|6"}
 crossref:
   custom:
     - kind: float # <1>
@@ -780,13 +789,13 @@ The above is a custom cross-reference content.
 :::: {}
 
 ```markdown
-{{{< iconify exploding-head size=5x >}}}
+{{{< iconify simple-icons:quarto size=5x >}}}
 ```
 
 :::
 
 :::: {.fragment}
-{{< iconify exploding-head size=5x >}}
+{{< iconify simple-icons:quarto size=5x >}}
 :::
 :::
 
@@ -816,7 +825,6 @@ quarto add mcanouil/quarto-highlight-text
 ```
 
 [White text, Blue background]{colour="#FFFFFF" bg-colour="#0000FF"}
-ry(fit)
 
 :::
 
@@ -929,6 +937,7 @@ cat("\n\n:::\n\n")
 
 ```{r}
 #| label: screenshot-quarto-editor
+#| classes: panel-tabset
 #| output: asis
 pages <- sprintf(
   "https://quarto.org/docs/get-started/hello/%s",
@@ -961,7 +970,7 @@ for (ipage in pages) {
 <https://quarto.org/>
 :::
 
-## Quarto: a command line interface
+## {{< iconify simple-icons:quarto >}} Quarto: a command line interface
 
 ```{bash}
 #| label: quarto-command-line
@@ -977,7 +986,7 @@ quarto --help
 :::
 :::
 
-## Checking Quarto is installed
+## Checking {{< iconify simple-icons:quarto >}} Quarto is installed
 
 ```bash
 quarto check
@@ -995,7 +1004,7 @@ quarto check
 :::
 :::
 
-## Creating a new Quarto project
+## Creating a new {{< iconify simple-icons:quarto >}} Quarto project
 
 ```{.bash filename="Bash"}
 quarto create project
@@ -1022,7 +1031,5 @@ quarto create project
 :::
 
 :::: {.content-visible when-format="revealjs"}
-# About Me
-
-{{< include /assets/quarto/_about-social.qmd >}}
+{{< include /_extensions/mcanouil/coeos/_about.qmd >}}
 :::
