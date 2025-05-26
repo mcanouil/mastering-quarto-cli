@@ -17,3 +17,18 @@ defaults:
       div.sourceCode {
         background-color: lighten($dark, 5%) !important;
       }
+      #quarto-back-to-top {
+        box-shadow: 0 .2rem .5rem darken($light, 5%),0 0 .05rem darken($light, 5%);
+        color: darken($light, 5%);
+      }
+      .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+        color: darken($light, 5%);
+        font-weight: 600;
+      }
+      .quarto-title-breadcrumbs .breadcrumb li:last-of-type a {
+        color: darken($light, 5%);
+        font-weight: 600;
+      }
+      .code-annotated .code-copy-button {
+        margin-right: 1.5em;
+      }

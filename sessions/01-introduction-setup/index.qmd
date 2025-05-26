@@ -31,7 +31,7 @@ crossref:
 dir.create("assets/screenshots", recursive = TRUE, showWarnings = FALSE)
 ```
 
-# {{< iconify simple-icons:quarto style="color:#74aadb;" >}} Quarto
+# {{< iconify simple-icons:quarto >}} Quarto
 
 
 ## What is {{< iconify simple-icons:quarto >}} Quarto? {{< iconify thinking-face >}}
@@ -713,8 +713,6 @@ Or is it?
 
 ## Cross-references: "anything" {.smaller}
 
-::::: {#cr-example}
-
 Define a new cross-reference type:
 
 ```{.yaml code-line-numbers="1-6|3|4|5|6"}
@@ -732,7 +730,6 @@ crossref:
 4. used as the prefix for the reference identifier (*e.g.*, "In \@fig-1, ...").
 
 :::: {layout-ncol="2" layout-valign="center"}
-
 :::: {}
 
 ```markdown
@@ -757,10 +754,6 @@ This is a caption for the text.
 
 @txt-example is the reference to a text.
 :::
-:::
-
-The above is a custom cross-reference content.
-
 :::
 
 :::: {.content-visible when-format="revealjs"}
