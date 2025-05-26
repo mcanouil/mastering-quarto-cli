@@ -72,6 +72,7 @@ format:
     toc: true
     code-copy: true
     code-link: true
+    code-overflow: wrap
     link-external-newwindow: true
     fig-align: center
     theme:
@@ -109,5 +110,12 @@ execute:
   echo: false
 
 filters:
-  - quarto
+  - highlight-text
   - div-reuse
+  - quarto
+
+# filters:
+#   - at: pre-quarto
+#     path: highlight-text
+#   - at: post-quarto
+#     path: div-reuse
