@@ -2,16 +2,6 @@ name: Deploy Workshop to GitHub Pages
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        type: choice
-        description: "Version"
-        required: false
-        default: "patch"
-        options:
-          - "patch"
-          - "minor"
-          - "major"
 
 permissions:
   contents: write
@@ -50,12 +40,12 @@ jobs:
           sudo apt-get install -y nodejs
 
           npm install -g decktape
-          Rscript -e 'renv::restore()'
-          uv sync
 
       - name: Render Quarto Project
         shell: bash
         run: |
+          Rscript -e 'renv::restore()'
+          uv sync
           uv run quarto render
 
       - name: Configure GitHub Pages
