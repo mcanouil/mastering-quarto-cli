@@ -1,3 +1,5 @@
+Package: quarto-physalia-course
+Version: 1.0.0
 Depends:
   knitr,
   rmarkdown,

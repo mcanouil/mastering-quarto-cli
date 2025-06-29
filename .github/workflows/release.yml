@@ -27,7 +27,8 @@ jobs:
       - name: Render Quarto Project
         shell: bash
         run: |
-          Rscript -e 'renv::restore()'
+          # Rscript -e 'renv::restore()'
+          Rscript -e 'pak::lockfile_install()'
           uv sync
           uv run quarto render
 
