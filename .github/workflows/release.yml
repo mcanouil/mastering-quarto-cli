@@ -12,7 +12,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    container: ghcr.io/mcanouil/quarto-codespaces:latest
+    container:
+      image: ghcr.io/mcanouil/quarto-codespaces:latest
+      options: --user vscode
 
     environment:
       name: github-pages
@@ -21,6 +23,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Check Quarto
+        shell: bash
+        run: |
+          quarto check
+        
+      - name: Check working directory
+        shell: bash
+        run: |
+          pwd
+          ls -la
 
       - name: Restore dependencies
         shell: bash
