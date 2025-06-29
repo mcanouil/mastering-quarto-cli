@@ -24,11 +24,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Render Quarto Project
+      - name: Restore dependencies
         shell: bash
         run: |
           Rscript -e 'renv::restore()'
           uv sync
+
+      - name: Render Quarto Project
+        shell: bash
+        run: |
           uv run quarto render
 
       - name: Configure GitHub Pages
