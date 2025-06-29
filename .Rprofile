@@ -9,6 +9,6 @@ if (!nzchar(Sys.getenv("CI"))) {
 
 options(
   webshot.quiet = TRUE,
-  renv.config.pak.enabled = !nzchar(Sys.getenv("CI")),
+  renv.config.pak.enabled = FALSE,
   renv.config.cache.enabled = !nzchar(Sys.getenv("CI"))
 )
