@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/mcanouil/quarto-codespaces:latest
+      image: ghcr.io/mcanouil/quarto-codespaces:release
 
     environment:
       name: github-pages
