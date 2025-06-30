@@ -4,6 +4,11 @@ if [ -z "${QUARTO_PROJECT_RENDER_ALL}" ]; then
   exit 0
 fi
 
+CHROME_PATH_ARG=""
+if [ -n "${QUARTO_CHROMIUM}" ]; then
+  CHROME_PATH_ARG="--chrome-path=${QUARTO_CHROMIUM}"
+fi
+
 HTML_FILES=$(echo "${QUARTO_PROJECT_OUTPUT_FILES}" | tr ' ' '\n' | grep -E '\.html$')
 
 SLIDES_FILES=""
@@ -22,6 +27,7 @@ for SLIDES_PATH in ${SLIDES_FILES}; do
   PDF_TITLE=$(grep -o '<title>.*</title>' "${SLIDES_PATH}" | sed 's/<title>\(.*\)<\/title>/\1/')
   
   npx -y decktape reveal \
+    ${CHROME_PATH_ARG} \
     --chrome-arg=--no-sandbox \
     --chrome-arg=--disable-setuid-sandbox \
     --size "1920x1080" \

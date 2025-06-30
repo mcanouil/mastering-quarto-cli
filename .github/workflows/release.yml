@@ -15,6 +15,9 @@ jobs:
     container:
       image: ghcr.io/mcanouil/quarto-codespaces:release
 
+    env:
+      QUARTO_CHROMIUM: "/usr/bin/google-chrome-stable"
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -22,17 +25,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Check Quarto
-        shell: bash
-        run: |
-          quarto check
-        
-      - name: Check working directory
-        shell: bash
-        run: |
-          pwd
-          ls -la
 
       - name: Restore dependencies
         shell: bash
