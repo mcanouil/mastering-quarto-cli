@@ -78,11 +78,9 @@ format:
     theme:
       light:
         - cosmo
-        - assets/stylesheets/coeos.scss
         - brand
       dark:
         - cosmo
-        - assets/stylesheets/coeos.scss
         - brand
     grid:
       sidebar-width: 350px
