@@ -1,10 +1,557 @@
 ---
 title: "Embedding Computations & Code"
 subtitle: "Session 3"
+engine: markdown
 ---
+
+# Session Overview
 
 {{< include /program/_session3.md >}}
 
-:::: {.content-visible when-format="revealjs"}
-{{< include /_extensions/mcanouil/coeos/_about.qmd >}}
+## Session Objectives
+
+This session explores Quarto's computational capabilities, focusing on seamless multi-language workflows, code cell options, and integration patterns for R and Python data science stacks.
+
+## Learning Objectives
+
+By the end of this session, participants will be able to:
+
+- Execute R, Python, Julia code.
+- Configure code cells using "comment symbol" + "pipe" (`|`) syntax.
+- Control code visibility and execution.
+- Cache computations for improved performance.
+
+# Computing Environments
+
+## Setup R, Python, and/or Julia for Quarto
+
+:::: {.panel-tabset}
+
+## R
+
+```r
+# Install renv if not already installed
+install.packages("renv")
+
+# Initialise project
+renv::init()
+
+# Install packages
+renv::install("rmarkdown")
+
+# Save current state
+renv::snapshot()
+```
+
+## Python (uv)
+
+```bash
+# Install uv (if not installed)
+pip install uv
+
+# Initialise project
+uv init --no-package --vcs none
+
+# Create virtual environment
+uv venv
+
+# Activate environment
+source .venv/bin/activate
+
+# Add packages
+uv add jupyter jupyter papermill
+```
+
+## Julia
+
+```julia
+# Start Julia in your project directory
+using Pkg
+
+# Activate current directory as project
+Pkg.activate(".")
+
+# Add packages
+Pkg.add("IJulia")
+
+# Instantiate environment
+Pkg.instantiate()
+```
+
 :::
+
+## Engine Configuration
+
+Configure engines in your document header:
+
+- `knitr`
+- `jupyter`
+- `julia`
+- `markdown`
+
+:::: {layout-ncol="3"}
+
+```yaml
+---
+engine: knitr
+---
+```
+
+```yaml
+---
+engine: jupyter
+jupyter: python3
+---
+```
+
+```yaml
+---
+engine: julia
+---
+```
+
+:::
+
+:::: {.absolute top=150 right=150 width="500" height="300"}
+
+:::: {.callout-tip}
+Set explicitly the engine in your document header instead of relying on auto-detection.
+:::
+
+:::
+
+## What is a Code Cell?
+
+A **code cell** (also called a **code chunk**) is a section of executable code (defined by ```` ```{language}````) embedded within your Quarto document.
+
+Code cells allow you to:
+
+- Execute programming code directly in your document.
+- Display both the code and its output.
+- Create reproducible analyses and reports.
+
+## Code Cell Structure
+
+````{.qmd code-line-numbers="|1|2-4|6-14"}
+```{python} # <1>
+#| label: my-plot # <2>
+#| echo: true # <2>
+#| fig-cap: "Sample visualization" # <2>
+
+import matplotlib.pyplot as plt # <3>
+import numpy as np # <3>
+# <3>
+x = np.linspace(0, 10, 100) # <3>
+y = np.sin(x) # <3>
+# <3>
+plt.plot(x, y) # <3>
+plt.title("Sine Wave") # <3>
+plt.show() # <3>
+```
+````
+
+1. Computing language (*e.g.*, `python`, `r`, `julia`).
+2. Code cell options (*e.g.*, `label`, `echo`, `eval`).
+3. Code content (your actual programming code).
+
+## Why Use Code Cells?
+
+:::: {.columns}
+
+:::: {.column}
+
+### Reproducibility
+
+- Code and results stay together.
+- Easy to re-run analyses.
+- Version control friendly.
+
+:::
+
+:::: {.column}
+
+### Documentation
+
+- Combine narrative and code.
+- Show methodology clearly.
+- Create living documents.
+
+:::
+
+:::
+
+# Execution Options
+
+## Setting Execution Options Globally {.smaller}
+
+```yaml
+execute:
+  ...
+```
+
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Option       | Description                                                                                                                                                                                       |
++==============+===================================================================================================================================================================================================+
+| `eval`       | Evaluate the code chunk (if `false`, just echos the code into the output).                                                                                                                        |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `echo`       | Include the source code in output                                                                                                                                                                 |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `output`     | Include the results of executing the code in the output (`true`, `false`, or `asis` to indicate that the output is raw markdown and should not have any of Quarto's standard enclosing markdown). |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `warning`    | Include warnings in the output.                                                                                                                                                                   |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `error`      | Include errors in the output (note that this implies that errors executing code will not halt processing of the document).                                                                        |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `include`    | Catch all for preventing any output (code or results) from being included (e.g. `include: false` suppresses all output from the code block).                                                      |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `renderings` | Specify rendering names for the plot or table outputs of the cell, e.g. `[light, dark]`                                                                                                           |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+## Code Cells Options
+
+The "comment symbol" + "pipe" (`|`) syntax allows to pass options to code cells.
+
+**Code Visibility Control**:
+
+````{.qmd code-line-numbers="|2|3|4|5"}
+```{r}
+#| echo: false        # <1>
+#| eval: false        # <2>
+#| include: false     # <3>
+#| code-fold: true    # <4>
+```
+````
+
+1. Hide code, show output.
+2. Show code, don't execute.
+3. Execute code, hide everything.
+4. Collapsible code blocks.
+
+:::: {.content-visible when-format="revealjs"}
+
+## Code Cells Options
+
+:::
+
+**Output Control**:
+
+````{.qmd code-line-numbers="|2|3|4|5"}
+```{r}
+#| warning: false     # <1>
+#| message: false     # <2>
+#| error: true        # <3>
+#| output: false      # <4>
+```
+````
+
+1. Suppress warnings
+2. Suppress messages
+3. Show errors for debugging
+4. Hide all output
+
+# Cache and Freeze
+
+## Two Systems
+
+:::: {.columns}
+
+:::: {.column}
+
+### Cache: Stores computation results
+
+- Speeds up development.
+- Works during iteration.
+- Engine-specific behaviour.
+
+:::
+
+:::: {.column}
+
+### Freeze: Prevents re-execution
+
+- Enables collaboration.
+- Project-wide control.
+- Version control friendly.
+
+:::
+
+:::
+
+## Cache: Development Speed
+
+Store expensive computation results to avoid re-running during development.
+
+Two Types:
+
+- **Jupyter Cache:** Document-level (all-or-nothing).
+- **Knitr Cache:** Cell-level (granular control).
+
+```yaml
+execute:
+  cache: true
+```
+
+## Freeze: Collaboration Control
+
+Prevent documents from re-executing during project renders.
+
+Results saved in `_freeze` directory (commit to version control).
+
+```yaml
+execute:
+ freeze: auto    # Re-render only when source changes
+ freeze: true    # Never re-render during project render
+```
+
+## Key Behavioural Differences
+
+| Action                     | Cache              | Freeze                         |
+|----------------------------|--------------------|--------------------------------|
+| Individual document render | ✅ Used            | ❌ Ignored                      |
+| Project render             | ✅ Used            | ✅ Controls execution           |
+| Prose changes              | No effect          | No effect                      |
+| Code changes               | Invalidates cache  | Triggers re-render (auto mode) |
+
+## When to Use Each
+
+:::: {.columns}
+
+:::: {.column}
+
+### Use Cache When
+
+- Developing single format documents.
+- Iterating on analysis.
+- Working with expensive computations.
+- Editing prose frequently.
+
+:::
+
+:::: {.column}
+
+### Use Freeze When
+
+- Working in teams.
+- Managing large projects.
+- Environment setup is complex.
+- Results need to be reproducible.
+
+:::
+
+:::
+
+## Essential CLI Commands
+
+### Cache Control
+
+```bash
+quarto render --cache           # Force cache use
+quarto render --no-cache        # Disable cache
+quarto render --cache-refresh   # Force refresh
+```
+
+### Freeze Management
+
+```bash
+quarto render document.qmd      # Always executes (ignores freeze)
+quarto render                   # Respects freeze settings
+```
+
+## Golden Rules
+
+1. Cache for Development.  
+   Use when iterating on individual documents
+
+2. Freeze for Collaboration.  
+   Use when working with teams or managing large projects
+
+3. Different Scopes.
+   - Cache: Session-level performance
+   - Freeze: Project-level workflow management
+
+4. Version Control.  
+   Always commit `_freeze` directory contents
+
+# Parameters
+
+## What Are Parameters?
+
+Parameters allow you to create **dynamic variations** of the same document:
+
+- **Geographic reports** → Different locations
+- **Time-based analysis** → Different periods  
+- **Scenario modelling** → Different assumptions
+- **Multi-client reports** → Different datasets
+
+Think of parameters as **variables** that make your documents reusable and flexible.
+
+## Defining Parameters
+
+:::: {.panel-tabset}
+
+### Python (`papermill`)
+
+```python
+#| tags: [parameters]
+alpha = 0.1
+ratio = 0.5
+country = "UK"
+year = 2024
+```
+
+- Must use `#| tags: [parameters]` comment.
+- Provide sensible default values.
+- Parameters available in top-level environment.
+- Works with `.qmd` and `.ipynb` files.
+
+### R (`knitr`)
+
+```yaml
+---
+title: "Sales Report"
+params:
+  region: "North"
+  start_date: "2024-01-01"
+  threshold: 1000
+---
+```
+
+Access in R code:
+
+```r
+print(params[["region"]])
+```
+
+:::
+
+## Passing Parameters: Command Line
+
+Use the `-P` (`--execute-param`) flag to override parameter values:
+
+```bash
+# Single parameter
+quarto render report.qmd -P country:France
+
+# Multiple parameters  
+quarto render report.qmd -P year:2023 -P region:Europe
+
+# With output specification
+quarto render report.qmd -P country:Germany --to typst
+```
+
+## Passing Parameters: YAML Files
+
+Create reusable parameter sets with YAML files:
+
+:::: {.columns}
+
+:::: {.column}
+
+```{.yaml filename="params.yml"}
+country: "Spain"
+year: 2023
+budget: 50000
+```
+
+:::
+
+:::: {.column}
+
+```{.bash filename="Terminal"}
+quarto render report.qmd \
+  --execute-params params.yml
+```
+
+:::
+
+:::
+
+**Benefits:** Version control, team sharing, complex configurations.
+
+---
+
+## Practical Example {.smaller}
+
+:::: {.columns}
+
+:::: {.column}
+
+### Setup (Jupyter/Python)
+
+```python
+#| tags: [parameters]
+region = "All"
+quarter = "Q1" 
+min_sales = 1000
+```
+
+### Using parameters
+
+```python
+if region != "All":
+   df = df[df['region'] == region]
+
+df_filtered = df[df['sales'] >= min_sales]
+title = f"{region} Sales - {quarter}"
+```
+
+:::
+
+:::: {.column}
+
+### Command line usage
+
+```bash
+quarto render sales.qmd \
+ -P region:North \
+ -P quarter:Q2
+```
+
+:::
+
+:::
+
+**Result:** Customised report for North region, Q2 data.
+
+## Best Practices
+
+:::: {.columns}
+
+:::: {.column}
+
+### ✅ Do
+
+- Provide meaningful defaults.
+- Use descriptive names.
+- Document parameter types.
+- Validate values in code.
+- Use YAML for complex configs.
+:::
+
+::: {.column}
+
+### ❌ Avoid
+
+- Generic names (`x`, `val`).
+- Parameters without defaults.
+- Hardcoded values.
+- Overly complex structures.
+:::
+
+::::
+
+## Workflow Integration
+
+### Automated reporting
+
+```bash
+# Daily reports
+quarto render report.qmd -P date:"$(date +%Y-%m-%d)"
+
+# Multiple outputs
+for region in North South East West; do
+ quarto render regional.qmd -P region:$region
+done
+```
+
+**Perfect for:** CI/CD pipelines, batch processing, scheduled reports.
