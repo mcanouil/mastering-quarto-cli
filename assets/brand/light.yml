@@ -56,7 +56,7 @@ defaults:
       }
 
       .quarto-title-breadcrumbs .breadcrumb li:last-of-type a {
-        color: body-mix(95%);
+        color: body-mix(50%);
         font-weight: 600;
       }
 
@@ -100,6 +100,12 @@ defaults:
       p code:not(.sourceCode),
       li code:not(.sourceCode) {
         background-color: $foreground;
+      }
+
+      nav p code:not(.sourceCode),
+      nav li code:not(.sourceCode),
+      nav td code:not(.sourceCode) {
+        background-color: $foreground !important;
       }
 
       div.sourceCode {
