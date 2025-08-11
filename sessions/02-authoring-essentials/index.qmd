@@ -1,9 +1,626 @@
 ---
 title: "Authoring Essentials"
 subtitle: "Session 2"
+crossref:
+  custom:
+    - key: txt
+      reference-prefix: Text
+      kind: float
+    - key: cr
+      reference-prefix: Cross-reference example
+      kind: float
 ---
 
+# Session Overview
+
 {{< include /program/_session2.md >}}
+
+## Session Objectives
+
+This session focuses on building foundational skills in Quarto authoring, covering enhanced markdown capabilities, YAML configuration, and document structuring best practices.
+
+## Learning Objectives
+
+By the end of this session, participants will be able to:
+
+- Create well-structured documents using enhanced Quarto markdown features.
+- Configure documents using YAML headers for different output formats.
+- Use advanced formatting features including callouts, cross-references, and tabsets.
+
+# Markdown Basics
+
+## Text Formatting Essentials
+
+Basic text formatting you'll use every day:
+
+- **Bold text** with `**bold**` or `__bold__`
+- *Italic text* with `*italic*` or `_italic_`
+- ***Bold and italic*** with `***text***`
+- Superscript^2^ with `superscript^2^`
+- Subscript~2~ with `subscript~2~`
+- `Verbatim code` with backticks
+
+## Headers Structure Your Content
+
+```markdown
+# Heading 1 - Document Title
+## Heading 2 - Major Sections  
+### Heading 3 - Subsections
+#### Heading 4 - Minor Sections
+##### Heading 5 - Rare Usage
+###### Heading 6 - Very Rare
+```
+
+Headers create your document structure and enable automatic table of contents generation.
+
+:::: {.callout-tip}
+Add a empty lines before and after!
+:::
+
+## Lists
+
+:::: {.callout-important}
+Quarto requires empty lines before and after lists!
+:::
+
+:::: {.columns}
+
+:::: {.column}
+
+**Unordered Lists:**
+
+```markdown
+- First item
+- Second item  
+- Third item
+```
+
+:::
+
+:::: {.column}
+
+**Ordered Lists:**
+
+```markdown
+1. First step
+2. Second step
+3. Third step
+```
+
+:::
+
+:::
+
+## Lists - Nested {.smaller}
+
+:::: {.callout-important}
+The number of spaces for indentation does not matter, but the list marker must be aligned with the first character of the parent item.
+:::
+
+````markdown
+- First item
+
+  ```r
+  print("Hello, World!")
+  ```
+
+-    Second item (**bad**)
+
+  ::: {.callout-tip}
+  Here is a tip!
+  :::
+
+     - Sub item
+
+-    Third item
+
+     ::: {.callout-tip}
+     Here is a tip!
+     :::
+
+     - Sub item
+
+````
+
+## Working with Code
+
+**Inline code:** Use single backticks
+
+```markdown
+The `print()` function outputs text.
+```
+
+:::: {.callout-tip}
+Code highlighting for inline code:
+
+```markdown
+The `print()`{.python} function outputs text.
+```
+
+:::
+
+**Code blocks:** Use triple backticks with optional language
+
+````markdown
+```python
+def hello_world():
+    print("Hello, Quarto!")
+```
+````
+
+Syntax highlighting provided by [`skylighting`](https://github.com/jgm/skylighting).
+
+## Tables Made Simple {.smaller}
+
+:::: {layout-ncol="2"}
+
+:::: {}
+
+```markdown
+| Default | Left | Right | Center |
+|---------|:-----|------:|:------:|
+| 12      | 12   |    12 |   12   |
+| 123     | 123  |   123 |  123   |
+| 1       | 1    |     1 |   1    |
+
+: Demonstration of pipe table syntax
+```
+
+:::
+
+:::: {style="font-size: 50%;"}
+
+| Default | Left | Right | Center |
+|---------|:-----|------:|:------:|
+| 12      | 12   |    12 |   12   |
+| 123     | 123  |   123 |  123   |
+| 1       | 1    |     1 |   1    |
+
+: Demonstration of pipe table syntax
+
+:::
+
+:::
+
+Use colons (`:`) to control alignment:
+
+- `:---` for left alignment.
+- `---:` for right alignment.
+- `:---:` for centre alignment.
+
+See [Table basics](https://quarto.org/docs/authoring/tables.html) for more.
+
+## Mathematical Expressions
+
+**Inline maths:** `$E = mc^2$` renders as $E = mc^2$.
+
+**Display maths:** Use double dollar signs (on separate lines).
+
+```markdown
+$$
+E = mc^2
+$$
+```
+
+Define custom LaTeX macros in hidden blocks for reuse across your document, see [Markdown Basics - Equations](https://quarto.org/docs/authoring/markdown-basics.html#equations)
+
+## Footnotes and References
+
+**Standard footnotes:**
+
+```markdown
+Here is a footnote reference[^1].
+
+[^1]: Here is the footnote content.
+```
+
+**Inline footnotes:**
+
+```markdown
+Here is an inline note^[Much easier to write!].
+```
+
+Footnote identifiers must be unique within the document.
+
+## Figure Basics
+
+```markdown
+![Elephant](elephant.png)
+```
+
+See [Figure basics](https://quarto.org/docs/authoring/tables.html) for more.
+
+## Advanced Formatting: Divs and Spans
+
+**Divs** for block-level content:
+
+```markdown
+:::: {#ID .class attribute=value}
+This is a "fenced div".
+:::
+```
+
+**Spans** for inline formatting:
+
+```markdown
+[This is a "span"]{#ID .class attribute=value}
+```
+
+# Quarto Markdown
+
+## Enhanced Markdown Capabilities
+
+Quarto extends standard markdown with powerful features designed specifically for computational documents.
+
+## Built-in Shortcodes
+
+Quarto supports several shortcodes natively:
+
+:::: {style="font-size: 50%;"}
+
+| Shortcode                                                                       | Description                              |
+|---------------------------------------------------------------------------------|------------------------------------------|
+| [version](https://quarto.org/docs/authoring/version.qmd)                        | Print Quarto CLI version                 |
+| [var](https://quarto.org/docs/authoring/variables.qmd#var)                      | Print value from `_variables.yml` file   |
+| [meta](https://quarto.org/docs/authoring/variables.qmd#meta)                    | Print value from document metadata       |
+| [env](https://quarto.org/docs/authoring/variables.qmd#url)                      | Print system environment variable        |
+| [pagebreak](https://quarto.org/docs/authoring/markdown-basics.qmd#page-breaks)  | Insert a native page-break               |
+| [kbd](https://quarto.org/docs/authoring/markdown-basics.qmd#keyboard-shortcuts) | Describe keyboard shortcuts              |
+| [video](https://quarto.org/docs/authoring/videos.qmd)                           | Embed a video in a document              |
+| [include](https://quarto.org/docs/authoring/includes.qmd)                       | Include contents of another qmd          |
+| [embed](https://quarto.org/docs/authoring/notebook-embed.qmd)                   | Embed cells from a Jupyter Notebook      |
+| [placeholder](https://quarto.org/docs/authoring/placeholder.qmd)                | Add placeholder images to your document  |
+| [lipsum](https://quarto.org/docs/authoring/lipsum.qmd)                          | Add placeholder text to your document    |
+| [contents](https://quarto.org/docs/authoring/contents.qmd)                      | Rearrange content in your document       |
+
+:::
+
+## Mermaid Diagrams {.smaller}
+
+:::: {layout-ncol="2" layout-valign="center"}
+
+```{{mermaid}}
+%%| label: quarto-mermaid-example-1
+flowchart LR
+  qmd --> J([Jupyter])
+  qmd --> K([knitr])
+  J --> md
+  K --> md
+  md --> P([pandoc])
+  P --> typst
+  P --> html
+  P --> docx
+```
+
+```{mermaid}
+%%| label: quarto-mermaid-example-2
+flowchart LR
+  qmd --> J([Jupyter])
+  qmd --> K([knitr])
+  J --> md
+  K --> md
+  md --> P([pandoc])
+  P --> pdf
+  P --> html
+  P --> docx
+```
+
+:::
+
+## Callout Blocks
+
+Five types of callouts for better communication:
+
+:::: {layout-ncol="2"}
+
+:::: {}
+
+```markdown
+:::: {.callout-note}
+## Note
+
+Important information for readers.
+:::
+
+:::: {.callout-warning}
+## Warning
+
+Something to be careful about.
+:::
+```
+
+:::
+
+:::: {style="font-size: 80%;"}
+
+:::: {.callout-note}
+## Note
+
+Important information for readers.
+:::
+
+:::: {.callout-warning}
+## Warning
+
+Something to be careful about.
+:::
+
+:::
+
+:::
+
+Types: `note`, `tip`, `warning`, `caution`, `important`.
+
+## Code Annotations {.smaller}
+
+- Source
+
+````markdown
+```r
+library(tidyverse)
+library(palmerpenguins)
+penguins |>                                            # <1>
+  mutate(                                              # <2>
+    bill_ratio = bill_depth_mm / bill_length_mm,       # <2>
+    bill_area  = bill_depth_mm * bill_length_mm        # <2>
+  )                                                    # <2>
+```
+1. Take `penguins`, and then,
+2. add new columns for the bill ratio and bill area.
+````
+
+- Output
+
+```{.r code-line-numbers="1-7|3|4-6"}
+library(tidyverse)
+library(palmerpenguins)
+penguins |>                                            # <1>
+  mutate(                                              # <2>
+    bill_ratio = bill_depth_mm / bill_length_mm,       # <2>
+    bill_area  = bill_depth_mm * bill_length_mm        # <2>
+  )                                                    # <2>
+```
+
+1. Take `penguins`, and then,
+2. add new columns for the bill ratio and bill area.
+
+## Cross-references: "figures" {.smaller}
+
+:::: {layout-ncol="2" layout-valign="center"}
+
+:::: {}
+
+```markdown
+:::: {#fig-example}
+This is a figure
+
+This is a caption for the figure.
+:::
+
+@fig-example is the reference to a figure.
+Or is it?
+```
+
+:::
+
+:::: {#fig-example}
+This is a figure
+
+This is a caption for the figure.
+:::
+
+@fig-example is the reference to a figure.
+Or is it?
+:::
+
+## Cross-references: "tables" {.smaller}
+
+:::: {layout-ncol="2" layout-valign="center"}
+
+:::: {}
+
+```markdown
+:::: {#tbl-example}
+This is a table
+
+This is a caption for the table.
+:::
+
+@tbl-example is the reference to a table.
+Or is it?
+```
+
+:::
+
+:::: {#tbl-example}
+This is a table
+
+This is a caption for the table.
+:::
+
+@tbl-example is the reference to a table.
+Or is it?
+:::
+
+## Cross-references: "anything" {.smaller}
+
+Define a new cross-reference type:
+
+```{.yaml code-line-numbers="1-6|3|4|5|6"}
+crossref:
+  custom:
+    - kind: float # <1>
+      prefix: Text # <2>
+      name: Text # <3>
+      ref-type: txt # <4>
+```
+
+1. cross-referenceable elements with captions are `float`.
+2. used as the prefix for reference in output (*e.g.*, "In Figure 1, ...").
+3. used as the prefix for captions (*e.g.*, "Figure 1: ...").
+4. used as the prefix for the reference identifier (*e.g.*, "In \@fig-1, ...").
+
+:::: {layout-ncol="2" layout-valign="center"}
+:::: {}
+
+```markdown
+:::: {#txt-example}
+This is text
+
+This is a caption for the text.
+:::
+
+@txt-example is the reference to a text.
+```
+
+:::
+
+:::: {#txt-example}
+This is text
+
+This is a caption for the text.
+:::
+
+@txt-example is the reference to a text.
+:::
+
+## Citations {.smaller}
+
+:::: {.columns}
+
+:::: {.column}
+
+#### Setup Required
+
+- Bibliography file (`.bib`, `.bibtex`, etc.).
+- Optional: CSL file for custom styling.
+
+#### YAML Configuration
+
+```yaml
+bibliography: references.bib
+csl: nature.csl  # Optional custom style
+```
+
+#### Bibliography Generation
+
+- Automatic placement at document end.
+- Use `## References {#refs}` for custom placement.
+- `nocite: "@*"` includes all references.
+
+:::
+
+:::: {.column}
+
+#### Citation Syntax
+
+- `[@author2023]` → (Author 2023)
+- `[@author2023, p. 15]` → (Author 2023, 15)
+- `[@smith2020; @jones2021]` → (Smith 2020; Jones 2021)
+- `@author2023 says...` → Author (2023) says...
+- `[-@author2023]` → (2023) - suppress author
+
+:::
+
+:::
+
+# YAML Configuration
+
+## Overview {.smaller}
+
+The YAML header serves as the configuration hub for your documents, controlling output formats, execution behaviour, and visual presentation.
+
+**Metadata Inheritance:**
+
+- **Project level**: `_quarto.yml` (lowest priority)
+- **Directory level**: `_metadata.yml` (medium priority)  
+- **Document level**: YAML header (highest priority)
+
+**Multiple Metadata Files:**
+
+```yaml
+metadata-files:
+  - _website.yml
+  - _common.yml
+```
+
+## Document Header
+
+```{.yaml code-line-numbers="|7"}
+---
+title: "My Analysis Report"
+author: "Your Name"
+date: today
+format: 
+  html:
+    toc: true #<1>
+    code-fold: true
+    theme: cosmo
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+```
+
+1. Option specific to HTML output.
+
+## Multi-Format Output
+
+Configure multiple output formats simultaneously and share options:
+
+```{.yaml code-line-numbers="|3"}
+---
+title: "Multi-Format Document"
+toc: true #<1>
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    respect-user-colour-scheme: true
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+  docx:
+    reference-doc: template.docx
+---
+```
+
+1. Option shared by all formats.
+
+## Extensions
+
+:::: {.callout-tip}
+## Install the `highlight-text` extension
+
+```{.bash filename="Bash"}
+quarto add mcanouil/quarto-highlight-text@1.3.3
+```
+
+:::
+
+:::: {layout-ncol="2" layout-valign="center"}
+
+```markdown
+[White text, Blue background]{
+  colour="#FFFFFF" bg-colour="#0000FF"
+}
+```
+
+[White text, Blue background]{colour="#FFFFFF" bg-colour="#0000FF"}
+
+:::
+
+Discover more extensions at:
+
+- <https://quarto.org/docs/extensions/>.
+- <http://m.canouil.dev/quarto-extensions/>.
+
+:::: {.attribution}
+<https://github.com/mcanouil/quarto-highlight-text>
+:::
+
+{{< include _exercises.qmd >}}
 
 :::: {.content-visible when-format="revealjs"}
 {{< include /_extensions/mcanouil/coeos/_about.qmd >}}

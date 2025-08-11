@@ -1,0 +1,201 @@
+# Hands-On Exercise: Building Your Quarto Portfolio Document
+
+## Exercise Overview (*15 minutes*)
+
+**Objective**: Enhance your Session 1 project with advanced Quarto markdown features, demonstrating authoring essentials and creating a comprehensive personal portfolio document.
+
+**Time Allocation**:
+
+- *12 minutes*: Hands-on enhancement.
+- *3 minutes*: Showcase and Q&A.
+
+## Part 1: Document Enhancement (*4 minutes*)
+
+**Building on your Session 1 project**, enhance your document with these new authoring features:
+
+1. **Create a new document** with multi-format support:
+
+   `<details><summary>Code</summary>`{=html}
+
+   ```yaml
+   ---
+   title: "My Quarto Learning Portfolio"
+   author: "Your Name"
+   date: today
+   format:
+     html: default
+     typst: default
+   ---
+   ```
+
+   `</details>`{=html}
+
+2. **Add a numbered table of contents** structured by using:
+
+   `<details><summary>Code</summary>`{=html}
+
+   ```markdown
+   ### Learning Progress
+   [New section - see Part 2]
+   
+   ### Skills Showcase
+   [New section - see Part 3]
+   
+   ### Reflection & Next Steps
+   [Your existing learning goals and next steps]
+   ```
+
+   `</details>`{=html}
+
+## Part 2: Advanced Formatting Features (*4 minutes*) {.smaller}
+
+**Add these enhanced markdown elements** to your "Learning Progress" section:
+
+- **Create a skills tracking table**:
+
+  `<details><summary>Code</summary>`{=html}
+
+  ```markdown
+  ## Learning Progress
+  
+  | Feature | Confidence Level | Notes |
+  |---------|:---------------:|-------|
+  | Basic Markdown | ⭐⭐⭐ | Comfortable with headers, lists |
+  | YAML Configuration | ⭐⭐ | Learning multi-format setup |
+  | Cross-references | ⭐ | Just discovered this! |
+  
+  : My Quarto Skills Progress {#tbl-skills}
+  
+  As shown in @tbl-skills, I'm making steady progress!
+  ```
+
+  `</details>`{=html}
+
+- **Add callout blocks** for key insights:
+
+  `<details><summary>Code</summary>`{=html}
+
+  ```markdown
+  :::: {.callout-tip}
+  ## Today's Biggest Discovery
+  
+  I learned that Quarto can render to multiple formats simultaneously - 
+  this will revolutionise my workflow!
+  :::
+  
+  :::: {.callout-note collapse="true"}
+  ## Session Notes
+  
+  - Enhanced markdown features are powerful
+  - Cross-references work across formats
+  - YAML controls everything!
+  :::
+  ```
+
+  `</details>`{=html}
+
+## Part 3: Skills Showcase Section (*4 minutes*) {.smaller}
+
+**Create a "Skills Showcase" section** demonstrating your new capabilities:
+
+- **Mathematical expressions**:
+
+  `<details><summary>Code</summary>`{=html}
+
+  ```markdown
+  ## Skills Showcase
+  
+  ### Mathematical Typesetting
+  
+  I can now write inline maths like $E = mc^2$ and display equations:
+  
+  $$
+  \text{Learning Rate} = \frac{\text{New Concepts}}{\text{Practice Time}}
+  $$
+  ```
+
+  `</details>`{=html}
+
+- **Code blocks with annotations**:
+
+  `<details><summary>Code</summary>`{=html}
+
+  ````markdown
+  ### Code Documentation
+  
+  ```r
+  # My first annotated code block
+  library(ggplot2)                    # <1>
+  data(mtcars)                        # <2>
+  ggplot(mtcars, aes(x = mpg)) +      # <3>
+    geom_histogram()                  # <3>
+  ```
+
+  1. Load the plotting library
+  2. Use built-in dataset
+  3. Create a simple histogram
+
+  ````
+
+  `</details>`{=html}
+
+- **Cross-referenced figure**:
+
+  `<details><summary>Code</summary>`{=html}
+
+  ````markdown
+  ### Workflow Diagram
+  
+  ::: {#fig-workflow}
+  
+  ```
+  Learn → Practice → Apply → Teach
+  ```
+  
+  My Quarto learning workflow
+  :::
+  
+  @fig-workflow shows my approach to mastering new tools.
+  ````
+
+  `</details>`{=html}
+
+- **Footnotes for additional context**:
+
+  `<details><summary>Code</summary>`{=html}
+
+  ```markdown
+  This exercise builds on Session 1^[Where we learned project setup and IDE integration] 
+  and adds the authoring essentials from Session 2.
+  ```
+
+  `</details>`{=html}
+
+## Part 4: Multi-Format Testing
+
+**Test your enhanced document**:
+
+- **Render to HTML**
+
+  ```bash
+  quarto render your-document.qmd --to html
+  ```
+
+- **Try PDF output**
+
+  ```bash
+  quarto render your-document.qmd --to typst
+  ```
+
+- **Compare the outputs**
+
+## Success Criteria {.smaller}
+
+✅ **You've successfully completed the exercise if you can**:
+
+- Customise your existing project with YAML configuration.
+- Implement cross-references with tables and figures.
+- Use callout blocks effectively for highlighting information.
+- Create annotated code blocks.
+- Integrate mathematical expressions appropriately.
+- Successfully render to multiple formats.
