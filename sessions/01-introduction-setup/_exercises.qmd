@@ -66,11 +66,11 @@
    `<details><summary>Code</summary>`{=html}
 
    ```markdown
-   ## About Me
+   ## Introduction
 
    Write a brief introduction about yourself and your interest in Quarto.
 
-   ## My Development Environment
+   ## Technical Setup
 
    I'm using [VS Code/Positron] for this workshop and here's what I've discovered:
    - [Feature you found helpful]

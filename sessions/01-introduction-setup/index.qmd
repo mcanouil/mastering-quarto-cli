@@ -1,15 +1,6 @@
 ---
 title: "Introduction & Setup"
 subtitle: "Session 1"
-pwd: "/Users/mcanouil/Projects/pro/training/quarto-physalia-course/sessions/01-introduction-setup"
-crossref:
-  custom:
-    - key: txt
-      reference-prefix: Text
-      kind: float
-    - key: cr
-      reference-prefix: Cross-reference example
-      kind: float
 ---
 
 # Introduction
@@ -338,12 +329,6 @@ cat("\n\n:::\n\n")
 quarto --help
 ```
 
-:::: {.content-visible when-format="revealjs"}
-:::: {.notes}
-[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
-:::
-:::
-
 ## Checking {{< quarto >}} Quarto is installed {.smaller}
 
 ```bash
@@ -407,12 +392,6 @@ Quarto 1.7.32
 5. Python installation and computing dependencies detected by Quarto.
 6. R installation and computing dependencies detected by Quarto.
 
-:::: {.content-visible when-format="revealjs"}
-:::: {.notes}
-[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
-:::
-:::
-
 # {{< quarto >}} Quarto Projects
 
 ## Creating a new {{< quarto >}} Quarto project
@@ -433,12 +412,6 @@ quarto create project
    confluence
 ```
 
-:::
-
-:::: {.content-visible when-format="revealjs"}
-:::: {.notes}
-[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
-:::
 :::
 
 ## {{< quarto >}} Quarto Projects: `default`
@@ -485,12 +458,6 @@ cat("\n\n:::\n\n")
 :::
 
 :::: {.content-visible when-format="revealjs"}
-:::: {.notes}
-[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Default)
-:::
-:::
-
-:::: {.content-visible when-format="revealjs"}
 ## {{< quarto >}} Quarto Projects: `default`
 :::
 
@@ -519,12 +486,6 @@ cat(
   sep = "\n"
 )
 ```
-
-:::: {.content-visible when-format="revealjs"}
-:::: {.notes}
-[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Default)
-:::
-:::
 
 ## {{< quarto >}} Quarto Projects: `website`
 
@@ -567,12 +528,6 @@ cat("\n\n:::\n\n")
 
 :::
 
-:::
-
-:::: {.content-visible when-format="revealjs"}
-:::: {.notes}
-[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Website)
-:::
 :::
 
 ## {{< quarto >}} Quarto Projects: `blog`
@@ -618,12 +573,6 @@ cat("\n\n:::\n\n")
 
 :::
 
-:::: {.content-visible when-format="revealjs"}
-:::: {.notes}
-[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Blog)
-:::
-:::
-
 ## {{< quarto >}} Quarto Projects: `book`
 
 :::: {layout-ncol="2" layout-valign="center"}
@@ -667,12 +616,6 @@ cat("\n\n:::\n\n")
 
 :::
 
-:::: {.content-visible when-format="revealjs"}
-:::: {.notes}
-[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Book)
-:::
-:::
-
 ## {{< quarto >}} Quarto Projects: `manuscript`
 
 :::: {layout-ncol="2" layout-valign="center"}
@@ -714,12 +657,6 @@ cat("\n\n:::\n\n")
 
 :::
 
-:::
-
-:::: {.content-visible when-format="revealjs"}
-:::: {.notes}
-[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/_demo/Manuscript)
-:::
 :::
 
 ## Writing with your favourite editor {.smaller}
@@ -788,12 +725,6 @@ for (ipage in names(pages)) {
 
 :::: {.attribution}
 <https://quarto.org/>
-:::
-
-:::: {.content-visible when-format="revealjs"}
-:::: {.notes}
-[Open Visual Studio Code](vscode://file/{{< meta pwd >}}/demo)
-:::
 :::
 
 {{< include _exercises.qmd >}}
