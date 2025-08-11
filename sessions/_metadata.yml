@@ -1,6 +1,7 @@
 date: today
 format:
-  html: default
+  html:
+    shift-heading-level-by: 1
   coeos-revealjs:
     output-file: slides
     logo: ""
