@@ -413,6 +413,8 @@ This is a caption for the figure.
 Or is it?
 :::
 
+A label/ID starting with `fig-` will be treated as a figure reference.
+
 ## Cross-references: "tables" {.smaller}
 
 :::: {layout-ncol="2" layout-valign="center"}
@@ -441,6 +443,8 @@ This is a caption for the table.
 @tbl-example is the reference to a table.
 Or is it?
 :::
+
+A label/ID starting with `tbl-` will be treated as a table reference.
 
 ## Cross-references: "anything" {.smaller}
 
@@ -490,19 +494,19 @@ This is a caption for the text.
 
 :::: {.column}
 
-#### Setup Required
+### Setup Required
 
 - Bibliography file (`.bib`, `.bibtex`, etc.).
 - Optional: CSL file for custom styling.
 
-#### YAML Configuration
+### YAML Configuration
 
 ```yaml
 bibliography: references.bib
 csl: nature.csl  # Optional custom style
 ```
 
-#### Bibliography Generation
+### Bibliography Generation
 
 - Automatic placement at document end.
 - Use `## References {#refs}` for custom placement.
@@ -512,7 +516,7 @@ csl: nature.csl  # Optional custom style
 
 :::: {.column}
 
-#### Citation Syntax
+### Citation Syntax
 
 - `[@author2023]` → (Author 2023)
 - `[@author2023, p. 15]` → (Author 2023, 15)
