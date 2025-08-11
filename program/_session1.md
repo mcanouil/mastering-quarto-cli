@@ -6,4 +6,7 @@
   - Present a brief look at the [Quarto Guide](https://quarto.org/docs/guide/).
 - **Installation & Environment Setup**
   - Walkthrough on installing Quarto (via the command line or through IDE integrations such as RStudio or VS Code).
-  - Live demo: creating a "Hello, Quarto" document.
+  - Walkthrough on Quarto projects.
+- **Hands‑On Exercise**
+  - Participants set up their environment and create a basic Quarto project.
+  - Demonstrate how to create a simple Quarto document using the command line or IDE.

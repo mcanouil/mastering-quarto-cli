@@ -7,4 +7,4 @@
   - Demonstrate embedding images, figures, diagrams, and tables.
   - Cover managing citations and cross‑references.
 - **Hands‑On Exercise**
-  - Participants create a short document using Markdown tools inspired by the Quarto Guide.
+  - Participants create a short document using Quarto Markdown.
