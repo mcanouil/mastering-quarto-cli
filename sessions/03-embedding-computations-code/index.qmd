@@ -27,7 +27,7 @@ By the end of this session, participants will be able to:
 
 :::: {.panel-tabset}
 
-## R
+### R
 
 ```r
 # Install renv if not already installed
@@ -43,7 +43,7 @@ renv::install("rmarkdown")
 renv::snapshot()
 ```
 
-## Python (uv)
+### Python (uv)
 
 ```bash
 # Install uv (if not installed)
@@ -62,7 +62,7 @@ source .venv/bin/activate
 uv add jupyter jupyter papermill
 ```
 
-## Julia
+### Julia
 
 ```julia
 # Start Julia in your project directory
@@ -555,3 +555,9 @@ done
 ```
 
 **Perfect for:** CI/CD pipelines, batch processing, scheduled reports.
+
+{{< include _exercises.qmd >}}
+
+:::: {.content-visible when-format="revealjs"}
+{{< include /_extensions/mcanouil/coeos/_about.qmd >}}
+:::
