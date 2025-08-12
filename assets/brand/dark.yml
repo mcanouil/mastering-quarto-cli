@@ -495,3 +495,15 @@ defaults:
           display: none;
         }
       }
+
+      .quarto-alternate-formats,
+      .quarto-code-links,
+      .quarto-other-links {
+        h2 {
+          display: none;
+        }
+        
+        ul {
+          margin-bottom: 0;
+        }
+      }
