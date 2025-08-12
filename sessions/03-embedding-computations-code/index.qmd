@@ -115,7 +115,7 @@ engine: julia
 :::: {.absolute top=150 right=150 width="500" height="300"}
 
 :::: {.callout-tip}
-Set explicitly the engine in your document header instead of relying on auto-detection.
+Set explicitly the engine in your document header instead of relying on auto-detection which does not work for inline code (*i.e.*, `` `{language} ...` ``)
 :::
 
 :::
