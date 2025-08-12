@@ -1,8 +1,17 @@
 project:
   type: website
   output-dir: _site
-  post-render:
-    - assets/scripts/slides-to-pdf.sh
+  # post-render:
+  #   - assets/scripts/slides-to-pdf.sh
+  render:
+    - "**.qmd"
+    - "sessions/01-introduction-setup/index.qmd"
+    - "sessions/02-authoring-essentials/index.qmd"
+    - "sessions/03-embedding-computations-code/index.qmd"
+    - "!sessions/04-formats-projects/index.qmd"
+    - "!sessions/05-publishing/index.qmd"
+    - "!sessions/06-advanced-formatting-branding/index.qmd"
+    - "!sessions/07-closing-next-steps/index.qmd"
 
 author:
   - name: "Mickaël CANOUIL, _Ph.D._"
@@ -16,7 +25,7 @@ author:
 lang: en
 date: 2025-04-14
 date-modified: today
-date-format: 'dddd[, the] Do [of] MMMM, YYYY'
+date-format: "dddd[, the] Do [of] MMMM, YYYY"
 highlight-style: github
 mermaid:
   theme: dark
@@ -111,7 +120,6 @@ filters:
   - highlight-text
   - div-reuse
   - quarto
-
 # filters:
 #   - at: pre-quarto
 #     path: highlight-text
