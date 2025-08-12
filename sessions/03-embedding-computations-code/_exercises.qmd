@@ -1,15 +1,15 @@
 # Hands-On Exercise: Adding Computational Power to Your Portfolio
 
-## Exercise Overview (15 minutes)
+## Exercise Overview (*15 minutes*)
 
 **Objective**: Transform your Session 2 portfolio document into a computational showcase by adding live code execution, demonstrating the power of embedding computations in Quarto documents using modern Python tools.
 
 **Time Allocation**:
 
-- 12 minutes: Hands-on computational enhancement
-- 3 minutes: Share results and Q&A
+- *12 minutes*: Hands-on computational enhancement
+- *3 minutes*: Share results and Q&A
 
-## Part 1: Environment Setup (2 minutes)
+## Part 1: Environment Setup (*2 minutes*)
 
 Choose your language and update your YAML header:
 
@@ -51,7 +51,7 @@ execute:
 Install packages:
 
 ```r
-install.packages(c("dplyr", "ggplot2", "knitr"))
+install.packages(c("dplyr", "ggplot2"))
 ```
 
 ### Julia
@@ -76,7 +76,7 @@ Pkg.add(["DataFrames", "Plots", "StatsPlots"])
 
 :::
 
-## Part 2: Replace Static with Dynamic (4 minutes)
+## Part 2: Replace Static with Dynamic (*4 minutes*) {.smaller}
 
 **Replace your skills table from Session 2**:
 
@@ -108,7 +108,7 @@ Pkg.add(["DataFrames", "Plots", "StatsPlots"])
 
 :::
 
-## Part 3: Create Your First Visualization (4 minutes)
+## Part 3: Create Your First Visualization (*4 minutes*) {.smaller}
 
 **Make a chart of your skills**:
 
@@ -140,7 +140,7 @@ Pkg.add(["DataFrames", "Plots", "StatsPlots"])
 
 :::
 
-## Part 4: Experiment with Code Visibility (5 minutes)
+## Part 4: Experiment with Code Visibility (*5 minutes*) {.smaller}
 
 **Try different code cell options**:
 
