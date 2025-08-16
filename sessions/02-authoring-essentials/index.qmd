@@ -557,7 +557,7 @@ author: "Your Name"
 date: today
 format: 
   html:
-    toc: true #<1>
+    toc: true # <1>
     code-fold: true
     theme: cosmo
 execute:
@@ -576,7 +576,7 @@ Configure multiple output formats simultaneously and share options:
 ```{.yaml code-line-numbers="|3"}
 ---
 title: "Multi-Format Document"
-toc: true #<1>
+toc: true # <1>
 format:
   html:
     theme: flatly
