@@ -1,9 +1,462 @@
 ---
 title: "Formats & Projects"
 subtitle: "Session 4"
+engine: markdown
 ---
 
+# Session Overview
+
 {{< include /program/_session4.md >}}
+
+## Session Objectives
+
+This session explores Quarto's project architecture and format ecosystem, covering project types, multi-format optimisation, and template systems for scalable workflows.
+
+## Learning Objectives
+
+By the end of this session, participants will be able to:
+
+- Select appropriate project types for different publishing scenarios.
+- Configure multi-format outputs with format-specific optimisations.
+- Use template systems for rapid project initiation.
+- Implement collaborative workflows with proper project structure.
+- Understand format capabilities and limitations.
+
+# Quarto Projects
+
+## Project Types and Architecture
+
+Quarto's project system addresses distinct publishing scenarios with specialised features and optimised workflows.
+
+```{.bash filename="Bash"}
+quarto create project
+```
+
+:::: {.fragment}
+
+```{.bash}
+ ? Type
+ ❯ default
+   website
+   blog
+   manuscript
+   book
+   confluence
+```
+
+:::
+
+## Project Type Decision Framework {.smaller}
+
+Choose your project type based on your publishing goals:
+
+| **Scenario**                 | **Project Type** | **Key Features**                                 |
+|------------------------------|------------------|--------------------------------------------------|
+| Multiple unrelated documents | `default`        | Flexible structure, shared metadata              |
+| Single research paper        | `manuscript`     | Academic formatting, citations, submission-ready |
+| Public documentation/blog    | `website`/`blog` | Navigation, search, responsive design            |
+| Long-form content            | `book`           | Cross-chapter references, multiple outputs       |
+
+## Default Project Structure {.smaller}
+
+The most flexible option for diverse content:
+
+```{.yaml include="../01-introduction-setup/_demo/Default/_quarto.yml"}
+```
+
+## Website Projects {.smaller}
+
+:::: {layout-ncol="2"}
+
+```{.yaml include="../01-introduction-setup/_demo/Website/_quarto.yml"}
+```
+
+```{.yaml include="../01-introduction-setup/_demo/Blog/_quarto.yml"}
+```
+
+:::
+
+## Manuscript Projects {.smaller}
+
+Optimised for academic publishing:
+
+```{.yaml include="../01-introduction-setup/_demo/Manuscript/_quarto.yml"}
+```
+
+## Book Projects {.smaller}
+
+For comprehensive, structured content:
+
+```{.yaml include="../01-introduction-setup/_demo/Book/_quarto.yml"}
+```
+
+# Multiple Formats
+
+## Multi-Format Output Optimisation {.smaller}
+
+:::: {layout-ncol="2"}
+
+Balance capability with compatibility by configuring format-specific options that leverage each output type's strengths.
+
+```{.yaml code-line-numbers="|6-8|2-3,10-11,21-22"}
+title: "Multi-Format Document"
+fig-width: 6 # <2>
+fig-height: 4 # <2>
+format:
+  html:
+    theme: cosmo # <1>
+    code-fold: true # <1>
+    code-tools: true # <1>
+    toc: true
+    fig-width: 8 # <2>
+    fig-height: 6 # <2>
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    fontsize: 11pt
+    colorlinks: true
+  typst:
+    brand-mode: dark
+  revealjs:
+    brand-mode: dark
+    fig-width: 10 # <2>
+    fig-height: 6 # <2>
+```
+
+1. Setting format-specific options.
+2. Setting shared and format-specific options.
+
+:::
+
+## Conditional Content by Format {.smaller}
+
+Control what content appears in different output formats.
+
+### Key Classes {.fragment}
+
+- `.content-visible` - Show content only for specific formats.
+- `.content-hidden` - Hide content from specific formats.
+
+### Conditions {.fragment}
+
+- `when-format` / `unless-format` - Control visibility based on output format.
+- `when-meta` / `unless-meta` - Control visibility based on metadata.
+- `when-profile` / `unless-profile` - Control visibility based on profile.
+
+:::: {.content-visible when-format="revealjs"}
+
+## Conditional Content by Format
+
+:::
+
+### Syntax {.fragment}
+
+:::: {.incremental}
+
+- 
+  ````{.markdown}
+  :::: {.content-visible when-format="html"}
+  HTML-only content
+  :::
+  ````
+- 
+  ````{.markdown}
+  [Typst/PDF only text]{.content-visible when-format="typst"}
+
+  ````
+- 
+  ````{.markdown}
+  ```{.python .content-visible when-format="html"}
+  print("Only shows in HTML")
+  ```
+  ````
+- 
+  ````{.markdown}
+  :::: {.content-visible when-format="html"}
+  ```{{python}}
+  print("Only shows in HTML but is evaluated in all formats")
+  ```
+  :::
+  ````
+
+:::
+
+## Cross-Format Resource Management
+
+Optimise images and assets for different outputs:
+
+```yaml
+format:
+  html:
+    fig-format: svg      # Vector graphics for web
+    fig-dpi: 150
+  pdf:
+    fig-format: pdf      # Vector graphics for print
+    fig-dpi: 300
+  typst:
+    fig-format: png      # Raster for compatibility
+    fig-dpi: 150
+```
+
+# Custom Formats
+
+## Template Partials
+
+### What Are Partials? {.fragment}
+
+- **Modular components** via Pandoc templating system.
+- **Replace selectively** - customise specific sections only.
+- **Replace completely** - override entire templates with custom versions.
+
+:::: {.content-visible when-format="revealjs"}
+
+## Template Partials
+
+:::
+
+### Key Partials by Format {.fragment}
+
+- **LaTeX/PDF:** `title.tex`, `before-body.tex`, `pandoc.tex`, `citations.tex`, `biblio.tex`
+- **HTML:** `metadata.html`, `title-block.html`, `toc.html`
+- **Reveal.js:** `title-slide.html`, `toc-slide.html`
+- *etc.*
+
+[See [Article Templates](https://quarto.org/docs/journals/templates.html) for more.]{.fragment}
+
+:::: {.content-visible when-format="revealjs"}
+
+## Template Partials
+
+:::
+
+### Usage {.fragment}
+
+:::: {.fragment}
+
+```{.yaml code-line-numbers="|3-4|5"}
+format:
+  <format>:
+    template-partials: # <1>
+      - <partial-name>.<ext> # <1>
+    template: custom-template.<ext> # <2>
+```
+
+1. **Template Partials** - Define reusable components for different formats.
+2. **Custom Templates** - Override the default template for a specific format.
+
+:::
+
+- `$` encloses a variable name or condition.
+- `$body$` is the content placeholder.
+- `$title$` is the title placeholder from `title` metadata.
+- `$<partial-name>.<ext>()$` is the syntax for including a partial.
+
+# Advanced Project Features
+
+## Shared Metadata and Configuration
+
+Use `_metadata.yml` for common settings to be shared by documents in a directory:
+
+```{.yaml filename="subdirectory/_metadata.yml"}
+format:
+  html:
+    theme: custom
+execute:
+  echo: false
+  warning: false
+```
+
+## Resource Management
+
+Organise assets that needs to be copied to the output directory:
+
+```{.yaml filename="_quarto.yml"}
+project:
+  resources:
+    - "data/*.csv"
+    - "images/"
+    - "!temp/"      # Exclude temporary files
+```
+
+## Pre and Post Render Scripts
+
+Automate workflows before and after rendering.
+
+### Configuration {.fragment}
+
+:::: {.fragment}
+
+```{.yaml filename="_quarto.yml"}
+project:
+  pre-render: 
+    - data-prep.py
+    - generate-content.R
+  post-render:
+    - cleanup.sh
+    - deploy.ts
+```
+
+:::
+
+:::: {.content-visible when-format="revealjs"}
+
+## Pre and Post Render Scripts
+
+:::
+
+### Key Features {.fragment}
+
+- Scripts run from **project root directory**.
+- **Re-computes metadata** after pre-render (can generate new files).
+- Supports **shell commands**, **Python**, **R**, **TypeScript**, **Lua**.
+
+:::: {.content-visible when-format="revealjs"}
+
+## Pre and Post Render Scripts
+
+:::
+
+### Environment Variables Available {.fragment}
+
+- `QUARTO_PROJECT_RENDER_ALL` - "1" if rendering entire project.
+- `QUARTO_PROJECT_OUTPUT_DIR` - Output directory path.
+- `QUARTO_PROJECT_INPUT_FILES` - List of input files (pre-render).
+- `QUARTO_PROJECT_OUTPUT_FILES` - List of output files (post-render).
+
+:::: {.content-visible when-format="revealjs"}
+
+## Pre and Post Render Scripts
+
+:::
+
+### Conditional Execution Example {.fragment}
+
+:::: {.fragment}
+
+```python
+# Only run expensive operations on full renders
+import os
+if os.environ.get("QUARTO_PROJECT_RENDER_ALL") == "1":
+    # Run expensive data processing
+    process_large_dataset()
+```
+
+:::
+
+## Environment Variables
+
+Manage project environment variables with files and profiles:
+
+- **`_environment`** - Default environment variables for all renders
+- **`_environment.local`** - Local overrides (auto-ignored by Git)
+- **`_environment-{profile}`** - Profile-specific variables
+- **`_environment.required`** - Documentation of required variables
+
+## Variables
+
+Insert dynamic content with shortcodes:
+
+- `{{{< var variable_name >}}}` - From `_variables.yml` file.
+- `{{{< meta field_name >}}}` - From document YAML metadata.
+- `{{{< env ENV_VARIABLE >}}}` - From environment variables.
+
+:::: {layout-ncol="2" .fragment}
+
+````markdown
+- {{{< meta title >}}}
+- {{{< meta subtitle >}}}
+````
+
+- {{< meta title >}}
+- {{< meta subtitle >}}
+
+:::
+
+## Project Profiles
+
+Adapt projects for different scenarios with configuration variants.
+
+### What Are Profiles? {.fragment}
+
+- Different configurations for the same project (production, development, basic/advanced versions).
+
+:::: {.content-visible when-format="revealjs"}
+
+## Project Profiles
+
+:::
+
+### Configuration Files {.fragment}
+
+- `_quarto.yml` - Base configuration.
+- `_quarto-{profile}.yml` - Profile-specific config that merges with base.
+- `_environment-{profile}` - Profile-specific environment variables.
+
+:::: {.content-visible when-format="revealjs"}
+
+## Project Profiles
+
+:::
+
+### Activation {.fragment}
+
+:::: {.fragment}
+
+````bash
+# Environment variable
+export QUARTO_PROFILE=production
+quarto render
+
+# Command line
+quarto render --profile production
+
+# Multiple profiles
+quarto render --profile production,advanced
+````
+
+:::
+
+:::: {.content-visible when-format="revealjs"}
+
+## Project Profiles
+
+:::
+
+### Content Targeting {.fragment}
+
+:::: {.fragment}
+
+````markdown
+:::: {.content-visible when-profile="advanced"}
+Advanced content only
+:::
+
+:::: {.content-hidden unless-profile="basic"}
+Hidden for basic profile
+:::
+````
+
+:::
+
+:::: {.content-visible when-format="revealjs"}
+
+## Project Profiles
+
+:::
+
+### Profile Groups & Defaults {.fragment}
+
+:::: {.fragment}
+
+````yaml
+profile:
+  group: [basic, advanced]
+  default: development
+````
+
+:::
+
+{{< include _exercises.qmd >}}
 
 :::: {.content-visible when-format="revealjs"}
 {{< include /_extensions/mcanouil/coeos/_about.qmd >}}
