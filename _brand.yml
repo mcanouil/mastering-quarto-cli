@@ -1,15 +1,24 @@
 meta:
   name: Mickaël CANOUIL
+  license: CC BY-SA 4.0
   link:
     home: https://mickael.canouil.fr
     github: https://github.com/mcanouil
     bluesky: https://bsky.app/profile/mickael.canouil.fr
     linkedin: https://www.linkedin.com/in/MickaelCanouil
 color:
-  background: "#fafafa"
-  foreground: "#333333"
-  dark: "#fafafa"
-  light: "#333333"
+  background:
+    dark: "#333333"
+    light: "#fafafa"
+  foreground:
+    dark: "#fafafa"
+    light: "#333333"
+  dark:
+    dark: "#333333"
+    light: "#fafafa"
+  light:
+    dark: "#fafafa"
+    light: "#333333"
 typography:
   fonts:
     - family: Alegreya Sans
@@ -21,8 +30,7 @@ typography:
 defaults:
   bootstrap:
     defaults:
-      theme: coeos
-      color-scheme: light
+      theme: mcanouil
       tooltip-color: $background
       tooltip-bg: $foreground
       btn-close-color: $foreground
