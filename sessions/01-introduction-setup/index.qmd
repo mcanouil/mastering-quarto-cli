@@ -24,17 +24,7 @@ subtitle: "Session 1"
 dir.create("assets/screenshots", recursive = TRUE, showWarnings = FALSE)
 ```
 
-:::: {.content-visible when-format="revealjs"}
-
 ## Workshop Objectives
-
-:::
-
-:::: {.content-visible unless-format="revealjs"}
-
-# Workshop Objectives
-
-:::
 
 - **Familiarise** participants with the Quarto ecosystem.
 - **Empower** attendees to create reproducible documents and interactive publications.
