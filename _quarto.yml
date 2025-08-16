@@ -8,7 +8,7 @@ project:
     - "sessions/01-introduction-setup/index.qmd"
     - "sessions/02-authoring-essentials/index.qmd"
     - "sessions/03-embedding-computations-code/index.qmd"
-    - "!sessions/04-formats-projects/index.qmd"
+    - "sessions/04-formats-projects/index.qmd"
     - "!sessions/05-publishing/index.qmd"
     - "!sessions/06-advanced-formatting-branding/index.qmd"
     - "!sessions/07-closing-next-steps/index.qmd"
@@ -33,6 +33,7 @@ mermaid:
 website:
   title: "Mastering Quarto CLI"
   description: "Learn how to use Quarto CLI for your data science projects."
+  favicon: "assets/images/physalia.png"
   repo-url: https://github.com/mcanouil/quarto-physalia-course
   repo-actions: [source, issue]
   repo-link-target: _blank
@@ -51,7 +52,6 @@ website:
   sidebar:
     logo: "assets/images/physalia.jpg"
     logo-alt: "Physalia"
-    favicon: "assets/images/physalia.png"
     background: dark
     pinned: true
     align: center
@@ -116,6 +116,7 @@ execute:
 filters:
   - highlight-text
   - div-reuse
+  - include-code-files
   - quarto
 # filters:
 #   - at: pre-quarto
