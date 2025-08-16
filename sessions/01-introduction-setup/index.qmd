@@ -325,7 +325,7 @@ quarto --help
 quarto check
 ```
 
-```{.sh code-line-numbers="|1-12|14-16|18-21|23-26|30-34|38-45|"}
+```{.sh code-line-numbers="|1-12|14-16|18-21|23-26|30-34|38-45"}
 Quarto 1.7.32
 [✓] Checking environment information...                  # <1>
       Quarto cache location: /home/vscode/.cache/quarto  # <1>
