@@ -1,9 +1,459 @@
 ---
 title: "Publishing"
 subtitle: "Session 5"
+engine: markdown
 ---
 
+# Session Overview
+
 {{< include /program/_session5.md >}}
+
+## Session Objectives
+
+This session explores comprehensive publishing strategies for Quarto projects, covering multiple deployment platforms, automation workflows, and best practices for different use cases.
+
+## Learning Objectives
+
+By the end of this session, participants will be able to:
+
+- Choose the right publishing method for your use case
+- Deploy a Quarto project to multiple platforms
+- Set up automated publishing workflows
+- Troubleshoot common publishing issues
+- Configure custom domains and advanced features
+
+# Quarto Publishing
+
+## Publishing Options Overview {.smaller}
+
+| Service            | Best For                        | Key Features                    |
+|--------------------|---------------------------------|---------------------------------|
+| **Quarto Pub**     | Public content, getting started | Free, simple, 100MB limit       |
+| **GitHub Pages**   | Open source projects            | Git integration, custom domains |
+| **Netlify**        | Professional sites              | Advanced features, previews     |
+| **Posit Connect**  | Enterprise/organisations        | Security, authentication        |
+| **Other Services** | Custom requirements             | Firebase, S3, self-hosted       |
+
+:::: {.fragment}
+**Rule of thumb:** Start with Quarto Pub for learning, use GitHub Pages for projects, Netlify for production sites
+:::
+
+# Quarto Pub
+
+## Your First Quarto Pub Deployment {.smaller}
+
+1. Create an account.  
+   Visit [quartopub.com](https://quartopub.com) and sign up.
+
+2. Publish from CLI.
+  
+   ```{.bash}
+   quarto publish quarto-pub
+   ```
+
+3. Authenticate.
+
+   - Browser opens for authorization
+   - Confirm publishing permissions
+   - Site deploys automatically!
+
+:::: {.fragment}
+**That's it!** Your site is live at `https://username.quarto.pub/project-name`
+:::
+
+## Understanding `_publish.yml`
+
+Created automatically when you first publish:
+
+```{.yaml filename="_publish.yml"}
+- source: project
+  quarto-pub:
+    - id: "abc123-def456-ghi789"
+      url: "https://myusername.quarto.pub/myproject"
+```
+
+:::: {.incremental}
+
+- **Safe for version control** (no credentials).
+- **Shareable** across team members.
+- **Service configuration** stored locally.
+- **Reusable** for subsequent deployments.
+
+:::
+
+# Hands-On Exercise: Quarto Pub
+
+## Exercise Overview (*5 minutes*)
+
+**Objective**: In this exercise, you will publish a simple Quarto project using Quarto Pub.
+Follow the steps outlined in the exercise instructions to complete the task.
+
+**Time Allocation**:
+
+- *5 minutes*: Complete the publishing process.
+
+## Publishing to Quarto Pub
+
+:::: {layout-ncol="2"}
+
+1. Create a simple Quarto document.
+2. Add some content (text, code, plots).
+3. Run `quarto publish quarto-pub`.
+4. Share your live URL with a neighbour.
+
+:::: {.fragment}
+
+```{.bash}
+# Publish without prompts
+quarto publish quarto-pub --no-prompt
+
+# Publish without opening browser
+quarto publish quarto-pub --no-browser
+
+# Publish without re-rendering
+quarto publish quarto-pub --no-render
+```
+
+:::
+
+:::
+
+# GitHub Pages
+
+## Three Ways to Use GitHub Pages
+
+### Render to `docs/`
+
+- Simplest approach
+- Commit rendered output
+- Good for small projects
+
+:::: {.content-visible when-format="revealjs"}
+
+## Three Ways to Use GitHub Pages
+
+:::
+
+### `quarto publish`
+
+- Local rendering
+- Automatic deployment
+- Clean separation
+
+:::: {.content-visible when-format="revealjs"}
+
+## Three Ways to Use GitHub Pages
+
+:::
+
+### GitHub Actions
+
+- Fully automated
+- Triggered by commits
+- Most professional
+
+## Method 1: Render to `docs/` {.smaller}
+
+- Configure Output Directory
+
+  ```yaml
+  # _quarto.yml
+  project:
+    type: website
+    output-dir: docs
+  ```
+
+- Add `.nojekyll` File
+
+  ```bash
+  touch .nojekyll
+  ```
+
+- Render and Push
+
+  ```bash
+  quarto render
+  git add .
+  git commit -m "feat: Add rendered site"
+  git push
+  ```
+
+- Configure Repository
+
+  Settings → Pages → Source: **Deploy from branch** → Branch: **main** → Folder: **/docs**
+
+## Method 2: `quarto publish gh-pages` {.smaller}
+
+- Setup Source Branch
+
+  ```bash
+  # Create gh-pages branch
+  git checkout --orphan gh-pages
+  git rm -rf .
+  git commit --allow-empty -m "chore: Initial gh-pages commit"
+  git push origin gh-pages
+  git checkout main
+  ```
+
+- Configure .gitignore
+
+  ```txt
+  _site/
+  _book/
+  ```
+
+- Publish
+
+  ```bash
+  quarto publish gh-pages
+  ```
+
+## Method 3: GitHub Actions Workflow {.smaller}
+
+- Create Workflow File: `.github/workflows/publish.yml`.
+
+  ```yaml
+  name: Quarto Publish
+  on:
+    workflow_dispatch:
+    push:
+      branches: main
+  
+  jobs:
+    build-deploy:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: write
+      steps:
+        - name: Check out repository
+          uses: actions/checkout@v4
+        
+        - name: Set up Quarto
+          uses: quarto-dev/quarto-actions/setup@v2
+        
+        - name: Render and Publish
+          uses: quarto-dev/quarto-actions/publish@v2
+          with:
+            target: gh-pages
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  ```
+
+# Hands-On Exercise: GitHub Pages
+
+## Exercise Overview (*5 minutes*)
+
+**Objective**: In this exercise, you will publish a simple Quarto project using GitHub Pages.
+Follow the steps outlined in the exercise instructions to complete the task.
+
+**Time Allocation**:
+
+- *8 minutes*: Complete the publishing process.
+
+## Publishing to GitHub Pages
+
+Choose **one** method and deploy your project:
+
+:::: {layout-ncol="2"}
+
+:::: {}
+
+### Method 1: docs/ folder
+
+1. Modify `_quarto.yml`.
+2. Add `.nojekyll`.
+3. Render and push.
+4. Configure in GitHub settings.
+
+:::
+
+:::: {}
+
+### Method 2: quarto publish
+
+1. Setup gh-pages branch.
+2. Update `.gitignore`.
+3. Run `quarto publish gh-pages`.
+4. Verify deployment.
+
+:::
+
+:::
+
+# Code Execution Strategies
+
+## The Big Decision: Where to Execute Code? {.smaller}
+
+:::: {layout-ncol="2"}
+
+:::: {#execute-1}
+
+### Local Execution + Freeze
+
+```{.yaml filename="_quarto.yml"}
+execute:
+  freeze: auto
+```
+
+**Pros:**
+
+- Faster CI builds.
+- Consistent environment.
+- Handle legacy code.
+
+**Cons:**
+
+- Manual re-execution needed.
+- Larger repository size.
+
+:::
+
+:::: {#execute-2}
+
+### CI Execution
+
+**Pros:**
+
+- Always fresh execution.
+- Smaller repositories.
+- Reproducible environments.
+
+**Cons:**
+
+- Longer build times.
+- Dependency management.
+- Potential CI failures.
+
+:::
+
+:::
+
+## Freeze Strategy Implementation {.smaller}
+
+- Enable Freezing
+
+  ```{.yaml filename="_quarto.yml"}
+  execute:
+    freeze: auto
+  ```
+
+- Re-render Locally
+
+  ```bash
+  quarto render
+  ```
+
+- Version Control
+
+  ```bash
+  git add _freeze/
+  git commit -m "chore: Update frozen computations"
+  git push
+  ```
+
+:::: {.fragment}
+**Key:** The `_freeze/` directory stores computational results and **must** be committed to Git.
+:::
+
+## CI Execution with Dependencies
+
+:::: {.panel-tabset}
+
+### Python/Jupyter Example
+
+```yaml
+- name: Install Python and Dependencies
+  uses: actions/setup-python@v5
+  with:
+    python-version: '3.10'
+    cache: 'pip'
+- run: pip install jupyter
+- run: pip install -r requirements.txt
+```
+
+### R/Knitr Example
+
+```yaml
+- name: Install R
+  uses: r-lib/actions/setup-r@v2
+  with:
+    r-version: '4.2.0'
+- name: Install R Dependencies
+  uses: r-lib/actions/setup-renv@v2
+  with:
+    cache-version: 1
+```
+
+:::
+
+## Version Control Strategies {.smaller}
+
+Use a freeze strategy (*recommended*):
+
+```yaml
+execute:
+  freeze: auto
+```
+
+:::: {layout-ncol="2"}
+
+:::: {}
+
+**Commit to Git:**
+
+- Source files (`.qmd`).
+- `_freeze/` directory.
+- Configuration files.
+
+:::
+
+:::: {}
+
+**Don't Commit:**
+
+- `_site/`, `_book/`, or `_manuscript/`.
+- Temporary files.
+- Local dependencies.
+
+:::
+
+:::
+
+## Environment Management
+
+Use a tool to manage your R, Python, or Julia environment:
+
+- `renv` for R.
+- `uv`, `pip`, or `conda` for Python.
+- `Pkg` for Julia.
+
+# Advanced Topics
+
+## Custom Domains
+
+:::: {.panel-tabset}
+
+### GitHub Pages Custom Domain
+
+1. Add `CNAME` file to project root:
+
+   ```txt
+   yourdomain.com
+   ```
+
+2. Configure DNS records:
+   - **Apex domain:** A records to GitHub IPs.
+   - **Subdomain:** CNAME to `username.github.io`.
+
+3. Enable in repository settings.
+
+### Netlify Custom Domain
+
+- Automatic HTTPS.
+- Easy DNS management.
+- Domain purchasing available.
+
+:::
 
 :::: {.content-visible when-format="revealjs"}
 {{< include /_extensions/mcanouil/coeos/_about.qmd >}}
