@@ -456,6 +456,278 @@ profile:
 
 :::
 
+# Hands-On Exercise: Building Your First Project
+
+## Exercise Overview (15 minutes)
+
+**Objective**: Transform your computational portfolio from Session 3 into a structured project and explore multiple output formats.
+
+**Time Allocation**:
+
+- *10 minutes*: Project setup and multi-format configuration.
+- *5 minutes*: Share results and discussion.
+
+## Part 1: Create a Project Structure (*4 minutes*)
+
+**Convert your portfolio into a project**:
+
+:::: {.panel-tabset}
+
+### Website Project
+
+Create a `_quarto.yml` file:
+
+```yaml
+project:
+ type: website
+
+website:
+ title: "My Learning Portfolio"
+ navbar:
+   left:
+     - href: index.qmd
+       text: Home
+     - about.qmd
+
+format:
+ html:
+   theme: cosmo
+   toc: true
+```
+
+### Default Project
+
+Create a `_quarto.yml` file:
+
+```yaml
+project:
+ title: "My Portfolio Collection"
+
+format:
+ html:
+   theme: cosmo
+   toc: true
+ typst: default
+```
+
+### Book Project
+
+Create a `_quarto.yml` file:
+
+```yaml
+project:
+ type: book
+
+book:
+ title: "My Quarto Journey"
+ chapters:
+   - index.qmd
+   - portfolio.qmd
+   - reflection.qmd
+
+format:
+ html:
+   theme: cosmo
+```
+
+:::
+
+## Part 2: Multi-Format Configuration (*3 minutes*)
+
+**Add multiple output formats to your project**:
+
+:::: {.panel-tabset}
+
+### Basic Multi-Format
+
+Add to your `_quarto.yml`:
+
+```yaml
+format:
+ html:
+   theme: cosmo
+   code-fold: true
+ typst:
+   margin:
+     top: 2cm
+     bottom: 2cm
+ docx: default
+```
+
+### Advanced Configuration
+
+Add format-specific options:
+
+```yaml
+format:
+ html:
+   theme: cosmo
+   code-fold: true
+   fig-width: 8
+   fig-height: 6
+ typst:
+   fig-width: 6
+   fig-height: 4
+ pdf:
+   geometry:
+     - margin=1in
+   fontsize: 11pt
+```
+
+### Presentation Format
+
+Add slides to your outputs:
+
+```yaml
+format:
+ html: default
+ revealjs:
+   theme: dark
+   fig-width: 10
+   fig-height: 6
+```
+
+:::
+
+## Part 3: Conditional Content (*3 minutes*)
+
+**Add format-specific content to your documents**:
+
+:::: {.panel-tabset}
+
+### Format-Specific Sections
+
+Add to your content:
+
+```markdown
+::: {.content-visible when-format="html"}
+This interactive content only appears in HTML output.
+:::
+
+::: {.content-visible when-format="typst"}
+This formatted text appears only in Typst/PDF output.
+:::
+
+::: {.content-hidden when-format="revealjs"}
+This detailed content is hidden in presentations.
+:::
+```
+
+### Code Visibility by Format
+
+Control code display:
+
+````markdown
+```{{python .content-visible when-format="html"}}
+# Interactive code for web
+import plotly.express as px
+# Create interactive plot
+```
+
+```{{python .content-visible unless-format="html"}}
+# Static plot for print formats
+import matplotlib.pyplot as plt
+# Create static plot
+```
+````
+
+### Format-Specific Messages
+
+Add dynamic text:
+
+```markdown
+[[View the interactive version online](link-to-html)]{.content-visible when-format="typst"}
+
+[*This is the web version with interactive features*]{.content-visible when-format="html"}
+```
+
+:::
+
+## Part 4: Test Multiple Formats (**3 minutes**)
+
+**Render your project in different formats**:
+
+:::: {.panel-tabset}
+
+### Single Format
+
+Try rendering to specific formats:
+
+```bash
+quarto render --to html
+quarto render --to typst
+quarto render --to docx
+```
+
+### All Formats
+
+Render all configured formats:
+
+```bash
+quarto render
+```
+
+### Preview Mode
+
+Use preview for development:
+
+```bash
+quarto preview
+```
+
+:::
+
+## Part 5: Add Project Features (*2 minutes*)
+
+**Enhance your project with additional features**:
+
+:::: {.panel-tabset}
+
+### Shared Metadata
+
+Create `_metadata.yml`:
+
+```yaml
+author: "Your Name"
+date: today
+execute:
+  echo: true
+  warning: false
+```
+
+### Resource Management
+
+Add to `_quarto.yml`:
+
+```yaml
+project:
+  resources:
+    - "data/"
+    - "images/"
+    - "*.csv"
+```
+
+### Environment Variables
+
+Create `_environment` file:
+
+```txt
+QUARTO_PYTHON=/path/to/python
+API_KEY=your-key-here
+```
+
+:::
+
+## Success Criteria
+
+**Complete these to succeed**:
+
+- Create a properly structured project with `_quarto.yml`.
+- Configure at least 2 different output formats.
+- Add format-specific content that shows/hides appropriately.
+- Successfully render your project to multiple formats.
+- Test that conditional content works correctly.
+
 :::: {.content-visible when-format="revealjs"}
 {{< include /_extensions/mcanouil/coeos/_about.qmd >}}
 :::

@@ -8,7 +8,7 @@ format:
     title-slide-attributes:
       data-background-image: /assets/images/saga.png
       data-background-opacity: "0.35"
-    incremental: true
+    incremental: false
     revealjs-plugins:
       - attribution
     include-in-header:

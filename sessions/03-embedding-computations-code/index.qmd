@@ -564,8 +564,8 @@ done
 
 **Time Allocation**:
 
-- *12 minutes*: Hands-on computational enhancement
-- *3 minutes*: Share results and Q&A
+- *12 minutes*: Hands-on computational enhancement.
+- *3 minutes*: Share results and Q&A.
 
 ## Part 1: Environment Setup (*2 minutes*)
 

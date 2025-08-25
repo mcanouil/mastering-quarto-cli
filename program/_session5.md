@@ -1,10 +1,10 @@
-## Session 5: Publishing (14:55 - 15:50 CEST) {.smaller}
+## Session 5: Advanced Formatting & Branding (14:55 - 15:50 CEST) {.smaller}
 
-- **Publishing Options**
-  - Introduction to the various methods available with Quarto: Quarto Pub, GitHub Pages, Netlify, and other hosting services.
-  - Discussion on the processes for each method and the benefits they offer.
-- **Deployment Workflow**
-  - Step-by-step demonstration of deploying a Quarto project online.
-  - Best practise tips for version control and reproducibility in published projects.
-- **Interactive Exercise**
-  - Participants work on deploying a Quarto project (e.g. a website or blog) while reviewing the deployment process.
+- **Advanced Formatting**
+  - Customising document layouts: advanced YAML configurations, theme settings, and filters.
+  - Integrating custom CSS and JavaScript for enhanced presentation.
+- **Brand Identity**
+  - Strategies for consistent branding across Quarto projects, including logos, colour schemes, and typography.
+  - Creating branded templates for a professional identity.
+- **Hands‑On Exercise**
+  - Participants apply advanced formatting by creating a branded document using custom CSS and YAML options.
