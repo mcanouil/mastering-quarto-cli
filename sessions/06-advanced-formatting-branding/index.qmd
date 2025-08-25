@@ -1,9 +1,27 @@
 ---
 title: "Advanced Formatting & Branding"
 subtitle: "Session 6"
+engine: markdown
 ---
 
 {{< include /program/_session6.md >}}
+
+# Session Overview
+
+This session explores Quarto's advanced theming and branding capabilities, covering Bootstrap 5 integration, brand.yml systems, progressive customisation, and extension development for organisational standards.
+
+## Learning Objectives
+
+By the end of this session, participants will be able to:
+
+- Implement professional themes using Bootstrap 5 foundations
+- Create consistent branding across multiple output formats
+- Apply progressive customisation from YAML to SCSS
+- Develop custom extensions for organisational reuse
+- Troubleshoot theming issues and conflicts
+- Build maintainable style systems
+
+{{< include _exercises.qmd >}}
 
 :::: {.content-visible when-format="revealjs"}
 {{< include /_extensions/mcanouil/coeos/_about.qmd >}}

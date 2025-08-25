@@ -1,9 +1,124 @@
 ---
 title: "Closing & Next Steps"
 subtitle: "Session 7"
+engine: markdown
 ---
 
 {{< include /program/_session7.md >}}
+
+## Recommended Next Steps
+
+### Immediate Actions (Next 1-2 weeks)
+
+1. **Apply workshop skills to a real project**
+   - Choose an existing analysis or report
+   - Convert it to Quarto format
+   - Implement one new feature learned
+
+2. **Set up your publishing workflow**
+   - Choose primary platform (GitHub Pages, Netlify, etc.)
+   - Configure automated deployment
+   - Test with a simple project
+
+3. **Explore extensions relevant to your work**
+   - Browse the extension gallery
+   - Install 2-3 extensions that match your needs
+   - Experiment with their features
+
+### Medium-term Goals (Next 1-3 months)
+
+1. **Develop organisational standards**
+   - Create branded theme/template
+   - Document style guidelines
+   - Share with colleagues
+
+2. **Contribute to the community**
+   - Share your projects publicly
+   - Ask/answer questions in forums
+   - Consider writing blog posts about your experience
+
+3. **Advance technical skills**
+   - Learn extension development
+   - Explore advanced formatting techniques
+   - Integrate with other tools in your workflow
+
+### Long-term Development (3+ months)
+
+1. **Become a local champion**
+   - Present Quarto at meetups/conferences
+   - Mentor colleagues in adoption
+   - Lead internal training sessions
+
+2. **Contribute to the ecosystem**
+   - Develop custom extensions
+   - Submit bug reports and feature requests
+   - Contribute to documentation
+
+3. **Stay current with developments**
+   - Follow release notes and updates
+   - Participate in beta testing
+   - Engage with the development community
+
+### Getting Help
+
+**When you encounter issues**:
+
+1. **Check documentation first**
+   - Official docs often have solutions
+   - Search FAQ section
+
+2. **Search existing discussions**
+   - GitHub Discussions
+   - Stack Overflow [quarto] tag
+
+3. **Create reproducible examples**
+   - Minimal example that demonstrates the issue
+   - Include system information
+   - Share relevant configuration files
+
+4. **Post in appropriate forums**
+   - GitHub Discussions for general questions
+   - GitHub Issues for bugs
+   - Stack Overflow for programming questions
+
+## Workshop Assessment
+
+Take a moment to reflect on your learning:
+
+**Skills Confidence** (Rate 1-5):
+
+- Basic Quarto authoring: ___
+- Code integration: ___
+- Multi-format publishing: ___
+- Theme customisation: ___
+- Publishing workflows: ___
+
+**Most Valuable Learning**:
+
+- What concept or technique was most useful for your work?
+- Which session provided the biggest "aha" moment?
+- What will you implement first in your projects?
+
+**Areas for Further Development**:
+
+- Which topics would you like to explore deeper?
+- What advanced features interest you most?
+- Where do you see the biggest opportunities in your workflow?
+
+## Workshop Conclusion
+
+Thank you for participating in this comprehensive Quarto workshop series. You've acquired a powerful set of tools for creating reproducible, professional documents and publications.
+
+**Remember**:
+
+- Start with simple projects and gradually increase complexity
+- Leverage the strong community for support and inspiration
+- Share your knowledge and help grow the ecosystem
+- Keep experimenting and learning
+
+**Key Takeaway**: Quarto is not just a tool—it's a platform for better scientific communication, more reproducible research, and enhanced collaboration. The skills you've learned will serve you well across many projects and contexts.
+
+**Happy Quartoing!** 🎯
 
 :::: {.content-visible when-format="revealjs"}
 {{< include /_extensions/mcanouil/coeos/_about.qmd >}}
