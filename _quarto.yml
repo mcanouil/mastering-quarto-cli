@@ -73,8 +73,8 @@ website:
       - section: "Day 2"
         contents:
           - href: sessions/04-formats-projects/index.qmd
-          - href: sessions/05-publishing/index.qmd
-          - href: sessions/06-advanced-formatting-branding/index.qmd
+          - href: sessions/05-advanced-formatting-branding/index.qmd
+          - href: sessions/06-publishing/index.qmd
           - href: sessions/07-closing-next-steps/index.qmd
 
 format:
@@ -111,7 +111,7 @@ format:
           </script>
 
 execute:
-  freeze: false
+  freeze: auto
   echo: false
 
 filters:

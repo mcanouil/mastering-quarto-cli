@@ -556,7 +556,185 @@ done
 
 **Perfect for:** CI/CD pipelines, batch processing, scheduled reports.
 
-{{< include _exercises.qmd >}}
+# Hands-On Exercise: Adding Computational Power to Your Portfolio
+
+## Exercise Overview (*15 minutes*)
+
+**Objective**: Transform your Session 2 portfolio document into a computational showcase by adding live code execution, demonstrating the power of embedding computations in Quarto documents using modern Python tools.
+
+**Time Allocation**:
+
+- *12 minutes*: Hands-on computational enhancement
+- *3 minutes*: Share results and Q&A
+
+## Part 1: Environment Setup (*2 minutes*)
+
+Choose your language and update your YAML header:
+
+:::: {.panel-tabset}
+
+### Python
+
+```yaml
+---
+title: "My Computational Portfolio"
+author: "Your Name"
+engine: jupyter
+jupyter: python3
+execute:
+  echo: true
+  warning: false
+---
+```
+
+Install packages:
+
+```bash
+uv add polars plotnine # pip install polars plotnine
+```
+
+### R
+
+```yaml
+---
+title: "My Computational Portfolio"
+author: "Your Name"
+engine: knitr
+execute:
+  echo: true
+  warning: false
+---
+```
+
+Install packages:
+
+```r
+install.packages(c("dplyr", "ggplot2"))
+```
+
+### Julia
+
+```yaml
+---
+title: "My Computational Portfolio"
+author: "Your Name"
+engine: julia
+execute:
+  echo: true
+  warning: false
+---
+```
+
+Install packages:
+
+```julia
+using Pkg
+Pkg.add(["DataFrames", "Plots", "StatsPlots"])
+```
+
+:::
+
+## Part 2: Replace Static with Dynamic (*4 minutes*) {.smaller}
+
+**Replace your skills table from Session 2**:
+
+:::: {.panel-tabset}
+
+### Python
+
+- Create a Polars DataFrame with your skills data.
+- Include columns: skill name, confidence level, hours practiced.
+- Use `print()` to display the data nicely.
+- Calculate total practice hours with `pl.sum()`.
+- Show the result using inline code `{python} your_calculation`.
+
+### R
+
+- Create a data.frame with your skills data.
+- Include columns: skill name, confidence level, hours practiced.
+- Use `knitr::kable()` to display the table nicely.
+- Calculate total practice hours with `sum()`.
+- Show the result using inline code `{r} your_calculation`.
+
+### Julia
+
+- Create a DataFrame with your skills data.
+- Include columns: skill name, confidence level, hours practiced.
+- Display the DataFrame directly.
+- Calculate total practice hours with `sum()`.
+- Show the result using inline code `{julia} your_calculation`.
+
+:::
+
+## Part 3: Create Your First Visualization (*4 minutes*) {.smaller}
+
+**Make a chart of your skills**:
+
+:::: {.panel-tabset}
+
+### Python
+
+- Use plotnine to create a bar chart.
+- Try `geom_col()` or `geom_bar()`.
+- Add proper labels with `labs()`.
+- Use `theme_minimal()` for clean styling.
+- Add a figure caption with `#| fig-cap:`.
+
+### R
+
+- Use ggplot2 to create a bar chart.
+- Try `geom_col()` or `geom_bar()`.
+- Add proper labels with `labs()`.
+- Use `theme_minimal()` for clean styling.
+- Add a figure caption with `#| fig-cap:`.
+
+### Julia
+
+- Use Plots.jl to create a bar chart.
+- Try `bar()` function.
+- Add proper labels with `xlabel!()` and `ylabel!()`.
+- Add a title with `title!()`.
+- Add a figure caption with `#| fig-cap:`.
+
+:::
+
+## Part 4: Experiment with Code Visibility (*5 minutes*) {.smaller}
+
+**Try different code cell options**:
+
+:::: {.panel-tabset}
+
+### Python
+
+- Create a cell with `#| eval: false` (shows code, doesn't run).
+- Make a collapsible section with `#| code-fold: true`.
+- Hide code with `#| echo: false` but show output.
+- Use `#| include: false` for data setup.
+
+### R
+
+- Create a cell with `#| eval: false` (shows code, doesn't run).
+- Make a collapsible section with `#| code-fold: true`.
+- Hide code with `#| echo: false` but show output.
+- Use `#| include: false` for library loading.
+
+### Julia
+
+- Create a cell with `#| eval: false` (shows code, doesn't run).
+- Make a collapsible section with `#| code-fold: true`.
+- Hide code with `#| echo: false` but show output.
+- Use `#| include: false` for package imports.
+
+:::
+
+## Success Criteria
+
+✅ **You've successfully completed the exercise if you can**:
+
+- Transform static content into dynamic, computed content using Python, R, or Julia.
+- Create and display data visualisations.
+- Use inline code to insert computed values into prose.
+- Experiment with different code cell visibility options.
 
 :::: {.content-visible when-format="revealjs"}
 {{< include /_extensions/mcanouil/coeos/_about.qmd >}}

@@ -31,9 +31,9 @@ A Quarto CLI Workshop for [Physalia-courses](https://www.physalia-courses.org/).
 | Time (CEST)   | Session                                                                     |
 |---------------|-----------------------------------------------------------------------------|
 | 14:00 - 14:55 | [Formats & Projects](sessions/04-formats-projects/)                         |
-| 14:55 - 15:50 | [Publishing](sessions/05-publishing/)                                       |
+| 14:55 - 15:50 | [Advanced Formatting & Branding](sessions/05-advanced-formatting-branding/) |
 | 15:50 - 16:05 | 15 minutes break                                                            |
-| 16:05 - 16:45 | [Advanced Formatting & Branding](sessions/06-advanced-formatting-branding/) |
+| 16:05 - 16:45 | [Publishing](sessions/06-publishing/)                                       |
 | 16:45 - 17:00 | [Closing & Next Steps](sessions/07-closing-next-steps/)                     |
 
 : {tbl-colwidths="\[25,75\]"}

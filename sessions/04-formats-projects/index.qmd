@@ -456,8 +456,6 @@ profile:
 
 :::
 
-{{< include _exercises.qmd >}}
-
 :::: {.content-visible when-format="revealjs"}
 {{< include /_extensions/mcanouil/coeos/_about.qmd >}}
 :::

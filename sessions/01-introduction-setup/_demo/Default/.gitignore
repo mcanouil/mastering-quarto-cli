@@ -1,3 +1,5 @@
 /.quarto/
 Default.html
 Default_files/
+
+**/*.quarto_ipynb

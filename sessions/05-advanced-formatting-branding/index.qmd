@@ -21,8 +21,6 @@ By the end of this session, participants will be able to:
 - Troubleshoot theming issues and conflicts
 - Build maintainable style systems
 
-{{< include _exercises.qmd >}}
-
 :::: {.content-visible when-format="revealjs"}
 {{< include /_extensions/mcanouil/coeos/_about.qmd >}}
 :::
