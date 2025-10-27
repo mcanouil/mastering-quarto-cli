@@ -9,15 +9,15 @@ format:
 format-links:
   - html
   - format: typst
-    text: PDF
+    text: Program (PDF)
     target: _blank
 ---
 
 {{< include _overview.md >}}
 
-:::: {.panel-tabset}
-
 {{< pagebreak >}}
+
+:::: {.panel-tabset}
 
 ### Day 1
 
