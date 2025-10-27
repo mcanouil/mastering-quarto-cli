@@ -16,6 +16,8 @@ By the end of this workshop, participants will have developed the expertise to c
 - **Implement** cohesive branding and visual identity across formats using Bootstrap theming, `brand.yml` systems, and Pandoc templating.
 - **Deploy** projects confidently through various publishing platforms including Quarto Pub, GitHub Pages, and automated workflows.
 
+{{< pagebreak >}}
+
 ## Prerequisites
 
 Prior to the workshop, please ensure you have the following installed on your computer.
