@@ -14,12 +14,6 @@
   - Cross-format resource management and figure optimisation.
 :::
 :::: {#session4c}
-- **Custom Formats**
-  - Template partials for modular component customisation.
-  - Understanding Pandoc templating system and variables.
-  - Creating reusable format components.
-:::
-:::: {#session4d}
 - **Advanced Project Features**
   - Shared metadata and configuration with _metadata.yml.
   - Pre and post-render scripts for workflow automation.
@@ -35,8 +29,6 @@
 :::
 :::: {reuse="session4c"}
 :::
-:::: {reuse="session4d"}
-:::
 :::
 
 :::: {.content-visible when-format="revealjs"}
@@ -46,8 +38,6 @@
 :::: {reuse="session4b"}
 :::
 :::: {reuse="session4c"}
-:::
-:::: {reuse="session4d"}
 :::
 :::
 :::

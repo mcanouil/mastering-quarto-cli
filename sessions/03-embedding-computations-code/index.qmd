@@ -697,7 +697,7 @@ quarto render report.qmd -P date:"$(date +%Y-%m-%d)"
 
 # Multiple outputs
 for region in North South East West; do
- quarto render regional.qmd -P region:$region
+  quarto render regional.qmd -P region:$region
 done
 ```
 

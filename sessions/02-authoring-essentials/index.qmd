@@ -935,6 +935,11 @@ format:
 quarto add mcanouil/quarto-highlight-text@1.3.3
 ```
 
+```{.yaml}
+filters:
+  - highlight-text
+```
+
 :::
 
 :::: {layout-ncol="2" layout-valign="center"}
