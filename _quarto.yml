@@ -1,8 +1,8 @@
 project:
   type: website
   output-dir: _site
-  # post-render:
-  #   - assets/scripts/slides-to-pdf.sh
+  post-render:
+    - assets/scripts/slides-to-pdf.sh
   render:
     - "**.qmd"
     - "sessions/01-introduction-setup/index.qmd"
