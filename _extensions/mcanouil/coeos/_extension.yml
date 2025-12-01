@@ -1,6 +1,6 @@
 title: Coeos Presentation Template
 author: Mickaël CANOUIL
-version: 1.9.4
+version: 1.10.2
 quarto-required: ">=1.6.40"
 contributes:
   formats:
@@ -19,4 +19,5 @@ contributes:
       logo: coeos.svg
       include-after-body:
         - file: coeos.html
-source: mcanouil/quarto-revealjs-coeos@1.9.4
+      pdf-separate-fragments: true
+source: mcanouil/quarto-revealjs-coeos@1.10.2
