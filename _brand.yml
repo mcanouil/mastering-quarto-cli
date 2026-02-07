@@ -27,15 +27,19 @@ color:
   background:
     dark: "#161b22"
     light: "#f8fafc"
+    # light: "#fafcfd"
   foreground:
     dark: "#74aadb"
     light: "#4f789e"
+    # light: "#3b5a77"
   dark:
     dark: "#161b22"
     light: "#4f789e"
+    # light: "#3b5a77"
   light:
     dark: "#74aadb"
     light: "#f8fafc"
+    # light: "#fafcfd"
 typography:
   fonts:
     - family: Alegreya Sans
