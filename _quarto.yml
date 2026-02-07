@@ -30,13 +30,25 @@ website:
   site-url: https://m.canouil.dev/mastering-quarto-cli/
   repo-url: https://github.com/mcanouil/mastering-quarto-cli
   repo-actions: []
-  navbar: false
   image: assets/images/social-card.png
   image-alt: "Quarto Workshop promotional card showing six-session curriculum from Introduction and Setup through Publishing with dark teal background"
+  navbar: false
   page-footer:
     background: dark
+    foreground: light
+    left: |
+      Powered by [{{< iconify simple-icons:quarto title="Quarto Logo" label="Quarto Logo" >}} Quarto](https://quarto.org).
+    center: |
+      &copy; []{#current-year} [Mickaël CANOUIL](https://mickael.canouil.fr). [{{< iconify octicon:heart-fill-16 title="Heart" label="Heart" >}} Sponsor](https://github.com/sponsors/mcanouil?o=esb).
   sidebar:
     logo: dark
+    background: dark
+    foreground: light
+    style: docked
+    search: true
+    pinned: true
+    align: center
+    collapse-level: 2
     contents:
       - text: Home
         href: index.qmd
@@ -70,6 +82,9 @@ filters:
     path: highlight-text
   - at: post-quarto
     path: div-reuse
+    filters:
+  - at: post-quarto
+    path: remember
 
 extensions:
   mcanouil:
