@@ -1,0 +1,13 @@
+# _schema.yml for "div-reuse" filter extension
+# Describes attributes for IDE tooling and runtime validation.
+
+# Attributes accepted by the filter on Div elements.
+# Used in: ::: {#target reuse="source-id"}
+
+$schema: https://m.canouil.dev/quarto-wizard/assets/schema/v1/extension-schema.json
+
+attributes:
+  _any:
+    reuse:
+      type: string
+      description: "Identifier of another div whose content should replace this div's content."
