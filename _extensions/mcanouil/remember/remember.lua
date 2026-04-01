@@ -6,8 +6,8 @@
 --- Extension name constant
 local EXTENSION_NAME = 'remember'
 
---- Load required modules
-local utils = require(quarto.utils.resolve_path('_modules/utils.lua'):gsub('%.lua$', ''))
+--- Load modules
+local html_mod = require(quarto.utils.resolve_path('_modules/html.lua'):gsub('%.lua$', ''))
 
 -- ============================================================================
 -- PUBLIC FUNCTIONS
@@ -19,7 +19,7 @@ local utils = require(quarto.utils.resolve_path('_modules/utils.lua'):gsub('%.lu
 local function inject_dependencies(meta)
   -- Only process for HTML and RevealJS formats
   if quarto.doc.is_format('html:js') then
-    utils.ensure_html_dependency({
+    html_mod.ensure_html_dependency({
       name = 'remember',
       version = '1.0.0',
       scripts = { 'remember.js' },
