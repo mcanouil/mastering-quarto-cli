@@ -6,23 +6,23 @@
 - **Theming & Brand.yml**
   - Bootstrap 5 theme basics and `brand.yml` for cross-format consistency.
   - Colour palettes, typography, and logo management.
-  - Importing brand configurations with `quarto use brand`.
+  - Using the `brand.yml` R and Python packages in code outputs.
 
 :::
 ::: {#session5b}
 
-- **Brand.yml in R and Python**
-  - Using the `brand.yml` R and Python packages in code outputs.
-  - Applying brand colours and fonts to plots and tables.
-  - Developing brand extensions for organisational reuse.
+- **Brand Extensions & `quarto use brand`**
+  - Packaging `brand.yml` as a Quarto extension for organisational reuse.
+  - Importing brand configurations with `quarto use brand`.
+  - Automation flags for CI workflows.
 
 :::
 ::: {#session5c}
 
-- **Pandoc Templating & Extensions**
+- **Pandoc Templating**
   - Understanding Pandoc's templating syntax fundamentals.
   - Variables, conditionals, and loops for dynamic content.
-  - Developing brand extensions for organisational reuse.
+  - Modifying partials for custom output.
 
 :::
 ::: {#session5d}

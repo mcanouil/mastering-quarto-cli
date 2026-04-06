@@ -20,7 +20,7 @@ code-links:
 
 ## Session Objectives
 
-This session explores Quarto's branding capabilities, focusing on `brand.yml` as the central tool for unified branding across formats, the `quarto use brand` command for importing shared brand configurations, and the `brand.yml` R and Python packages for applying brand guidelines in code outputs.
+This session explores Quarto's branding capabilities, focusing on `brand.yml` as the central tool for unified branding across formats, the `brand.yml` R and Python packages for applying brand guidelines in code outputs, packaging brand configurations as extensions, and importing them with `quarto use brand`.
 
 ## Learning Objectives
 
@@ -31,9 +31,9 @@ By the end of this session, participants will be able to:
 :::
 
 - [Create unified branding across multiple output formats using `brand.yml`.]{.fragment fragment-index="2"}
-- [Import and manage external brand configurations with `quarto use brand`.]{.fragment fragment-index="3"}
-- [Use the `brand.yml` R and Python packages to apply brand guidelines in code outputs.]{.fragment fragment-index="4"}
-- [Develop brand extensions for organisational reuse.]{.fragment fragment-index="5"}
+- [Use the `brand.yml` R and Python packages to apply brand guidelines in code outputs.]{.fragment fragment-index="3"}
+- [Develop brand extensions for organisational reuse.]{.fragment fragment-index="4"}
+- [Import and manage external brand configurations with `quarto use brand`.]{.fragment fragment-index="5"}
 - [Understand Pandoc's templating syntax for dynamic content generation.]{.fragment fragment-index="6"}
 - [Understand the basics of Bootstrap theming in Quarto.]{.fragment fragment-index="7"}
 
@@ -300,75 +300,6 @@ format:
 ::: {.callout-note .fragment fragment-index="2"}
 
 The brand colours become available as CSS variables and SCSS variables automatically.
-
-:::
-
-# `quarto use brand`
-
-## Importing Brand Configurations
-
-::: {.fragment fragment-index="1"}
-
-The `quarto use brand` command copies brand files from an external source into your project's `_brand/` directory, making it easy to adopt shared organisational branding.
-
-:::
-
-::: {.fragment fragment-index="2"}
-
-**Supported sources:**
-
-:::
-
-- [**Local directory**: `quarto use brand ./path/to/brand`.]{.fragment fragment-index="3"}
-- [**GitHub repository**: `quarto use brand myorg/shared-brand`.]{.fragment fragment-index="4"}
-- [**URL zip archive**: `quarto use brand https://example.com/brand.zip`.]{.fragment fragment-index="5"}
-
-## How `quarto use brand` Works
-
-::: {.fragment fragment-index="1"}
-
-The command follows a structured workflow with user confirmations:
-
-:::
-
-1. [Confirms trust for remote sources.]{.fragment fragment-index="2"}
-2. [Creates `_brand/` directory if needed.]{.fragment fragment-index="3"}
-3. [Prompts before overwriting existing files.]{.fragment fragment-index="4"}
-4. [Copies all files from the source to `_brand/`.]{.fragment fragment-index="5"}
-5. [Asks whether to remove local files not present in the source.]{.fragment fragment-index="6"}
-
-::: {.callout-note .fragment fragment-index="7"}
-
-The result ensures your `_brand/` directory matches the source exactly, making it easy to stay synchronised as shared brands evolve.
-
-:::
-
-## Flags for Automation
-
-::: {.fragment fragment-index="1"}
-
-Preview changes without modifying files:
-
-```bash
-quarto use brand myorg/shared-brand --dry-run
-```
-
-:::
-
-::: {.fragment fragment-index="2"}
-
-Skip all confirmation prompts for automated or CI workflows:
-
-```bash
-quarto use brand myorg/shared-brand --force
-```
-
-:::
-
-::: {.callout-tip .fragment fragment-index="3"}
-
-Use `--dry-run` first to review what will change, then `--force` in CI pipelines.
-See [Brand](https://quarto.org/docs/authoring/brand.html) for complete documentation.
 
 :::
 
@@ -778,6 +709,75 @@ This document demonstrates the power of brand extensions in Quarto.
 ::: {.callout-important}
 
 Brand extensions require a `_quarto.yml` project file to work.
+
+:::
+
+# `quarto use brand`
+
+## Importing Brand Configurations
+
+::: {.fragment fragment-index="1"}
+
+The `quarto use brand` command copies brand files from an external source into your project's `_brand/` directory, making it easy to adopt shared organisational branding.
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+**Supported sources:**
+
+:::
+
+- [**Local directory**: `quarto use brand ./path/to/brand`.]{.fragment fragment-index="3"}
+- [**GitHub repository**: `quarto use brand myorg/shared-brand`.]{.fragment fragment-index="4"}
+- [**URL zip archive**: `quarto use brand https://example.com/brand.zip`.]{.fragment fragment-index="5"}
+
+## How `quarto use brand` Works
+
+::: {.fragment fragment-index="1"}
+
+The command follows a structured workflow with user confirmations:
+
+:::
+
+1. [Confirms trust for remote sources.]{.fragment fragment-index="2"}
+2. [Creates `_brand/` directory if needed.]{.fragment fragment-index="3"}
+3. [Prompts before overwriting existing files.]{.fragment fragment-index="4"}
+4. [Copies all files from the source to `_brand/`.]{.fragment fragment-index="5"}
+5. [Asks whether to remove local files not present in the source.]{.fragment fragment-index="6"}
+
+::: {.callout-note .fragment fragment-index="7"}
+
+The result ensures your `_brand/` directory matches the source exactly, making it easy to stay synchronised as shared brands evolve.
+
+:::
+
+## Flags for Automation
+
+::: {.fragment fragment-index="1"}
+
+Preview changes without modifying files:
+
+```bash
+quarto use brand myorg/shared-brand --dry-run
+```
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+Skip all confirmation prompts for automated or CI workflows:
+
+```bash
+quarto use brand myorg/shared-brand --force
+```
+
+:::
+
+::: {.callout-tip .fragment fragment-index="3"}
+
+Use `--dry-run` first to review what will change, then `--force` in CI pipelines.
+See [Brand](https://quarto.org/docs/authoring/brand.html) for complete documentation.
 
 :::
 
