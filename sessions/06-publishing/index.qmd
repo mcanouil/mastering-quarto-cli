@@ -5,7 +5,7 @@ engine: markdown
 code-links:
   - text: Exercises (tar.gz)
     icon: file-code
-    href: ../05-formatting-branding/assets/exercises/05b-exercises.tar.gz
+    href: ../05-formatting-branding/assets/exercises/05a-exercises.tar.gz
 ---
 
 # Session Overview
@@ -128,20 +128,20 @@ See [Posit Connect Cloud](https://quarto.org/docs/publishing/posit-connect-cloud
 
 ## Exercise Overview
 
-**Objective**: Publish the branded project you created in Session 5 using Posit Connect Cloud.
+**Objective**: Publish the branded website project from Session 5 using Posit Connect Cloud.
 
-**Example Code** (reused from Session 5): [{{< iconify octicon:file-code-16 >}} Exercises](../05-formatting-branding/assets/exercises/05b-exercises.tar.gz)
+**Example Code** (reused from Session 5): [{{< iconify octicon:file-code-16 >}} Exercises](../05-formatting-branding/assets/exercises/05a-exercises.tar.gz)
 
 ```bash
-tar -xzf "05b-exercises.tar.gz" -C "06-publishing"
+tar -xzf "05a-exercises.tar.gz" -C "06-publishing"
 ```
 
 ## Publishing to Posit Connect Cloud
 
 ::: {layout-ncol="2"}
 
-1. [Create a simple Quarto document.]{.fragment fragment-index="1"}
-2. [Add some content (text, code, plots).]{.fragment fragment-index="2"}
+1. [Extract the branded website project.]{.fragment fragment-index="1"}
+2. [Preview locally with `quarto preview`.]{.fragment fragment-index="2"}
 3. [Run `quarto publish posit-connect-cloud`.]{.fragment fragment-index="3"}
 4. [Share your live URL with a neighbour.]{.fragment fragment-index="4"}
 
@@ -329,12 +329,12 @@ quarto publish posit-connect-cloud --no-render
 
 ## Exercise Overview
 
-**Objective**: Publish the branded project you created in Session 5 using GitHub Pages.
+**Objective**: Publish the branded website project from Session 5 using GitHub Pages.
 
-**Example Code** (reused from Session 5): [{{< iconify octicon:file-code-16 >}} Exercises](../05-formatting-branding/assets/exercises/05b-exercises.tar.gz)
+**Example Code** (reused from Session 5): [{{< iconify octicon:file-code-16 >}} Exercises](../05-formatting-branding/assets/exercises/05a-exercises.tar.gz)
 
 ```bash
-tar -xzf "05b-exercises.tar.gz" -C "06-publishing"
+tar -xzf "05a-exercises.tar.gz" -C "06-publishing"
 ```
 
 ## Publishing to GitHub Pages {.smaller}
