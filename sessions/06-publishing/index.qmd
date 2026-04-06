@@ -178,9 +178,9 @@ quarto publish posit-connect-cloud --no-render
 
 ### Render to `docs/`
 
-- Simplest approach
-- Commit rendered output
-- Good for small projects
+- Simplest approach.
+- Commit rendered output.
+- Good for small projects.
 
 :::
 
@@ -188,9 +188,9 @@ quarto publish posit-connect-cloud --no-render
 
 ### `quarto publish`
 
-- Local rendering
-- Automatic deployment
-- Clean separation
+- Local rendering.
+- Automatic deployment.
+- Clean separation.
 
 :::
 
@@ -198,9 +198,9 @@ quarto publish posit-connect-cloud --no-render
 
 ### GitHub Actions
 
-- Fully automated
-- Triggered by commits
-- Most professional
+- Fully automated.
+- Triggered by commits.
+- Most professional.
 
 :::
 
@@ -312,7 +312,7 @@ quarto publish posit-connect-cloud --no-render
         contents: write
       steps:
         - name: Check out repository
-          uses: actions/checkout@v4
+          uses: actions/checkout@v6
         
         - name: Set up Quarto
           uses: quarto-dev/quarto-actions/setup@v2

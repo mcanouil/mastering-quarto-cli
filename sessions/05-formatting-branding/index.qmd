@@ -1388,7 +1388,7 @@ tar -xzf "05c-exercises.tar.gz" -C "05-format-extension"
    cd company-report
    ```
 
-2. **Add brand.yml and configure extension** in _extension.yml`:
+2. **Add brand.yml and configure extension** in `_extension.yml`:
 
    ```yaml
    contributes:
