@@ -3,18 +3,18 @@
 ::: {style="display: none;"}
 ::: {#session5a}
 
-- **Bootstrap Theming & Customisation**
-  - Bootstrap 5 integration and built-in theme selection.
-  - Progressive customisation from YAML options to light CSS.
-  - Theme layering and CSS custom properties.
+- **Theming & Brand.yml**
+  - Bootstrap 5 theme basics and `brand.yml` for cross-format consistency.
+  - Colour palettes, typography, and logo management.
+  - Importing brand configurations with `quarto use brand`.
 
 :::
 ::: {#session5b}
 
-- **Unified Branding with Brand.yml**
-  - Brand.yml systems for cross-format consistency.
-  - Colour palettes, typography, and logo management.
-  - Integration with Bootstrap and format-specific options.
+- **Brand.yml in R and Python**
+  - Using the `brand.yml` R and Python packages in code outputs.
+  - Applying brand colours and fonts to plots and tables.
+  - Developing brand extensions for organisational reuse.
 
 :::
 ::: {#session5c}
@@ -27,7 +27,7 @@
 :::
 ::: {#session5d}
 
-- **Typst Customisation**
+- **Typst Customisation (Optional)**
   - Typst templates and partials for PDF branding.
   - Template structure and brand.yml integration.
   - Creating custom Typst formats with consistent visual identity.

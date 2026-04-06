@@ -14,7 +14,7 @@ code-links:
 
 ## Session Objectives
 
-This session explores comprehensive publishing strategies for Quarto projects, covering multiple deployment platforms, automation workflows, and best practices for different use cases.
+This session explores comprehensive publishing strategies for Quarto projects, covering Posit Connect Cloud, GitHub Pages, automation workflows, and best practices for different use cases.
 
 ## Learning Objectives
 
@@ -37,13 +37,13 @@ By the end of this session, participants will be able to:
 
 ::: {.fragment fragment-index="1"}
 
-| Service            | Best For                        | Key Features                    |
-|--------------------|---------------------------------|---------------------------------|
-| **Quarto Pub**     | Public content, getting started | Free, simple, 100MB limit       |
-| **GitHub Pages**   | Open source projects            | Git integration, custom domains |
-| **Netlify**        | Professional sites              | Advanced features, previews     |
-| **Posit Connect**  | Enterprise/organisations        | Security, authentication        |
-| **Other Services** | Custom requirements             | Firebase, S3, self-hosted       |
+| Service                 | Best For                        | Key Features                     |
+|-------------------------|---------------------------------|----------------------------------|
+| **Posit Connect Cloud** | Public content, getting started | Free tier, simple, Posit account |
+| **GitHub Pages**        | Open source projects            | Git integration, custom domains  |
+| **Netlify**             | Professional sites              | Advanced features, previews      |
+| **Posit Connect**       | Enterprise/organisations        | Security, authentication         |
+| **Other Services**      | Custom requirements             | Firebase, S3, self-hosted        |
 
 :::
 
@@ -51,29 +51,29 @@ By the end of this session, participants will be able to:
 
 ## Rule of thumb
 
-Start with Quarto Pub for learning, use GitHub Pages for projects, Netlify for production sites
+Start with Posit Connect Cloud for learning and public content, use GitHub Pages for open source projects, and Netlify or Posit Connect for production sites.
 
 :::
 
-# Quarto Pub
+# Posit Connect Cloud
 
-## Your First Quarto Pub Deployment
+## Your First Posit Connect Cloud Deployment
 
 ::: {layout-ncol="2"}
 
 ::: {.fragment fragment-index="1"}
 
-1. Create an account.  
-   Visit [quartopub.com](https://quartopub.com) and sign up.
+1. Create an account.
+   Visit [connect.posit.cloud](https://connect.posit.cloud) and sign up for a Posit account.
 
 :::
 
 ::: {.fragment fragment-index="2"}
 
 2. Publish from CLI.
-  
+
    ```{.bash}
-   quarto publish quarto-pub
+   quarto publish posit-connect-cloud
    ```
 
 :::
@@ -82,9 +82,9 @@ Start with Quarto Pub for learning, use GitHub Pages for projects, Netlify for p
 
 3. Authenticate.
 
-   - Browser opens for authorization
-   - Confirm publishing permissions
-   - Site deploys automatically!
+   - Browser opens for authorisation.
+   - Confirm publishing permissions.
+   - Site deploys automatically.
 
 :::
 
@@ -92,7 +92,7 @@ Start with Quarto Pub for learning, use GitHub Pages for projects, Netlify for p
 
 ## That's it!
 
-Your site is live at `https://username.quarto.pub/project-name`.
+Your site is live on Posit Connect Cloud.
 
 :::
 
@@ -106,9 +106,9 @@ Created automatically when you first publish:
 
 ```{.yaml filename="_publish.yml"}
 - source: project
-  quarto-pub:
-    - id: "abc123-def456-ghi789"
-      url: "https://myusername.quarto.pub/myproject"
+  posit-connect-cloud:
+    - id: "5f3abafe-68f9-4c1d-835b-9d668b892001"
+      url: "https://connect.posit.cloud/content/5f3abafe-68f9-4c1d-835b-9d668b892001"
 ```
 
 :::
@@ -118,11 +118,17 @@ Created automatically when you first publish:
 - [**Service configuration** stored locally.]{.fragment fragment-index="4"}
 - [**Reusable** for subsequent deployments.]{.fragment fragment-index="5"}
 
-# Hands-On Exercise: Quarto Pub
+::: {.fragment fragment-index="6"}
+
+See [Posit Connect Cloud](https://quarto.org/docs/publishing/posit-connect-cloud.html) for complete documentation.
+
+:::
+
+# Hands-On Exercise: Posit Connect Cloud
 
 ## Exercise Overview
 
-**Objective**: Publish the branded project you created in Session 5 using Quarto Pub.
+**Objective**: Publish the branded project you created in Session 5 using Posit Connect Cloud.
 
 **Example Code** (reused from Session 5): [{{< iconify octicon:file-code-16 >}} Exercises](../05-formatting-branding/assets/exercises/05b-exercises.tar.gz)
 
@@ -130,26 +136,26 @@ Created automatically when you first publish:
 tar -xzf "05b-exercises.tar.gz" -C "06-publishing"
 ```
 
-## Publishing to Quarto Pub
+## Publishing to Posit Connect Cloud
 
 ::: {layout-ncol="2"}
 
 1. [Create a simple Quarto document.]{.fragment fragment-index="1"}
 2. [Add some content (text, code, plots).]{.fragment fragment-index="2"}
-3. [Run `quarto publish quarto-pub`.]{.fragment fragment-index="3"}
+3. [Run `quarto publish posit-connect-cloud`.]{.fragment fragment-index="3"}
 4. [Share your live URL with a neighbour.]{.fragment fragment-index="4"}
 
 ::: {.fragment fragment-index="5"}
 
 ```{.bash}
 # Publish without prompts
-quarto publish quarto-pub --no-prompt
+quarto publish posit-connect-cloud --no-prompt
 
 # Publish without opening browser
-quarto publish quarto-pub --no-browser
+quarto publish posit-connect-cloud --no-browser
 
 # Publish without re-rendering
-quarto publish quarto-pub --no-render
+quarto publish posit-connect-cloud --no-render
 ```
 
 :::
@@ -160,7 +166,7 @@ quarto publish quarto-pub --no-render
 
 ✅ **You've successfully completed the exercise if you can**:
 
-- Successfully publish your Quarto project to Quarto Pub.
+- Successfully publish your Quarto project to Posit Connect Cloud.
 
 # GitHub Pages
 
