@@ -74,7 +74,7 @@ Headers create your document structure and enable automatic table of contents ge
 :::
 
 ::: {.callout-tip .fragment fragment-index="2"}
-Add a empty lines before and after!
+Add empty lines before and after!
 :::
 
 ## Lists

@@ -31,7 +31,7 @@ website:
   repo-url: https://github.com/mcanouil/mastering-quarto-cli
   repo-actions: []
   image: assets/images/social-card.png
-  image-alt: "Quarto Workshop promotional card showing six-session curriculum from Introduction and Setup through Publishing with dark teal background"
+  image-alt: "Quarto Workshop promotional card showing seven-session curriculum from Introduction and Setup through Publishing with dark teal background"
   navbar: false
   page-footer:
     background: dark
@@ -82,7 +82,6 @@ filters:
     path: highlight-text
   - at: post-quarto
     path: div-reuse
-    filters:
   - at: post-quarto
     path: remember
 
