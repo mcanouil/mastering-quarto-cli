@@ -24,7 +24,7 @@ The workshop is structured into seven sessions across two parts.
 
 1. **Formats & Projects** -- Advanced project structures and multi-format optimisation.
 1. **Formatting & Branding** -- Bootstrap theming, `brand.yml` systems, and Pandoc templating.
-1. **Publishing** -- Deploying through Quarto Pub, GitHub Pages, and automated workflows.
+1. **Publishing** -- Deploying through Posit Connect Cloud, GitHub Pages, and automated workflows.
 1. **Closing & Next Steps** -- Recap and further resources.
 
 ## Prerequisites

@@ -227,7 +227,7 @@ execute:
 +==============+===================================================================================================================================================================================================+
 | `eval`       | Evaluate the code chunk (if `false`, just echos the code into the output).                                                                                                                        |
 +--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| `echo`       | Include the source code in output                                                                                                                                                                 |
+| `echo`       | Include the source code in output.                                                                                                                                                                 |
 +--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | `output`     | Include the results of executing the code in the output (`true`, `false`, or `asis` to indicate that the output is raw markdown and should not have any of Quarto's standard enclosing markdown). |
 +--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -387,7 +387,7 @@ execute:
 
 ### Use Cache When
 
-- Developing multi format documents.
+- Developing multi-format documents.
 - Iterating on analysis.
 - Working with expensive computations.
 - Editing prose frequently.

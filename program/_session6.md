@@ -27,10 +27,10 @@
 :::
 ::: {#session6d}
 
-- **Advanced Topics**
+- **Advanced Topics & Extension Distribution**
   - Custom domains configuration.
-  - Automated deployment workflows.
-  - Troubleshooting common publishing issues.
+  - Extension distribution via GitHub and archives.
+  - Publishing best practices for extensions.
 
 :::
 :::
