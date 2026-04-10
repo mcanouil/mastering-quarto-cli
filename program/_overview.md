@@ -14,7 +14,7 @@ By the end of this workshop, participants will have developed the expertise to c
 - **Integrate** computational workflows by embedding R, Python, and Julia code with proper execution control and caching strategies.
 - **Develop** professional publications using advanced project structures, multi-format optimisation, and custom formatting techniques.
 - **Implement** cohesive branding and visual identity across formats using Bootstrap theming, `brand.yml` systems, and Pandoc templating.
-- **Deploy** projects confidently through various publishing platforms including Quarto Pub, GitHub Pages, and automated workflows.
+- **Deploy** projects confidently through various publishing platforms including Posit Connect Cloud, GitHub Pages, and automated workflows.
 
 {{< pagebreak >}}
 
@@ -22,7 +22,7 @@ By the end of this workshop, participants will have developed the expertise to c
 
 Prior to the workshop, please ensure you have the following installed on your computer.
 
-- Quarto CLI 1.8.\* or higher: <https://quarto.org/docs/get-started>
+- Quarto CLI {{< version >}}.\* or higher: <https://quarto.org/docs/get-started>
 - Computing languages (_one or more_):
   - R 4.5.\* or higher: <https://cran.r-project.org>
   - Python 3.13.\* or higher: <https://www.python.org/downloads/>

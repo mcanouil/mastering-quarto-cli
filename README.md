@@ -24,12 +24,12 @@ The workshop is structured into seven sessions across two parts.
 
 1. **Formats & Projects** -- Advanced project structures and multi-format optimisation.
 1. **Formatting & Branding** -- Bootstrap theming, `brand.yml` systems, and Pandoc templating.
-1. **Publishing** -- Deploying through Quarto Pub, GitHub Pages, and automated workflows.
+1. **Publishing** -- Deploying through Posit Connect Cloud, GitHub Pages, and automated workflows.
 1. **Closing & Next Steps** -- Recap and further resources.
 
 ## Prerequisites
 
-- [Quarto CLI](https://quarto.org/docs/get-started) 1.8 or higher.
+- [Quarto CLI](https://quarto.org/docs/get-started) 1.9 or higher.
 - One or more computing languages:
   - [R](https://cran.r-project.org) 4.5 or higher.
   - [Python](https://www.python.org/downloads/) 3.13 or higher.

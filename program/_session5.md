@@ -3,31 +3,31 @@
 ::: {style="display: none;"}
 ::: {#session5a}
 
-- **Bootstrap Theming & Customisation**
-  - Bootstrap 5 integration and built-in theme selection.
-  - Progressive customisation from YAML options to light CSS.
-  - Theme layering and CSS custom properties.
+- **Theming & Brand.yml**
+  - Bootstrap 5 theme basics and `brand.yml` for cross-format consistency.
+  - Colour palettes, typography, and logo management.
+  - Using the `brand.yml` R and Python packages in code outputs.
 
 :::
 ::: {#session5b}
 
-- **Unified Branding with Brand.yml**
-  - Brand.yml systems for cross-format consistency.
-  - Colour palettes, typography, and logo management.
-  - Integration with Bootstrap and format-specific options.
+- **Brand Extensions & `quarto use brand`**
+  - Packaging `brand.yml` as a Quarto extension for organisational reuse.
+  - Importing brand configurations with `quarto use brand`.
+  - Automation flags for CI workflows.
 
 :::
 ::: {#session5c}
 
-- **Pandoc Templating & Extensions**
+- **Pandoc Templating**
   - Understanding Pandoc's templating syntax fundamentals.
   - Variables, conditionals, and loops for dynamic content.
-  - Developing brand extensions for organisational reuse.
+  - Modifying partials for custom output.
 
 :::
 ::: {#session5d}
 
-- **Typst Customisation**
+- **Typst Customisation (Optional)**
   - Typst templates and partials for PDF branding.
   - Template structure and brand.yml integration.
   - Creating custom Typst formats with consistent visual identity.

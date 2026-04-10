@@ -5,7 +5,7 @@ description: "Learn how to use Quarto CLI for your data science projects."
 title-prefix: ""
 ---
 
-A Quarto CLI Workshop for [Physalia-courses](https://www.physalia-courses.org/).
+A Quarto CLI Workshop designed originally for [Physalia-courses](https://www.physalia-courses.org/).
 
 {{< include /program/_overview.md >}}
 

@@ -9,7 +9,7 @@ code-links:
   - text: Exercises Partials (tar.gz)
     icon: file-code
     href: assets/exercises/05b-exercises.tar.gz
-  - text: Exercises Typst (tar.gz)
+  - text: Exercises Typst - Optional (tar.gz)
     icon: file-code
     href: assets/exercises/05c-exercises.tar.gz
 ---
@@ -20,7 +20,7 @@ code-links:
 
 ## Session Objectives
 
-This session explores Quarto's advanced theming and branding capabilities, covering Bootstrap 5 customisation, `brand.yml` systems for unified branding, Pandoc templating syntax, and Typst customisation for professional PDF output.
+This session explores Quarto's branding capabilities, focusing on `brand.yml` as the central tool for unified branding across formats, the `brand.yml` R and Python packages for applying brand guidelines in code outputs, packaging brand configurations as extensions, and importing them with `quarto use brand`.
 
 ## Learning Objectives
 
@@ -30,12 +30,12 @@ By the end of this session, participants will be able to:
 
 :::
 
-- [Implement professional themes with Bootstrap 5 customisation.]{.fragment fragment-index="2"}
-- [Apply progressive customisation from YAML to light CSS.]{.fragment fragment-index="3"}
-- [Create unified branding across multiple output formats using `brand.yml`.]{.fragment fragment-index="4"}
-- [Develop brand extensions for organisational reuse.]{.fragment fragment-index="5"}
+- [Create unified branding across multiple output formats using `brand.yml`.]{.fragment fragment-index="2"}
+- [Use the `brand.yml` R and Python packages to apply brand guidelines in code outputs.]{.fragment fragment-index="3"}
+- [Develop brand extensions for organisational reuse.]{.fragment fragment-index="4"}
+- [Import and manage external brand configurations with `quarto use brand`.]{.fragment fragment-index="5"}
 - [Understand Pandoc's templating syntax for dynamic content generation.]{.fragment fragment-index="6"}
-- [Customise Typst templates and partials for branded PDF output.]{.fragment fragment-index="7"}
+- [Understand the basics of Bootstrap theming in Quarto.]{.fragment fragment-index="7"}
 
 # Theming (Bootstrap & Customisation)
 
@@ -86,22 +86,6 @@ format:
 
 :::
 
-- Light/dark theme pair.
-
-```yaml
-format:
-  html:
-    theme:
-      light: cosmo
-      dark: darkly
-```
-
-::: {.content-visible when-format="revealjs"}
-
-## Theme Selection {auto-animate="true"}
-
-:::
-
 - Theme + customisation.
 
 ```yaml
@@ -110,114 +94,17 @@ format:
     theme: [cosmo, custom.scss]
 ```
 
-::: {.content-visible when-format="revealjs"}
-
-## Theme Selection {auto-animate="true"}
-
-:::
-
-Can also be written as:
-
-```yaml
-format:
-  html:
-    theme:
-      - cosmo
-      - custom.scss
-```
-
-## Basic Customisation {auto-animate="true"}
-
-```yaml
-format:
-  html:
-    theme: cosmo
-
-    # Typography
-    fontsize: 1.1em
-    linestretch: 1.6
-    mainfont: "Inter"
-```
-
-::: {.content-visible when-format="revealjs"}
-
-## Basic Customisation {auto-animate="true"}
-
-:::
-
-```yaml
-format:
-  html:
-    theme: cosmo
-
-    # Typography
-    fontsize: 1.1em
-    linestretch: 1.6
-    mainfont: "Inter"
-
-    # Colours
-    linkcolor: "#2E86AB"
-    backgroundcolor: "#FFFFFF"
-```
-
-::: {.content-visible when-format="revealjs"}
-
-## Basic Customisation {auto-animate="true"}
-
-:::
-
-```yaml
-format:
-  html:
-    theme: cosmo
-
-    # Typography
-    fontsize: 1.1em
-    linestretch: 1.6
-    mainfont: "Inter"
-
-    # Colours
-    linkcolor: "#2E86AB"
-    backgroundcolor: "#FFFFFF"
-
-    # Layout
-    max-width: 1200px
-    margin-left: 2rem
-    margin-right: 2rem
-```
-
 ::: {.fragment}
 
-See [HTML Theming - Basic Options](https://quarto.org/docs/output-formats/html-themes.html#basic-options) for more.
+See [HTML Theming](https://quarto.org/docs/output-formats/html-themes.html) and [More About Quarto Themes](https://quarto.org/docs/output-formats/html-themes-more.html) for YAML options and SCSS customisation.
 
 :::
 
-## Progressive Enhancement {.smaller}
+::: {.callout-tip .fragment}
 
-Move to SCSS for more control:
+For most branding needs, `brand.yml` provides a simpler and more portable approach than custom SCSS, as we will see next.
 
-```yaml
-format:
-  html:
-    theme:
-      - cosmo
-      - styles.scss
-```
-
-Custom SCSS file follows a specific structure using comments:
-
-```{.scss filename="styles.scss"}
-/*-- scss:defaults --*/
-$h2-font-size:          1.6rem !default;
-$headings-font-weight:  500 !default;
-
-/*-- scss:rules --*/
-h1, h2, h3, h4, h5, h6 {
-  text-shadow: -1px -1px 0 rgba(0, 0, 0, .3);
-}
-```
-
-See [More About Quarto Themes](https://quarto.org/docs/output-formats/html-themes-more.html) for more.
+:::
 
 # `brand.yml` Foundation
 
@@ -225,7 +112,8 @@ See [More About Quarto Themes](https://quarto.org/docs/output-formats/html-theme
 
 ::: {.fragment fragment-index="1"}
 
-`brand.yml` is a single YAML file that codifies your organisation's brand guidelines into a format that can be used by Quarto (*but not limited to*) to create branded outputs across multiple formats.
+`brand.yml` is a single YAML file that codifies your organisation's brand guidelines into a machine-readable format.
+It is used by Quarto, Shiny, and the `brand.yml` R and Python packages to create branded outputs across multiple formats and tools.
 
 :::
 
@@ -311,6 +199,7 @@ color:
 
 - **HTML**: Available as `$brand-primary` (SCSS), `--brand-primary` (CSS), etc.
 - **Typst**: Available as `brand-color.primary`, etc.
+- **R/Python**: Available via the `brand.yml` packages for plots, tables, and applications.
 
 :::
 
@@ -414,6 +303,188 @@ The brand colours become available as CSS variables and SCSS variables automatic
 
 :::
 
+# `brand.yml` in R and Python
+
+## Brand Guidelines in Code Outputs
+
+::: {.fragment fragment-index="1"}
+
+`brand.yml` is not limited to document theming.
+The R and Python packages let you apply brand colours, fonts, and logos directly in your code outputs.
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+**Supported integrations:**
+
+:::
+
+- [Quarto (websites, presentations, dashboards, Typst documents).]{.fragment fragment-index="3"}
+- [Shiny for Python and Shiny for R (via bslib).]{.fragment fragment-index="4"}
+- [Custom R and Python visualisations (ggplot2, plotnine, great_tables, etc.).]{.fragment fragment-index="5"}
+
+::: {.fragment fragment-index="6"}
+
+See [brand.yml](https://posit-dev.github.io/brand-yml/) for full documentation.
+
+:::
+
+## Using `brand.yml` in R {.smaller}
+
+::: {.fragment fragment-index="1"}
+
+Install the package:
+
+```r
+install.packages("brand.yml")
+```
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+Read the brand and access its properties:
+
+```r
+library(brand.yml)
+brand <- read_brand_yml()
+
+brand[["color"]][["palette"]][["primary"]]
+brand[["color"]][["foreground"]]
+brand[["typography"]][["base"]]
+```
+
+:::
+
+::: {.fragment fragment-index="3"}
+
+Apply to a ggplot2 visualisation:
+
+```r
+library(ggplot2)
+ggplot(data) +
+  aes(x = x, y = y) +
+  geom_point(colour = brand[["color"]][["palette"]][["primary"]]) +
+  theme_minimal(base_family = brand[["typography"]][["base"]])
+```
+
+:::
+
+## Using `brand_yml` in Python {.smaller}
+
+::: {.fragment fragment-index="1"}
+
+Install the package:
+
+```bash
+pip install brand_yml
+```
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+Read the brand and access its properties:
+
+```python
+from brand_yml import Brand
+
+brand = Brand.from_yaml("_brand.yml")
+
+brand.color.primary
+brand.color.palette
+brand.typography.base
+```
+
+:::
+
+::: {.fragment fragment-index="3"}
+
+Apply to a plotnine visualisation:
+
+```python
+from plotnine import ggplot, aes, geom_point, theme, element_text
+
+(
+    ggplot(data, aes("x", "y"))
+    + geom_point(colour=brand.color.primary)
+    + theme(text=element_text(family=brand.typography.base))
+)
+```
+
+:::
+
+::: {.callout-note .fragment fragment-index="4"}
+
+The `brand.yml` packages ensure that your data visualisations match your document branding without manual colour copying.
+
+:::
+
+# Hands-On Exercise: Setting Up a Brand
+
+## Exercise Overview
+
+**Objective**: Create a `_brand.yml` file from scratch with a colour palette, typography, logos, and test it across multiple output formats.
+
+## Part 1: Create Brand Identity
+
+1. **Create a new Quarto project**:
+
+   ```bash
+   quarto create project default my-branded-project
+   cd my-branded-project
+   ```
+
+2. **Create a `_brand.yml` file** with:
+
+   - `meta`: Organisation name and link.
+   - `color`: A palette with at least primary, secondary, foreground, and background colours, plus semantic mappings.
+   - `typography`: One or two Google Fonts for base and headings.
+   - `logo`: References to logo files (add placeholder images to an `assets/` directory).
+
+3. **Add `brand` to your theme** in `_quarto.yml`:
+
+   ```yaml
+   format:
+     html:
+       theme: [default, brand]
+   ```
+
+## Part 2: Test Across Formats
+
+1. **Add content** to your `index.qmd` with headings, text, code blocks, and lists.
+
+2. **Render and verify** branding in HTML:
+
+   ```bash
+   quarto render
+   ```
+
+3. **Test in RevealJS**:
+
+   ```bash
+   quarto render index.qmd --to revealjs
+   ```
+
+4. **Verify** that colours, fonts, and logo appear consistently across both formats.
+
+## Part 3: Apply to Code Outputs
+
+1. **Add a code block** (R or Python) that uses brand colours from `_brand.yml` in a plot.
+
+2. **Verify** that the plot colours match the document branding.
+
+## Success Criteria
+
+::: {.nonincremental}
+
+- Create a working `_brand.yml` with colour palette, typography, and logo.
+- Consistent branding across HTML and RevealJS formats.
+- Logo displayed correctly in the output.
+
+:::
+
 # Brand Extensions Development
 
 ## What Are Brand Extensions?
@@ -434,6 +505,7 @@ Brand extensions are Quarto extensions that provide a `brand.yml` file and its a
 - [**Team consistency** - Everyone gets the same brand.]{.fragment fragment-index="4"}
 - [**Asset management** - Logos and fonts included.]{.fragment fragment-index="5"}
 - [**Version control** - Track brand changes over time.]{.fragment fragment-index="6"}
+- [**Importable** - Use with `quarto use brand` for easy adoption.]{.fragment fragment-index="7"}
 
 ## Creating a Brand Extension
 
@@ -637,6 +709,75 @@ This document demonstrates the power of brand extensions in Quarto.
 ::: {.callout-important}
 
 Brand extensions require a `_quarto.yml` project file to work.
+
+:::
+
+# `quarto use brand`
+
+## Importing Brand Configurations
+
+::: {.fragment fragment-index="1"}
+
+The `quarto use brand` command copies brand files from an external source into your project's `_brand/` directory, making it easy to adopt shared organisational branding.
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+**Supported sources:**
+
+:::
+
+- [**Local directory**: `quarto use brand ./path/to/brand`.]{.fragment fragment-index="3"}
+- [**GitHub repository**: `quarto use brand myorg/shared-brand`.]{.fragment fragment-index="4"}
+- [**URL zip archive**: `quarto use brand https://example.com/brand.zip`.]{.fragment fragment-index="5"}
+
+## How `quarto use brand` Works
+
+::: {.fragment fragment-index="1"}
+
+The command follows a structured workflow with user confirmations:
+
+:::
+
+1. [Confirms trust for remote sources.]{.fragment fragment-index="2"}
+2. [Creates `_brand/` directory if needed.]{.fragment fragment-index="3"}
+3. [Prompts before overwriting existing files.]{.fragment fragment-index="4"}
+4. [Copies all files from the source to `_brand/`.]{.fragment fragment-index="5"}
+5. [Asks whether to remove local files not present in the source.]{.fragment fragment-index="6"}
+
+::: {.callout-note .fragment fragment-index="7"}
+
+The result ensures your `_brand/` directory matches the source exactly, making it easy to stay synchronised as shared brands evolve.
+
+:::
+
+## Flags for Automation
+
+::: {.fragment fragment-index="1"}
+
+Preview changes without modifying files:
+
+```bash
+quarto use brand myorg/shared-brand --dry-run
+```
+
+:::
+
+::: {.fragment fragment-index="2"}
+
+Skip all confirmation prompts for automated or CI workflows:
+
+```bash
+quarto use brand myorg/shared-brand --force
+```
+
+:::
+
+::: {.callout-tip .fragment fragment-index="3"}
+
+Use `--dry-run` first to review what will change, then `--force` in CI pipelines.
+See [Brand](https://quarto.org/docs/authoring/brand.html) for complete documentation.
 
 :::
 
@@ -961,7 +1102,14 @@ tar -xzf "05b-exercises.tar.gz" -C "05-custom-partials"
 - Display dynamic content based on YAML metadata.
 - Test and verify the output in a Reveal.js presentation.
 
-# Typst Customisation (For the Curious)
+# Appendix: Typst Customisation (Optional)
+
+::: {.callout-note}
+
+This section is optional supplementary material.
+It covers Typst customisation for participants interested in advanced PDF output.
+
+:::
 
 ## Typst in Quarto
 
@@ -1240,7 +1388,7 @@ tar -xzf "05c-exercises.tar.gz" -C "05-format-extension"
    cd company-report
    ```
 
-2. **Add brand.yml and configure extension** in _extension.yml`:
+2. **Add brand.yml and configure extension** in `_extension.yml`:
 
    ```yaml
    contributes:

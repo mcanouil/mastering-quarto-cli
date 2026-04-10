@@ -4,15 +4,15 @@
 ::: {#session6a}
 
 - **Publishing Options Overview**
-  - Comparison of Quarto Pub, GitHub Pages, Netlify, and other hosting services.
+  - Comparison of Posit Connect Cloud, GitHub Pages, Netlify, and other hosting services.
   - Understanding benefits and limitations of each platform.
   - Choosing the right publishing method for different use cases.
 
 :::
 ::: {#session6b}
 
-- **Quarto Pub and GitHub Pages**
-  - Step-by-step Quarto Pub deployment workflow.
+- **Posit Connect Cloud and GitHub Pages**
+  - Step-by-step Posit Connect Cloud deployment workflow.
   - Three methods for GitHub Pages: docs folder, quarto publish, and GitHub Actions.
   - Understanding `_publish.yml` and repository configuration.
 
@@ -27,10 +27,10 @@
 :::
 ::: {#session6d}
 
-- **Advanced Topics**
+- **Advanced Topics & Extension Distribution**
   - Custom domains configuration.
-  - Automated deployment workflows.
-  - Troubleshooting common publishing issues.
+  - Extension distribution via GitHub and archives.
+  - Publishing best practices for extensions.
 
 :::
 :::

@@ -1,6 +1,6 @@
 {
   "name": "Quarto Workshop Environment",
-  "image": "ghcr.io/mcanouil/quarto-codespaces:1.8",
+  "image": "ghcr.io/mcanouil/quarto-codespaces:release",
   "remoteUser": "vscode",
   "customizations": {
     "vscode": {

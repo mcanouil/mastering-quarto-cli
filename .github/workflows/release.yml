@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/mcanouil/quarto-codespaces:prerelease
+      image: ghcr.io/mcanouil/quarto-codespaces:release
 
     defaults:
       run:

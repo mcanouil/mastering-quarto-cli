@@ -1,8 +1,8 @@
 ## Session 7: Closing & Next Steps
 
-- **Recapitulation:**  
+- **Recapitulation:**
   Summarise the day's key learning outcomes.
-- **Resource Sharing:**  
+- **Resource Sharing:**
   Direct participants to further Quarto documentation and tutorials.
-- **Feedback:**  
+- **Feedback:**
   Request feedback to refine future sessions and identify areas for advanced exploration.
