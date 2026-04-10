@@ -29,7 +29,7 @@ The workshop is structured into seven sessions across two parts.
 
 ## Prerequisites
 
-- [Quarto CLI](https://quarto.org/docs/get-started) 1.8 or higher.
+- [Quarto CLI](https://quarto.org/docs/get-started) 1.9 or higher.
 - One or more computing languages:
   - [R](https://cran.r-project.org) 4.5 or higher.
   - [Python](https://www.python.org/downloads/) 3.13 or higher.
