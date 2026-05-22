@@ -1,5 +1,5 @@
 project:
-  type: mcanouil
+  type: training
   output-dir: _site
   post-render:
     - assets/scripts/slides-to-pdf.sh
@@ -69,7 +69,7 @@ website:
           - href: sessions/07-closing-next-steps/index.qmd
 
 brand: _brand.yml
-format: mcanouil-html
+format: training-html
 
 execute:
   freeze: auto
@@ -86,5 +86,5 @@ filters:
     path: remember
 
 extensions:
-  mcanouil:
+  training:
     grid-background: true

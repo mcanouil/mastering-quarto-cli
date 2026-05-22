@@ -1,28 +1,28 @@
 date: today
 format:
-  mcanouil-html:
+  training-html:
     shift-heading-level-by: 1
-  mcanouil-typst:
+  training-typst:
     output-file: workshop.pdf
     list-of: false
     title-page: false
-  mcanouil-revealjs:
+  training-revealjs:
     # date-format: "[To Be Announced]" # To be removed when publishing
     output-file: slides
     # code-block-height: "600px"
     revealjs-plugins:
       - attribution
     extensions:
-      mcanouil:
+      training:
         grid-background: false
 format-links:
-  - mcanouil-html
-  - format: mcanouil-typst
+  - training-html
+  - format: training-typst
     text: Typst (PDF)
     attr:
       target: _blank
       rel: noopener noreferrer
-  - format: mcanouil-revealjs
+  - format: training-revealjs
     text: Slides (HTML)
     attr:
       target: _blank

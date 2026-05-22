@@ -3,8 +3,8 @@ title: "Mastering Quarto CLI: From Authoring to Publishing"
 subtitle: "Program"
 title-prefix: ""
 format:
-  mcanouil-html: default
-  mcanouil-typst:
+  training-html: default
+  training-typst:
     title: "Mastering Quarto CLI"
     subtitle: "From Authoring to Publishing"
     output-file: mastering-quarto-cli-program
@@ -13,8 +13,8 @@ format:
     section-pagebreak: false
     list-of: false
 format-links:
-  - mcanouil-html
-  - format: mcanouil-typst
+  - training-html
+  - format: training-typst
     text: Program (PDF)
     attr:
       target: _blank

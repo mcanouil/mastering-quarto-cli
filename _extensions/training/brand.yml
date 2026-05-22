@@ -3,16 +3,16 @@ meta:
   license: CC BY-NC-SA 4.0
   link:
     home: https://mickael.canouil.fr
-    github: https://github.com/mcanouil
+    github: https://github.com/training
     bluesky: https://bsky.app/profile/mickael.canouil.fr
     linkedin: https://www.linkedin.com/in/MickaelCanouil
 logo:
   images:
     light:
-      path: _extensions/training/logos/logo-dark-path.svg
+      path: logos/logo-dark-path.svg
       alt: "Mickaël CANOUIL logo"
     dark:
-      path: _extensions/training/logos/logo-light-path.svg
+      path: logos/logo-light-path.svg
       alt: "Mickaël CANOUIL logo"
   small:
     light: light
@@ -25,21 +25,17 @@ logo:
     dark: dark
 color:
   background:
-    dark: "#161b22"
-    light: "#f8fafc"
-    # light: "#fafcfd"
+    dark: "#333333"
+    light: "#fafafa"
   foreground:
-    dark: "#74aadb"
-    light: "#4f789e"
-    # light: "#3b5a77"
+    dark: "#fafafa"
+    light: "#333333"
   dark:
-    dark: "#161b22"
-    light: "#4f789e"
-    # light: "#3b5a77"
+    dark: "#333333"
+    light: "#fafafa"
   light:
-    dark: "#74aadb"
-    light: "#f8fafc"
-    # light: "#fafcfd"
+    dark: "#fafafa"
+    light: "#333333"
 typography:
   fonts:
     - family: Alegreya Sans
@@ -56,9 +52,21 @@ typography:
 defaults:
   bootstrap:
     defaults:
-      theme: mcanouil
+      theme: training
       tooltip-color: $background
       tooltip-bg: $foreground
       btn-close-color: $foreground
+      # # Navbar (complements metadata "background: dark")
+      # navbar-bg: $dark
+      # navbar-fg: $light
+      # navbar-hl: $light
+      # # Footer
+      # footer-bg: $dark
+      # footer-fg: $light
+      # footer-hl: $light
+      # # Sidebar (complements metadata "background: dark")
+      # sidebar-bg: $dark
+      # sidebar-fg: $light
+      # sidebar-hl: $light
     rules: |
       // CSS Rules

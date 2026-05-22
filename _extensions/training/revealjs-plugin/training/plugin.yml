@@ -1,0 +1,11 @@
+name: RevealJsTraining
+script: revealjs-training.js
+stylesheet: revealjs-training.css
+config:
+  extensions:
+    training:
+      section-outline: true
+      date-superscript: true
+      favicon-from-logo: true
+      hide-title-slide-chrome: true
+      debug-borders: false
