@@ -1,9 +1,16 @@
 /**
  * Remember Extension - Navigation Position Persistence
- * Saves and restores user's scroll position and current anchor/slide
+ *
+ * Saves and restores the user's scroll position and current anchor or slide
+ * indices for HTML, Quarto book, and Reveal.js outputs.
+ *
+ * The Quarto project type (book, website, default) is delivered by the
+ * companion Lua filter through a `<script id="quarto-remember-config"
+ * type="application/json">` block injected into the page head. The client
+ * never has to guess from theme-specific DOM selectors.
  *
  * @author Mickaël Canouil
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 (function () {
@@ -11,149 +18,314 @@
 
   const STORAGE_KEY = 'quarto-remember-position';
   const STORAGE_TIMESTAMP_KEY = 'quarto-remember-timestamp';
+  const CHAPTER_KEY = 'quarto-remember-chapter';
   const PROMPT_SHOWN_KEY = 'quarto-remember-prompt-shown';
   const SESSION_ACTIVE_KEY = 'quarto-remember-session-active';
-  const PROMPT_COOLDOWN = 5000; // 5 seconds cooldown between prompts
+  const CONFIG_ELEMENT_ID = 'quarto-remember-config';
+  const PROMPT_COOLDOWN = 5000;
 
   /**
-   * Check if current page is a Quarto book
-   * @returns {boolean} True if current page is part of a Quarto book
+   * Configuration injected by the Lua filter via `<script
+   * id="quarto-remember-config" type="application/json">`.
+   *
+   * Shape:
+   *   {
+   *     "project-type": "book" | "website" | "default",
+   *     "page-exclude": string[],
+   *     "separate-chapter-state": boolean
+   *   }
+   *
+   * If the element is missing or malformed, the defaults below preserve the
+   * previous "single document" behaviour.
+   *
+   * @returns {{projectType: string, pageExclude: string[], separateChapterState: boolean}}
+   */
+  function readConfig() {
+    const fallback = {
+      projectType: 'default',
+      pageExclude: [],
+      separateChapterState: false
+    };
+    const element = document.getElementById(CONFIG_ELEMENT_ID);
+    if (!element) {
+      return fallback;
+    }
+    try {
+      const raw = JSON.parse(element.textContent || '{}');
+      return {
+        projectType: typeof raw['project-type'] === 'string' ? raw['project-type'] : fallback.projectType,
+        pageExclude: Array.isArray(raw['page-exclude']) ? raw['page-exclude'] : fallback.pageExclude,
+        separateChapterState: raw['separate-chapter-state'] === true
+      };
+    } catch (e) {
+      console.warn('Remember: invalid configuration JSON, falling back to defaults.', e);
+      return fallback;
+    }
+  }
+
+  const CONFIG = readConfig();
+
+  /**
+   * Feature-detect `localStorage` and `sessionStorage` before any other work.
+   * Some private browsing modes throw on `setItem`, so a probe write is
+   * required to be sure.
+   *
+   * @param {Storage} storage
+   * @returns {boolean}
+   */
+  function isStorageUsable(storage) {
+    if (!storage) {
+      return false;
+    }
+    const probeKey = '__quarto_remember_probe__';
+    try {
+      storage.setItem(probeKey, '1');
+      storage.removeItem(probeKey);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  const LOCAL_STORAGE_OK = isStorageUsable(typeof window !== 'undefined' ? window.localStorage : null);
+  const SESSION_STORAGE_OK = isStorageUsable(typeof window !== 'undefined' ? window.sessionStorage : null);
+
+  /**
+   * Determine whether the current page belongs to a Quarto book.
+   * Now driven by the Lua-injected config, not DOM selectors.
+   *
+   * @returns {boolean}
    */
   function isQuartoBook() {
-    const hasPageNav = document.querySelector('.page-navigation');
-    const hasNavSidebar = document.body && document.body.classList.contains('nav-sidebar');
-    return hasPageNav && hasNavSidebar;
+    return CONFIG.projectType === 'book';
   }
 
   /**
-   * Get page identifier - use book root for Quarto books, pathname otherwise
-   * @returns {string} Page identifier
+   * Compute the page identifier.
+   *
+   * For book projects, all chapters share a single identifier (the book
+   * root) so the extension can redirect across chapters. For every other
+   * project type, the full pathname is used.
+   *
+   * @returns {string}
    */
-  function getPageIdentifier() {
+  function computePageIdentifier() {
     if (isQuartoBook()) {
-      // For books, use the directory path (book root) so all chapters share position
-      const pathname = window.location.pathname;
-      const parts = pathname.split('/');
-      // Remove the last part (filename) to get the book directory
+      const parts = window.location.pathname.split('/');
       parts.pop();
       return parts.join('/') || '/';
     }
-
-    // For regular pages, use full pathname
     return window.location.pathname;
   }
 
-  // Page identifier will be computed when needed (not at script load time)
-  let PAGE_IDENTIFIER = null;
-  function ensurePageIdentifier() {
-    if (PAGE_IDENTIFIER === null) {
-      PAGE_IDENTIFIER = getPageIdentifier();
-    }
-    return PAGE_IDENTIFIER;
+  let pageIdentifier = computePageIdentifier();
+
+  /**
+   * Invalidate the cached page identifier whenever the URL changes within
+   * an SPA-style navigation. The browser does not reload the script on
+   * `popstate`/`hashchange`, so the identifier must be recomputed.
+   */
+  function watchPageIdentifier() {
+    const refresh = () => {
+      pageIdentifier = computePageIdentifier();
+    };
+    window.addEventListener('popstate', refresh);
+    window.addEventListener('hashchange', refresh);
+
+    // Hook into pushState/replaceState so client-side routers also trigger
+    // the refresh, mirroring the browser's own popstate behaviour.
+    ['pushState', 'replaceState'].forEach((method) => {
+      const original = history[method];
+      if (typeof original !== 'function') {
+        return;
+      }
+      history[method] = function patched(...args) {
+        const result = original.apply(this, args);
+        refresh();
+        return result;
+      };
+    });
   }
 
   /**
-   * Get stored navigation data from localStorage
-   * @returns {Object|null} Stored position data or null
+   * Test the current pathname against the user-configured exclusion list.
+   * Each entry is matched either literally (substring) or as a glob with
+   * `*` standing for one path segment.
+   *
+   * @returns {boolean}
+   */
+  function isExcludedPage() {
+    if (!CONFIG.pageExclude.length) {
+      return false;
+    }
+    const pathname = window.location.pathname;
+    return CONFIG.pageExclude.some((pattern) => {
+      if (typeof pattern !== 'string' || pattern === '') {
+        return false;
+      }
+      if (pattern.indexOf('*') === -1) {
+        return pathname.indexOf(pattern) !== -1;
+      }
+      const escaped = pattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '[^/]*');
+      try {
+        return new RegExp('^' + escaped + '$').test(pathname);
+      } catch (e) {
+        return false;
+      }
+    });
+  }
+
+  /**
+   * Read the saved navigation payload, scoped to the current page.
+   *
+   * @returns {object|null}
    */
   function getStoredPosition() {
+    if (!LOCAL_STORAGE_OK) {
+      return null;
+    }
     try {
       const data = localStorage.getItem(STORAGE_KEY);
       const timestamp = localStorage.getItem(STORAGE_TIMESTAMP_KEY);
-
-      if (data && timestamp) {
-        const position = JSON.parse(data);
-        // Only return if it's for the current page/book
-        if (position.page === ensurePageIdentifier()) {
-          return {
-            ...position,
-            timestamp: parseInt(timestamp, 10)
-          };
-        }
+      if (!data || !timestamp) {
+        return null;
       }
+      const position = JSON.parse(data);
+      if (position.page !== pageIdentifier) {
+        return null;
+      }
+      return Object.assign({}, position, { timestamp: parseInt(timestamp, 10) });
     } catch (e) {
       console.error('Remember: Failed to retrieve stored position', e);
+      return null;
     }
-    return null;
   }
 
   /**
-   * Save navigation position to localStorage
-   * @param {Object} position - Position data to save
+   * Read the saved chapter payload when `separate-chapter-state` is on.
+   *
+   * @returns {object|null}
+   */
+  function getStoredChapter() {
+    if (!LOCAL_STORAGE_OK || !CONFIG.separateChapterState) {
+      return null;
+    }
+    try {
+      const data = localStorage.getItem(CHAPTER_KEY);
+      if (!data) {
+        return null;
+      }
+      const parsed = JSON.parse(data);
+      if (parsed.page !== pageIdentifier) {
+        return null;
+      }
+      return parsed;
+    } catch (e) {
+      console.error('Remember: Failed to retrieve stored chapter', e);
+      return null;
+    }
+  }
+
+  /**
+   * Persist a navigation payload for the current page.
+   *
+   * @param {object} position
    */
   function savePosition(position) {
+    if (!LOCAL_STORAGE_OK) {
+      return;
+    }
     try {
       const data = {
-        page: ensurePageIdentifier(),
-        url: window.location.pathname, // Store actual page URL for books
+        page: pageIdentifier,
+        url: window.location.pathname,
         scrollY: position.scrollY || 0,
         hash: position.hash || '',
         slideIndices: position.slideIndices || null
       };
-
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       localStorage.setItem(STORAGE_TIMESTAMP_KEY, Date.now().toString());
+
+      // Optional chapter-state branch: track which chapter is current
+      // independently from the scroll position inside that chapter.
+      if (CONFIG.separateChapterState && isQuartoBook()) {
+        const chapter = {
+          page: pageIdentifier,
+          url: window.location.pathname,
+          hash: window.location.hash || ''
+        };
+        localStorage.setItem(CHAPTER_KEY, JSON.stringify(chapter));
+      }
     } catch (e) {
       console.error('Remember: Failed to save position', e);
     }
   }
 
   /**
-   * Clear stored position from localStorage
+   * Wipe the stored position and chapter payloads.
    */
   function clearStoredPosition() {
+    if (!LOCAL_STORAGE_OK) {
+      return;
+    }
     try {
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem(STORAGE_TIMESTAMP_KEY);
+      if (CONFIG.separateChapterState) {
+        localStorage.removeItem(CHAPTER_KEY);
+      }
     } catch (e) {
       console.error('Remember: Failed to clear stored position', e);
     }
   }
 
   /**
-   * Check if prompt was recently shown (within cooldown period)
-   * @returns {boolean} True if prompt was recently shown
+   * Check whether the resume prompt was shown within the cooldown window.
+   *
+   * @returns {boolean}
    */
   function wasPromptRecentlyShown() {
+    if (!SESSION_STORAGE_OK) {
+      return false;
+    }
     try {
       const lastShown = sessionStorage.getItem(PROMPT_SHOWN_KEY);
-      if (lastShown) {
-        const timeSinceShown = Date.now() - parseInt(lastShown, 10);
-        return timeSinceShown < PROMPT_COOLDOWN;
+      if (!lastShown) {
+        return false;
       }
+      return Date.now() - parseInt(lastShown, 10) < PROMPT_COOLDOWN;
     } catch (e) {
-      // sessionStorage not available
+      return false;
     }
-    return false;
   }
 
   /**
-   * Mark prompt as shown with current timestamp
+   * Record that the resume prompt was shown.
    */
   function markPromptShown() {
+    if (!SESSION_STORAGE_OK) {
+      return;
+    }
     try {
       sessionStorage.setItem(PROMPT_SHOWN_KEY, Date.now().toString());
     } catch (e) {
-      // sessionStorage not available
+      // sessionStorage refused to write; nothing else to do.
     }
   }
 
   /**
-   * Create and display modal prompt
-   * @param {string} message - Message to display
-   * @param {Function} onAccept - Callback when user accepts
-   * @param {Function} onDecline - Callback when user declines
+   * Render a modal dialog asking the user whether to resume.
+   *
+   * @param {string} message
+   * @param {Function} onAccept
+   * @param {Function} onDecline
    */
   function showPrompt(message, onAccept, onDecline) {
-    // Check if prompt was recently shown
     if (wasPromptRecentlyShown()) {
       return;
     }
-
-    // Mark prompt as shown
     markPromptShown();
 
-    // Store currently focused element to restore later
     const previouslyFocused = document.activeElement;
 
     const overlay = document.createElement('div');
@@ -162,7 +334,6 @@
     overlay.setAttribute('aria-modal', 'true');
     overlay.setAttribute('aria-labelledby', 'remember-prompt-title');
     overlay.setAttribute('aria-describedby', 'remember-prompt-message');
-    overlay.setAttribute('aria-live', 'assertive');
 
     const modal = document.createElement('div');
     modal.className = 'remember-modal';
@@ -180,15 +351,12 @@
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'remember-buttons';
 
-    // Shared cleanup function to prevent memory leaks
     const cleanup = () => {
       if (overlay.parentNode) {
         document.body.removeChild(overlay);
       }
       document.removeEventListener('keydown', handleKeydown);
-
-      // Restore focus to previously focused element
-      if (previouslyFocused && previouslyFocused.focus) {
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
         previouslyFocused.focus();
       }
     };
@@ -213,69 +381,51 @@
       onAccept();
     };
 
-    // Get all focusable elements for focus trap
-    const getFocusableElements = () => {
-      return [declineBtn, acceptBtn];
-    };
+    const focusableElements = () => [declineBtn, acceptBtn];
 
-    // Handle keyboard navigation
     const handleKeydown = (e) => {
-      // Escape key
       if (e.key === 'Escape') {
         cleanup();
         onDecline();
         return;
       }
-
-      // Tab key - trap focus within modal
       if (e.key === 'Tab') {
-        const focusableElements = getFocusableElements();
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
-
+        const elements = focusableElements();
+        const firstElement = elements[0];
+        const lastElement = elements[elements.length - 1];
         if (e.shiftKey && document.activeElement === firstElement) {
-          // Shift+Tab on first element - go to last
           e.preventDefault();
           lastElement.focus();
         } else if (!e.shiftKey && document.activeElement === lastElement) {
-          // Tab on last element - go to first
           e.preventDefault();
           firstElement.focus();
         }
       }
     };
 
-    // Button order: Decline first (safer default), Accept last (primary action)
     buttonContainer.appendChild(declineBtn);
     buttonContainer.appendChild(acceptBtn);
-
     modal.appendChild(title);
     modal.appendChild(text);
     modal.appendChild(buttonContainer);
     overlay.appendChild(modal);
 
     document.body.appendChild(overlay);
-
-    // Focus the decline button (safer default action)
-    // Users can Tab to Accept if they want to resume
     declineBtn.focus();
-
-    // Add keyboard handlers
     document.addEventListener('keydown', handleKeydown);
   }
 
   /**
-   * Format timestamp for display
-   * @param {number} timestamp - Unix timestamp in milliseconds
-   * @returns {string} Formatted time string
+   * Format a saved timestamp as a relative phrase.
+   *
+   * @param {number} timestamp Unix timestamp in milliseconds
+   * @returns {string}
    */
   function formatTimestamp(timestamp) {
-    const now = Date.now();
-    const diff = now - timestamp;
+    const diff = Date.now() - timestamp;
     const minutes = Math.floor(diff / 60000);
     const hours = Math.floor(diff / 3600000);
     const days = Math.floor(diff / 86400000);
-
     if (minutes < 1) return 'just now';
     if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
     if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
@@ -283,19 +433,19 @@
   }
 
   /**
-   * Restore scroll position for regular HTML pages
-   * @param {Object} position - Position data
+   * Restore the saved scroll position or hash for the current document.
+   *
+   * @param {object} position
    */
   function restoreScrollPosition(position) {
     if (!position) {
       return;
     }
-
     if (position.hash) {
-      // Navigate to hash
       window.location.hash = position.hash;
-    } else if (position.scrollY && typeof position.scrollY === 'number') {
-      // Restore scroll position with smooth behaviour (unless user prefers reduced motion)
+      return;
+    }
+    if (position.scrollY && typeof position.scrollY === 'number') {
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       window.scrollTo({
         top: position.scrollY,
@@ -306,53 +456,44 @@
   }
 
   /**
-   * Save scroll position periodically for regular HTML pages
+   * Wire up scroll, hash, click, and unload listeners that persist the
+   * user's current position.
    */
   function setupScrollTracking() {
     let saveTimeout;
 
     const saveCurrentPosition = () => {
-      const position = {
+      savePosition({
         scrollY: window.scrollY,
         hash: window.location.hash
-      };
-      savePosition(position);
+      });
     };
 
-    // For books, save position on page load (even if scroll is 0)
-    // This ensures we track which page the user is on
     if (isQuartoBook()) {
       saveCurrentPosition();
     }
 
-    // Save on scroll (debounced)
     window.addEventListener('scroll', () => {
       clearTimeout(saveTimeout);
       saveTimeout = setTimeout(saveCurrentPosition, 500);
     }, { passive: true });
 
-    // Save on hash change
     window.addEventListener('hashchange', saveCurrentPosition);
 
-    // Save on link clicks (for tracking navigation intent in single-page documents)
     document.addEventListener('click', (e) => {
-      // Check if clicked element is or contains a link
       const link = e.target.closest('a');
       if (link && link.href) {
-        // Save current position before navigation
         saveCurrentPosition();
       }
     }, { passive: true });
 
-    // Save before unload (single listener)
     window.addEventListener('beforeunload', saveCurrentPosition);
   }
 
   /**
-   * Initialise for Reveal.js presentations
+   * Initialise the Reveal.js code path.
    */
   function initRevealJS() {
-    // Wait for Reveal to be ready
     if (typeof Reveal === 'undefined') {
       console.warn('Remember: Reveal.js not found');
       return;
@@ -363,133 +504,129 @@
 
       if (stored && stored.slideIndices) {
         const message = `You left this presentation ${formatTimestamp(stored.timestamp)}. Would you like to resume where you left off?`;
-
-        showPrompt(
-          message,
-          () => {
-            // Restore slide position
-            Reveal.slide(stored.slideIndices.h, stored.slideIndices.v, stored.slideIndices.f);
-          },
-          () => {
-            // Clear stored position
-            clearStoredPosition();
-          }
+        showPrompt(message,
+          () => Reveal.slide(stored.slideIndices.h, stored.slideIndices.v, stored.slideIndices.f),
+          () => clearStoredPosition()
         );
       }
 
-      // Save position on slide change
       Reveal.on('slidechanged', () => {
-        const indices = Reveal.getIndices();
-        savePosition({ slideIndices: indices });
+        savePosition({ slideIndices: Reveal.getIndices() });
       });
 
-      // Save before unload
       window.addEventListener('beforeunload', () => {
-        const indices = Reveal.getIndices();
-        savePosition({ slideIndices: indices });
+        savePosition({ slideIndices: Reveal.getIndices() });
       });
     });
   }
 
   /**
-   * Check if this is an active session (user navigating within the session)
-   * @returns {boolean} True if session is active
+   * Check whether the current session is already active (the user has been
+   * navigating within this site).
+   *
+   * @returns {boolean}
    */
   function isSessionActive() {
+    if (!SESSION_STORAGE_OK) {
+      return false;
+    }
     try {
-      const sessionActive = sessionStorage.getItem(SESSION_ACTIVE_KEY);
-      return sessionActive === 'true';
+      return sessionStorage.getItem(SESSION_ACTIVE_KEY) === 'true';
     } catch (e) {
       return false;
     }
   }
 
   /**
-   * Mark session as active
+   * Mark the current session as active.
    */
   function markSessionActive() {
+    if (!SESSION_STORAGE_OK) {
+      return;
+    }
     try {
       sessionStorage.setItem(SESSION_ACTIVE_KEY, 'true');
     } catch (e) {
-      // sessionStorage not available
+      // sessionStorage refused to write; nothing else to do.
     }
   }
 
   /**
-   * Initialise for regular HTML pages
+   * Initialise the HTML/Quarto-book code path.
    */
   function initHTML() {
     const stored = getStoredPosition();
+    const chapter = getStoredChapter();
     const sessionActive = isSessionActive();
-    const isBook = isQuartoBook();
+    const inBook = isQuartoBook();
 
-    // Detect if user navigates to another page before responding to prompt
-    // This applies whether the prompt was shown or not
+    // Chapter-only branch: if `separate-chapter-state` is enabled and we are
+    // currently on a different chapter than the one we last visited, prefer
+    // redirecting to that chapter before considering scroll restoration.
+    if (inBook && CONFIG.separateChapterState && chapter && !sessionActive) {
+      const currentPath = window.location.pathname;
+      if (chapter.url && chapter.url !== currentPath) {
+        const message = `You were reading a different chapter ${formatTimestamp(stored ? stored.timestamp : Date.now())}. Would you like to return to where you were?`;
+        showPrompt(message,
+          () => {
+            markSessionActive();
+            window.location.href = chapter.url + (chapter.hash || '');
+          },
+          () => {
+            markSessionActive();
+            clearStoredPosition();
+          }
+        );
+        setupScrollTracking();
+        return;
+      }
+    }
+
     const handleNavigation = () => {
-      // Mark session as active when user navigates
       markSessionActive();
-      // Clear stored position if navigating without responding to prompt
       if (stored) {
         clearStoredPosition();
       }
     };
 
-    // Listen for navigation events
     window.addEventListener('beforeunload', handleNavigation);
 
-    // Check if we should show a prompt
     if (stored && !sessionActive) {
       const currentPath = window.location.pathname;
       const storedPath = stored.url || currentPath;
       const isDifferentPage = currentPath !== storedPath;
 
-      // For books: only prompt if on a different page
-      // For regular pages: prompt if scrollY > 100 or there's a hash
-      const shouldShowPrompt = isBook ? isDifferentPage : (stored.scrollY > 100 || stored.hash);
+      const shouldShowPrompt = inBook ? isDifferentPage : (stored.scrollY > 100 || stored.hash);
 
       if (shouldShowPrompt) {
         const message = isDifferentPage
           ? `You were reading a different chapter ${formatTimestamp(stored.timestamp)}. Would you like to return to where you were?`
           : `You visited this page ${formatTimestamp(stored.timestamp)}. Would you like to return to where you were?`;
 
-        showPrompt(
-          message,
+        showPrompt(message,
           () => {
-            // Remove navigation listener since user responded
             window.removeEventListener('beforeunload', handleNavigation);
-            // Mark session as active after user accepts
             markSessionActive();
-
             if (isDifferentPage) {
-              // Different page in the same book - redirect after user accepts
-              const targetUrl = storedPath + (stored.hash || '');
-              window.location.href = targetUrl;
+              window.location.href = storedPath + (stored.hash || '');
             } else {
-              // Same page - restore position
               restoreScrollPosition(stored);
             }
           },
           () => {
-            // Remove navigation listener since user responded
             window.removeEventListener('beforeunload', handleNavigation);
-            // Mark session as active after user declines
             markSessionActive();
-            // Clear stored position
             clearStoredPosition();
           }
         );
-      } else if (isBook && !isDifferentPage) {
-        // In a book, already on the stored page - mark session active and restore silently
-        // Mark session first to prevent race condition with navigation listener
+      } else if (inBook && !isDifferentPage) {
         window.removeEventListener('beforeunload', handleNavigation);
         markSessionActive();
         restoreScrollPosition(stored);
-      } else if (!isBook && !isDifferentPage) {
-        // Regular page, same location but scrollY < 100 - just restore position silently
+      } else if (!inBook && !isDifferentPage) {
         restoreScrollPosition(stored);
       }
     } else if (sessionActive && stored) {
-      // Session is active, don't show prompt but restore position silently if on same page
       const currentPath = window.location.pathname;
       const storedPath = stored.url || currentPath;
       if (currentPath === storedPath) {
@@ -497,15 +634,21 @@
       }
     }
 
-    // Set up tracking for future visits
     setupScrollTracking();
   }
 
   /**
-   * Initialise the Remember extension
+   * Top-level initialiser.
    */
   function init() {
-    // Check if we're in a Reveal.js presentation
+    if (!LOCAL_STORAGE_OK) {
+      console.warn('Remember: localStorage is unavailable; navigation persistence is disabled for this session.');
+      return;
+    }
+    if (isExcludedPage()) {
+      return;
+    }
+    watchPageIdentifier();
     if (document.querySelector('.reveal')) {
       initRevealJS();
     } else {
@@ -513,25 +656,23 @@
     }
   }
 
-  // Initialise when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
-
 })();
 
 /**
- * Reveal.js Plugin Interface
- * Provides the plugin interface for Reveal.js integration
+ * Reveal.js plugin entry point.
+ * The IIFE above already handles initialisation; this stub satisfies the
+ * Reveal plugin contract so users can register `Remember` alongside other
+ * plugins without errors.
  */
 window.RevealRemember = function () {
   return {
     id: 'remember',
     init: function () {
-      // The main initialisation is handled by the IIFE above
-      // This just provides the plugin interface for Reveal.js
       console.log('Remember plugin loaded for Reveal.js');
     }
   };

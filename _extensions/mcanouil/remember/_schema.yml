@@ -1,6 +1,24 @@
-# _schema.yml for "remember" filter extension
-# This extension injects stateful form persistence with no user-configurable options.
+# Schema for the remember extension
+# Configuration options live under extensions.remember in the document or
+# project metadata. All options are optional.
 
-$schema: https://m.canouil.dev/quarto-wizard/assets/schema/v1/extension-schema.json
+$schema: https://m.canouil.dev/quarto-wizard/assets/schema/v2/extension-schema.json
 
-options: {}
+options:
+  page-exclude:
+    type: array
+    items:
+      type: string
+    default: []
+    description: |
+      List of pathname patterns to opt out of navigation persistence.
+      Each entry is matched against `window.location.pathname` either as a
+      literal substring or as a glob with `*` standing for one path segment
+      (for example `/drafts/*`).
+  separate-chapter-state:
+    type: boolean
+    default: false
+    description: |
+      When `true`, the current chapter (which page of a Quarto book the
+      reader was on) is stored independently from the scroll position
+      inside that chapter. Has no effect outside book projects.
