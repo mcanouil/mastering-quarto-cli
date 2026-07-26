@@ -1,3 +1,7 @@
+# @license MIT
+# @copyright 2026 Mickaël Canouil
+# @author Mickaël Canouil
+
 name: Quarto Extensions Updates
 
 on:
@@ -52,11 +56,11 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: "release"
+          version: "pre-release"
 
       - name: Update Quarto extensions
         uses: mcanouil/quarto-extensions-updater@v2
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           pr-labels: "Type: Dependencies :arrow_up:"
-          group-updates: "true"
+          group-updates: true
