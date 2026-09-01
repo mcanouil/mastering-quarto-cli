@@ -1,11 +1,10 @@
 title: Iconify
 author: Mickaël Canouil
-version: 4.1.1
+version: 4.1.2
 quarto-required: ">=1.5.57"
 contributes:
   shortcodes:
     - iconify.lua
   filters:
     - iconify-filter.lua
-source: mcanouil/quarto-iconify@4.1.1
-source-type: github
+source: mcanouil/quarto-iconify@4.1.2
