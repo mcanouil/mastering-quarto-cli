@@ -6,7 +6,7 @@ $schema: https://m.canouil.dev/quarto-wizard/assets/schema/v2/extension-schema.j
 
 options:
   page-exclude:
-    type: array
+    type: [string, array]
     items:
       type: string
     default: []

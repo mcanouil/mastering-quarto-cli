@@ -1,4 +1,4 @@
---- @module div-reuse
+--- @module "div-reuse"
 --- @license MIT
 --- @copyright 2026 Mickaël Canouil
 --- @author Mickaël Canouil
@@ -7,7 +7,24 @@
 local EXTENSION_NAME = 'div-reuse'
 
 --- Load shared modules.
-local log = require(quarto.utils.resolve_path('_modules/logging.lua'):gsub('%.lua$', ''))
+local log = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/logging.lua'):gsub('%.lua$', ''))
+local schema = require(quarto.utils.resolve_path('_vendor/quarto-wizard/schema.lua'):gsub('%.lua$', ''))
+local check = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/schema-check.lua'):gsub('%.lua$', ''))
+
+--- The schema check, built once per render. It reads `_schema.yml` on the way
+--- in and checks the document configuration once.
+---
+--- The validator is injected rather than required by the check module, so the
+--- two vendored sources stay independent of where the other was placed.
+---
+--- The extension contributes a filter and no shortcode, so the check runs from
+--- the `Meta` handler, which is the only place the document configuration is
+--- read. It reads `extensions.div-reuse`, while this extension also accepts a
+--- top-level `div-reuse` key that the check cannot see.
+---
+--- A schema that cannot be read is reported by the module as an error and the
+--- render carries on: a configuration file must not stop a document.
+local checker = check.new(schema, EXTENSION_NAME)
 
 --- Storage for div contents indexed by identifier.
 --- @type table<string, table>
@@ -347,6 +364,7 @@ end
 --- @return table The unchanged metadata
 local function read_meta(meta)
   reset_state()
+  checker:options(meta)
   document_reuse_limit = read_reuse_limit(meta)
   document_variables = read_variables(meta)
   return meta
@@ -363,10 +381,12 @@ end
 --- @param el pandoc.Div The div element to potentially replace
 --- @return pandoc.Div The div with replaced content or the original div
 local function replace_divs(el)
-  if not el.attributes['reuse'] then return el end
+  --- @type table<string, any> The div's own attributes, resolved against the schema
+  local resolved = checker:attributes(el.attributes, nil) or {}
+  if not resolved['reuse'] then return el end
 
   --- @type string The identifier of the div to reuse
-  local ref_id = el.attributes['reuse']
+  local ref_id = resolved['reuse']
 
   if reuse_chain[ref_id] then
     log.log_warning(
@@ -398,10 +418,15 @@ local function replace_divs(el)
   local content = clone_blocks(div_contents[ref_id])
 
   --- @type table Parsed reuse-filter options
-  local filter_options = parse_filter_attribute(el.attributes['reuse-filter'])
+  local filter_options = parse_filter_attribute(resolved['reuse-filter'])
+
+  --- @type any Raw value read for reuse-take, whatever type it resolved to
+  local take_value = resolved['reuse-take']
 
   --- @type integer|nil Take override from the dedicated attribute
-  local take_attr = tonumber(el.attributes['reuse-take'])
+  --- A value the schema rejects comes back as the string the document wrote,
+  --- not as nil, so the type must be checked rather than relying on tonumber.
+  local take_attr = type(take_value) == 'number' and take_value or nil
   if take_attr ~= nil then filter_options.take = take_attr end
 
   if filter_options.take ~= nil then
