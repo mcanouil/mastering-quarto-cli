@@ -1,4 +1,4 @@
---- @module html-wrapper
+--- @module "html-wrapper"
 --- @license MIT
 --- @copyright 2026 Mickaël Canouil
 --- @author Mickaël Canouil
@@ -14,10 +14,10 @@ local html_utils = require(
   quarto.utils.resolve_path('../_modules/html-utils.lua'):gsub('%.lua$', '')
 )
 local str = require(
-  quarto.utils.resolve_path('../_modules/string.lua'):gsub('%.lua$', '')
+  quarto.utils.resolve_path('../_vendor/quarto-lua-modules/string.lua'):gsub('%.lua$', '')
 )
 local pdoc = require(
-  quarto.utils.resolve_path('../_modules/pandoc-helpers.lua'):gsub('%.lua$', '')
+  quarto.utils.resolve_path('../_vendor/quarto-lua-modules/pandoc-helpers.lua'):gsub('%.lua$', '')
 )
 
 -- ============================================================================

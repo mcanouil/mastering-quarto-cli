@@ -1,4 +1,4 @@
---- @module html-utils
+--- @module "html-utils"
 --- @license MIT
 --- @copyright 2026 Mickaël Canouil
 --- @author Mickaël Canouil
@@ -11,10 +11,10 @@
 -- ============================================================================
 
 local str = require(
-  quarto.utils.resolve_path('../_modules/string.lua'):gsub('%.lua$', '')
+  quarto.utils.resolve_path('../_vendor/quarto-lua-modules/string.lua'):gsub('%.lua$', '')
 )
 local colour_mod = require(
-  quarto.utils.resolve_path('../_modules/colour.lua'):gsub('%.lua$', '')
+  quarto.utils.resolve_path('../_vendor/quarto-lua-modules/colour.lua'):gsub('%.lua$', '')
 )
 
 local M = {}

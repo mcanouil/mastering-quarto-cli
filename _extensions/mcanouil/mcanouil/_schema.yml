@@ -40,6 +40,7 @@ options:
   code-window:
     type: object
     description: "Configuration for code block window decorations."
+    additionalProperties: false
     properties:
       enabled:
         type: boolean
@@ -61,6 +62,7 @@ options:
       hotfix:
         type: object
         description: "Hot-fix toggles for Typst output workarounds."
+        additionalProperties: false
         properties:
           code-annotations:
             type: [boolean, object]
@@ -120,7 +122,7 @@ shortcodes:
         type: string
         default: "info"
         aliases: [color]
-        description: "Colour theme or custom colour value."
+        description: "Colour theme (success, warning, danger, info, neutral) or a hex code. Typst output also accepts a colour name such as blue; HTML ignores a name. A value naming no colour uses the foreground colour."
         completion:
           type: color
 
@@ -140,7 +142,7 @@ shortcodes:
         type: string
         default: "info"
         aliases: [color]
-        description: "Colour theme or custom colour value."
+        description: "Colour theme (success, warning, danger, info, neutral) or a hex code. Any other value falls back to the info colour."
         completion:
           type: color
       show-value:
@@ -290,9 +292,6 @@ attributes:
       type: string
       default: "3"
       description: "Number of columns in the card grid."
-    alt:
-      type: string
-      description: "Alternative text for the card grid (wraps grid in a figure; Typst only)."
 
   card:
     title:
@@ -306,7 +305,7 @@ attributes:
     colour:
       type: string
       aliases: [color]
-      description: "Custom accent colour for the card."
+      description: "Custom accent colour for the card: a hex code or a colour name such as blue, honoured in both HTML and Typst output. In Typst a value naming no colour uses the muted colour."
       completion:
         type: color
 
