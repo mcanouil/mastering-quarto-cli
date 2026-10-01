@@ -1,4 +1,4 @@
---- @module grid-background
+--- @module "grid-background"
 --- @license MIT
 --- @copyright 2026 Mickaël Canouil
 --- @author Mickaël Canouil
@@ -26,7 +26,7 @@ end
 -- ============================================================================
 
 local meta_mod = require(
-  quarto.utils.resolve_path('../_modules/metadata.lua'):gsub('%.lua$', '')
+  quarto.utils.resolve_path('../_vendor/quarto-lua-modules/metadata.lua'):gsub('%.lua$', '')
 )
 
 -- ============================================================================

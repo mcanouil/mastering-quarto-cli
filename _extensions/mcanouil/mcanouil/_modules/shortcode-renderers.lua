@@ -1,4 +1,4 @@
---- @module shortcode-renderers
+--- @module "shortcode-renderers"
 --- @license MIT
 --- @copyright 2026 Mickaël Canouil
 --- @author Mickaël Canouil
@@ -14,10 +14,10 @@ local html_utils = require(
   quarto.utils.resolve_path('../_modules/html-utils.lua'):gsub('%.lua$', '')
 )
 local str = require(
-  quarto.utils.resolve_path('../_modules/string.lua'):gsub('%.lua$', '')
+  quarto.utils.resolve_path('../_vendor/quarto-lua-modules/string.lua'):gsub('%.lua$', '')
 )
 local colour = require(
-  quarto.utils.resolve_path('../_modules/colour.lua'):gsub('%.lua$', '')
+  quarto.utils.resolve_path('../_vendor/quarto-lua-modules/colour.lua'):gsub('%.lua$', '')
 )
 
 local M = {}
